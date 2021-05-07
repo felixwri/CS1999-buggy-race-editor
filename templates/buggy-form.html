@@ -12,7 +12,8 @@
 
     <div id='flag'>
       <label for="flag_color">flag_color:</label>
-      <input type="color" name="flag_color" placeholder={{flag_color}} />
+      <input type="color" name="flag_color" value={{flag_color}} />
+      <div class="color-picker"></div>
 
       <label for="flag_pattern">flag_pattern:</label>
       <input list="patterns" name="flag_pattern" placeholder={{flag_pattern}} />
@@ -27,7 +28,7 @@
       </datalist>
 
       <label for="flag_color_secondary">flag_color_secondary:</label>
-      <input type="color" name="flag_color_secondary" placeholder={{flag_color_secondary}} />
+      <input type="color" name="flag_color_secondary" ={{flag_color_secondary}} />
     </div>
 
     <div id='drive'>

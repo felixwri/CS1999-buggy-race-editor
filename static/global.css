@@ -1,0 +1,30 @@
+:root {
+    --primary: hsl(216, 50%, 5%);
+    --blue: hsl(216, 50%, 50%);
+    --light-blue: hsl(216, 50%, 40%);
+  
+    --white: hsl(0, 0%, 100%);
+    --black: hsl(0, 0%, 0%);
+    --black-opacity: rgba(0, 0, 0, 0.575);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--black); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 20%);
+}
