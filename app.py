@@ -9,24 +9,42 @@ DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # the index page
-#------------------------------------------------------------
+# ------------------------------------------------------------
+
+
 @app.route('/')
 def home():
     return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL)
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # creating a new buggy:
 #  if it's a POST request process the submitted data
 #  but if it's a GET request, just show the form
-#------------------------------------------------------------
-@app.route('/new', methods = ['POST', 'GET'])
+# ------------------------------------------------------------
+
+
+@app.route('/new', methods=['POST', 'GET'])
 def create_buggy():
     if request.method == 'GET':
-        return render_template("buggy-form.html")
+        try:
+            with sql.connect(DATABASE_FILE) as con:
+                cur = con.cursor()
+                cur.execute("SELECT * FROM buggies ORDER BY ROWID ASC LIMIT 1")
+                data = cur.fetchall()
+                
+                qty_wheels = data[0][1]
+
+        except Exception as e:
+            print(e)
+            con.rollback()
+            qty_wheels = 4
+
+        return render_template("buggy-form.html", qty_wheels=qty_wheels)
+
     elif request.method == 'POST':
-        msg=""
+        msg = ""
         qty_wheels = request.form['qty_wheels']
         try:
             with sql.connect(DATABASE_FILE) as con:
@@ -37,34 +55,40 @@ def create_buggy():
                 )
                 con.commit()
                 msg = "Record successfully saved"
-        except:
+
+        except Exception as e:
+            print(e)
             con.rollback()
             msg = "error in update operation"
         finally:
             con.close()
-        return render_template("updated.html", msg = msg)
+        return render_template("updated.html", msg=msg)
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # a page for displaying the buggy
-#------------------------------------------------------------
+# ------------------------------------------------------------
+
+
 @app.route('/buggy')
 def show_buggies():
     con = sql.connect(DATABASE_FILE)
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
-    record = cur.fetchone(); 
-    return render_template("buggy.html", buggy = record)
+    record = cur.fetchone()
+    return render_template("buggy.html", buggy=record)
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # a placeholder page for editing the buggy: you'll need
 # to change this when you tackle task 2-EDIT
-#------------------------------------------------------------
+# ------------------------------------------------------------
+
+
 @app.route('/edit')
 def edit_buggy():
     return render_template("buggy-form.html")
 
-#------------------------------------------------------------
+# ------------------------------------------------------------
 # You probably don't need to edit this... unless you want to ;)
 #
 # get JSON from current record
@@ -72,7 +96,9 @@ def edit_buggy():
 #  into JSON format (excluding any empty values), and returns
 #  it. There's no .html template here because it's *only* returning
 #  the data, so in effect jsonify() is rendering the data.
-#------------------------------------------------------------
+# ------------------------------------------------------------
+
+
 @app.route('/json')
 def summary():
     con = sql.connect(DATABASE_FILE)
@@ -80,9 +106,11 @@ def summary():
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies WHERE id=? LIMIT 1", (DEFAULT_BUGGY_ID))
 
-    buggies = dict(zip([column[0] for column in cur.description], cur.fetchone())).items() 
-    return jsonify({ key: val for key, val in buggies if (val != "" and val is not None) })
+    buggies = dict(zip([column[0]
+                   for column in cur.description], cur.fetchone())).items()
+    return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
+
 
 # You shouldn't need to add anything below this!
 if __name__ == '__main__':
-    app.run(debug = True, host="0.0.0.0")
+    app.run(debug=True, host="0.0.0.0")

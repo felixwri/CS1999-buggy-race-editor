@@ -2,16 +2,20 @@
 
 {% block content %}
 
-  <h1>Make buggy</h1>
+<h1>Make buggy</h1>
 
-  <form action="/new" method="post">
-    <label for="qty_wheels">Number of wheels:</label>
-    <input type="text" name="qty_wheels" />
-    <input type="submit" class="button">
-  </form>
+<form action="/new" method="post">
+  <label for="qty_wheels">Number of wheels:</label>
+  {% if qty_wheels %}
+  <input type="text" name="qty_wheels" placeholder={{qty_wheels}} />
+  {% else %}
+  <input type="text" name="qty_wheels" placeholder="4" />
+  {% endif %}
+  <input type="submit" class="button">
+</form>
 
-  <p>
-    <a href="/" class="button">home</a>
-  </p>
+<p>
+  <a href="/" class="button">home</a>
+</p>
 
 {% endblock %}
