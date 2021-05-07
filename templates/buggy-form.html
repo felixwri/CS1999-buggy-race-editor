@@ -2,20 +2,99 @@
 
 {% block content %}
 
-<h1>Make buggy</h1>
+<section id='make-a-buggy'>
+  <h1>Make buggy</h1>
 
-<form action="/new" method="post">
-  <label for="qty_wheels">Number of wheels:</label>
-  {% if qty_wheels %}
-  <input type="text" name="qty_wheels" placeholder={{qty_wheels}} />
-  {% else %}
-  <input type="text" name="qty_wheels" placeholder="4" />
-  {% endif %}
-  <input type="submit" class="button">
-</form>
+  <form action="/new" method="post">
+    <label for="qty_wheels">Number of wheels:</label>
 
-<p>
-  <a href="/" class="button">home</a>
-</p>
+    <input type="number" name="qty_wheels" placeholder={{qty_wheels}} />
+
+    <div id='flag'>
+      <label for="flag_color">flag_color:</label>
+      <input type="color" name="flag_color" placeholder={{flag_color}} />
+
+      <label for="flag_pattern">flag_pattern:</label>
+      <input list="patterns" name="flag_pattern" placeholder={{flag_pattern}} />
+
+      <datalist id="patterns">
+        <option value="plain">
+        <option value="vstripe">
+        <option value="hstripe">
+        <option value="dstripe">
+        <option value="checker">
+        <option value="spot">
+      </datalist>
+
+      <label for="flag_color_secondary">flag_color_secondary:</label>
+      <input type="color" name="flag_color_secondary" placeholder={{flag_color_secondary}} />
+    </div>
+
+    <div id='drive'>
+      <label for="power_type">power_type:</label>
+      <input list="all_power_types" name="power_type" placeholder={{power_type}} />
+
+      <label for="power_units">power_units:</label>
+      <input type="number" name="power_units" placeholder={{power_units}} />
+
+      <label for="aux_power_type">aux_power_type:</label>
+      <input list="all_power_types" name="aux_power_type" placeholder={{aux_power_type}} />
+
+      <label for="aux_power_units">power_units:</label>
+      <input type="number" name="aux_power_units" placeholder={{aux_power_units}} />
+
+      <datalist id="all_power_types">
+        <option value="petrol">
+        <option value="fusion">
+        <option value="steam">
+        <option value="bio">
+        <option value="electric">
+        <option value="rocket">
+        <option value="hamster">
+        <option value="thermo">
+        <option value="solar">
+        <option value="wind">
+      </datalist>
+
+    </div>
+
+    <div id='offensive'>
+      <label for="armour">armour:</label>
+      <input list="all_armour" name="armour" placeholder={{armour}} />
+
+      <datalist id="all_armour">
+        <option value="none">
+        <option value="wood">
+        <option value="aluminium">
+        <option value="thinsteel">
+        <option value="thicksteel">
+        <option value="titanium">
+      </datalist>
+
+      <label for="attack">attack:</label>
+      <input list="all_attacks" name="attack" placeholder={{attack}} />
+
+      <datalist id="all_attacks">
+        <option value="none">
+        <option value="spike">
+        <option value="flame">
+        <option value="charge">
+        <option value="biohazard">
+
+      </datalist>
+
+      <label for="qty_attacks">qty_attacks:</label>
+      <input type="number" name="qty_attacks" placeholder={{qty_attacks}} />
+    </div>
+
+
+    <input type="submit" class="button">
+  </form>
+
+  <p>
+    <a href="/" class="button">home</a>
+  </p>
+
+</section>
 
 {% endblock %}

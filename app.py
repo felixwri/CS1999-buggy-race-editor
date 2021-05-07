@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3 as sql
+import sys
 
-# app - The flask application where all the magical things are configured.
+from components import data
+
 app = Flask(__name__)
 
-# Constants - Stuff that we need to know that won't ever change!
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
@@ -28,40 +29,27 @@ def home():
 @app.route('/new', methods=['POST', 'GET'])
 def create_buggy():
     if request.method == 'GET':
-        try:
-            with sql.connect(DATABASE_FILE) as con:
-                cur = con.cursor()
-                cur.execute("SELECT * FROM buggies ORDER BY ROWID ASC LIMIT 1")
-                data = cur.fetchall()
-                
-                qty_wheels = data[0][1]
 
-        except Exception as e:
-            print(e)
-            con.rollback()
-            qty_wheels = 4
+        index = 0
 
-        return render_template("buggy-form.html", qty_wheels=qty_wheels)
+        return render_template("buggy-form.html",
+         qty_wheels=data.getCar(index)[1],
+         flag_color=data.getCar(index)[2],
+         flag_color_secondary=data.getCar(index)[3],
+         flag_pattern=data.getCar(index)[4],
+         power_type=data.getCar(index)[5],
+         power_units=data.getCar(index)[6],
+         aux_power_type=data.getCar(index)[7],
+         aux_power_units=data.getCar(index)[8],
+         armour=data.getCar(index)[11],
+         attack=data.getCar(index)[12],
+         qty_attacks=data.getCar(index)[13],
+         )
 
     elif request.method == 'POST':
-        msg = ""
-        qty_wheels = request.form['qty_wheels']
-        try:
-            with sql.connect(DATABASE_FILE) as con:
-                cur = con.cursor()
-                cur.execute(
-                    "UPDATE buggies set qty_wheels=? WHERE id=?",
-                    (qty_wheels, DEFAULT_BUGGY_ID)
-                )
-                con.commit()
-                msg = "Record successfully saved"
+        msg = ""  
+        msg = data.updateCar(request.form)
 
-        except Exception as e:
-            print(e)
-            con.rollback()
-            msg = "error in update operation"
-        finally:
-            con.close()
         return render_template("updated.html", msg=msg)
 
 # ------------------------------------------------------------

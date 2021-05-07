@@ -1,25 +1,27 @@
+:root {
+  --primary: hsl(216, 50%, 5%);
+  --blue: hsl(216, 50%, 50%);
+  --light-blue: hsl(216, 50%, 40%);
+
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+  --black-opacity: rgba(0, 0, 0, 0.575);
+}
+
 html{
   margin: 0;
   padding: 0; 
 }
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 1.2em;
-  color: #000000;
-  background: repeating-linear-gradient(
-    45deg,
-    #ffffee,
-    #ffffee 2em,
-    #eeeeee 2em,
-    #eeeeee 4em
-  );
+  color: var(--white);
+  background-color: var(--primary);
 }
+
 .main-content {
   min-height: 100vh;
   padding: 1em;
-  background: #ffffff;
   margin: 0 0 0 3em;
 }
 h1 {
@@ -29,17 +31,17 @@ p {
   margin: 1em 0;
 }
 a.button, input.button {
-  border: 1px solid #000000;
+  border: 1px solid var(--white);
+  color: var(--white);
   padding: 0.5em;
   margin: 0.5em;
   border-radius: 0.25em;
   text-decoration: none;
-  background-color: #ffffff;
-  color: #000000;
-  box-shadow: 5px 5px 5px #999999;
+
+  transition: background-color 0.2s ease;
 }
 a.button:hover {
-  background-color: #000000;
+  background-color: #00000088;
   color: #ffffff;
 }
 input {
@@ -47,7 +49,13 @@ input {
   font-size: 100%;
 }
 input.button {
-  background-color: #99ff99;
+  background-color: var(--blue);
+  color: var(--white);
+
+  transition: background-color 0.2s ease;
+}
+input.button:hover {
+  background-color: var(--light-blue);
 }
 table {
   border: 1px solid #000000;
@@ -56,9 +64,51 @@ table {
 }
 table td, table th {
   padding: 0.25em;
-  border: 1px solid #999999;
+  border: 1px solid var(--blue);
   padding: 0.5rem;
 }
-.spacer {
-  margin: 3em 0;
+
+#make-a-buggy {
+  position: relative;
+  display: block;
+}
+
+#flag{
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#flag > *{
+  display: block;
+  margin: 0.5em;
+}
+
+datalist {
+  display: none !important;
+}
+
+#drive{
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#drive > *{
+  display: block;
+  margin: 0.5em;
+}
+
+#offensive {
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#offensive > *{
+  display: block;
+  margin: 0.5em;
 }
