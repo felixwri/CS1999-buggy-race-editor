@@ -37,10 +37,14 @@ a.button:hover {
 input {
   background-color: black;
   border: 1px solid var(--white);
+  color: var(--white);
   border-radius: 10px;
   padding: 0.5em;
   font-size: 100%;
+  outline: none;
 }
+
+
 
 input[type="color"] {
 	opacity: 100;
@@ -78,8 +82,8 @@ table td, table th {
 
 #flag{
   margin-top: 2rem;
-  padding: 1em;
   background-color: var(--black-opacity);
+  padding: 1em;
   border-radius: 20px;
 }
 

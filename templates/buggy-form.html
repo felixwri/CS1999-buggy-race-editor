@@ -8,7 +8,7 @@
   <form action="/new" method="post">
     <label for="qty_wheels">Number of wheels:</label>
 
-    <input type="number" name="qty_wheels" placeholder={{qty_wheels}} />
+    <input type="number" name="qty_wheels" value={{qty_wheels}} min="4" max="16" />
 
     <div id='flag'>
       <label for="flag_color">flag_color:</label>
@@ -16,7 +16,7 @@
       <div class="color-picker"></div>
 
       <label for="flag_pattern">flag_pattern:</label>
-      <input list="patterns" name="flag_pattern" placeholder={{flag_pattern}} />
+      <input list="patterns" name="flag_pattern" value={{flag_pattern}} />
 
       <datalist id="patterns">
         <option value="plain">
@@ -28,21 +28,21 @@
       </datalist>
 
       <label for="flag_color_secondary">flag_color_secondary:</label>
-      <input type="color" name="flag_color_secondary" ={{flag_color_secondary}} />
+      <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
     </div>
 
     <div id='drive'>
       <label for="power_type">power_type:</label>
-      <input list="all_power_types" name="power_type" placeholder={{power_type}} />
+      <input list="all_power_types" name="power_type" value={{power_type}} />
 
       <label for="power_units">power_units:</label>
-      <input type="number" name="power_units" placeholder={{power_units}} />
+      <input type="number" name="power_units" value={{power_units}} min="0" max="1000"/>
 
       <label for="aux_power_type">aux_power_type:</label>
-      <input list="all_power_types" name="aux_power_type" placeholder={{aux_power_type}} />
+      <input list="all_power_types" name="aux_power_type" value={{aux_power_type}} />
 
       <label for="aux_power_units">power_units:</label>
-      <input type="number" name="aux_power_units" placeholder={{aux_power_units}} />
+      <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"/>
 
       <datalist id="all_power_types">
         <option value="petrol">
@@ -61,7 +61,7 @@
 
     <div id='offensive'>
       <label for="armour">armour:</label>
-      <input list="all_armour" name="armour" placeholder={{armour}} />
+      <input list="all_armour" name="armour" value={{armour}} />
 
       <datalist id="all_armour">
         <option value="none">
@@ -73,7 +73,7 @@
       </datalist>
 
       <label for="attack">attack:</label>
-      <input list="all_attacks" name="attack" placeholder={{attack}} />
+      <input list="all_attacks" name="attack" value={{attack}} />
 
       <datalist id="all_attacks">
         <option value="none">
@@ -85,7 +85,7 @@
       </datalist>
 
       <label for="qty_attacks">qty_attacks:</label>
-      <input type="number" name="qty_attacks" placeholder={{qty_attacks}} />
+      <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000"/>
     </div>
 
 

@@ -17,7 +17,27 @@ def getCar(index):
         con.rollback()
 
         # default settings
-        data = (0, 4, '#000000', '#000000', 'plain')
+        data = (
+            0, 
+            4, 
+            '#000000', 
+            '#000000', 
+            'plain',
+            'petrol',
+            1,
+            'NULL',
+            0,
+            0,
+            'knobbly',
+            'NULL',
+            'NULL',
+            0,
+            'False',
+            'False',
+            'False',
+            'False',
+            'steady'
+            )
 
     return data
 
@@ -25,6 +45,11 @@ def updateCar(form):
     try:
         with sql.connect(DATABASE_FILE) as con:
             cur = con.cursor()
+
+            # for element in form:
+            #     if form[element]:
+            #         pri
+
             cur.execute(
                 """UPDATE buggies set 
                 qty_wheels=?, 
