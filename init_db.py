@@ -42,7 +42,8 @@ connection.execute("""
     insulated             VARCHAR(10) DEFAULT False,
     antibiotic            VARCHAR(10) DEFAULT False,
     banging               VARCHAR(10) DEFAULT False,
-    algo                  VARCHAR(20) DEFAULT steady
+    algo                  VARCHAR(20) DEFAULT steady,
+    total_cost            INTEGER DEFAULT 0
   )
 
 """)
