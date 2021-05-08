@@ -12,14 +12,8 @@ body {
 .main-content {
   min-height: 100vh;
   padding: 1em;
-  margin: 0 0 0 3em;
 }
-h1 {
-  margin: 0 0 1em 0;
-}
-p {
-  margin: 1em 0;
-}
+
 a.button, input.button {
   border: 1px solid var(--white);
   color: var(--white);
@@ -31,7 +25,7 @@ a.button, input.button {
   transition: background-color 0.2s ease;
 }
 a.button:hover {
-  background-color: #00000088;
+  background-color: #000000ff;
   color: #ffffff;
 }
 input {
@@ -43,8 +37,6 @@ input {
   font-size: 100%;
   outline: none;
 }
-
-
 
 input[type="color"] {
 	opacity: 100;
@@ -60,7 +52,7 @@ input.button {
   transition: background-color 0.2s ease;
 }
 input.button:hover {
-  background-color: var(--light-blue);
+  background-color: var(--dark-blue);
 }
 table {
   border: 1px solid #000000;
@@ -71,6 +63,24 @@ table td, table th {
   padding: 0.25em;
   border: 1px solid var(--blue);
   padding: 0.5rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+nav > a {
+  color: var(--white);
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+nav > a:hover {
+  color: var(--blue);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* BUGGY FORM */

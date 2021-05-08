@@ -66,6 +66,11 @@ def show_buggies():
     record = cur.fetchone()
     return render_template("buggy.html", buggy=record)
 
+
+@app.route('/poster')
+def poster():
+    return render_template("poster.html")
+
 # ------------------------------------------------------------
 # a placeholder page for editing the buggy: you'll need
 # to change this when you tackle task 2-EDIT

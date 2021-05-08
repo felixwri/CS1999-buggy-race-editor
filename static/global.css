@@ -1,7 +1,12 @@
 :root {
     --primary: hsl(216, 50%, 5%);
+
     --blue: hsl(216, 50%, 50%);
-    --light-blue: hsl(216, 50%, 40%);
+    --dark-blue: hsl(216, 50%, 40%);
+
+    --red: hsl(342, 50%, 50%);
+    --dark-blue: hsl(342, 50%, 35%);
+  
   
     --white: hsl(0, 0%, 100%);
     --black: hsl(0, 0%, 0%);
