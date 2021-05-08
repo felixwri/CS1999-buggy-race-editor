@@ -1,0 +1,14 @@
+#title {
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#home {
+    background-color: var(--muted-blue);
+    margin-top: 2rem;
+    border-radius: 20px;
+    width: 100%;
+    height: 40vh;
+}

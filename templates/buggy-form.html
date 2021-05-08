@@ -6,9 +6,11 @@
   <h1>Buggy Creation</h1>
 
   <form action="/new" method="post">
-    <label for="qty_wheels">Number of wheels:</label>
-
-    <input type="number" name="qty_wheels" value={{qty_wheels}} min="4" max="16" />
+    <div id='traction'>
+      <label for="qty_wheels">Number of wheels:</label>
+      <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2" />
+      <div id="value"></div>
+    </div>
 
     <div id='flag'>
       <label for="flag_color">flag_color:</label>
@@ -16,16 +18,15 @@
       <div class="color-picker"></div>
 
       <label for="flag_pattern">flag_pattern:</label>
-      <input list="patterns" name="flag_pattern" value={{flag_pattern}} />
+      <select name="flag_pattern" value={{flag_pattern}}>
 
-      <datalist id="patterns">
-        <option value="plain">
-        <option value="vstripe">
-        <option value="hstripe">
-        <option value="dstripe">
-        <option value="checker">
-        <option value="spot">
-      </datalist>
+        <option value="plain">plain</option>
+        <option value="vstripe">vstripe</option>
+        <option value="hstripe">hstripe</option>
+        <option value="dstripe">dstripe</option>
+        <option value="checker">checker</option>
+        <option value="spot">spot</option>
+      </select>
 
       <label for="flag_color_secondary">flag_color_secondary:</label>
       <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
@@ -33,59 +34,66 @@
 
     <div id='drive'>
       <label for="power_type">power_type:</label>
-      <input list="all_power_types" name="power_type" value={{power_type}} />
+      <select name="power_type" value={{power_type}}>
+
+        <option value="petrol">petrol</option>
+        <option value="fusion">fusion</option>
+        <option value="steam">steam</option>
+        <option value="bio">bio</option>
+        <option value="electric">electric</option>
+        <option value="rocket">rocket</option>
+        <option value="hamster">hamster</option>
+        <option value="thermo">thermo</option>
+        <option value="solar">solar</option>
+        <option value="wind">wind</option>
+      </select>
 
       <label for="power_units">power_units:</label>
-      <input type="number" name="power_units" value={{power_units}} min="0" max="1000"/>
+      <input type="number" name="power_units" value={{power_units}} min="0" max="1000" />
 
       <label for="aux_power_type">aux_power_type:</label>
-      <input list="all_power_types" name="aux_power_type" value={{aux_power_type}} />
+      <select name="aux_power_type" value={{aux_power_type}}>
+
+        <option value="petrol">petrol</option>
+        <option value="fusion">fusion</option>
+        <option value="steam">steam</option>
+        <option value="bio">bio</option>
+        <option value="electric">electric</option>
+        <option value="rocket">rocket</option>
+        <option value="hamster">hamster</option>
+        <option value="thermo">thermo</option>
+        <option value="solar">solar</option>
+        <option value="wind">wind</option>
+      </select>
 
       <label for="aux_power_units">power_units:</label>
-      <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"/>
-
-      <datalist id="all_power_types">
-        <option value="petrol">
-        <option value="fusion">
-        <option value="steam">
-        <option value="bio">
-        <option value="electric">
-        <option value="rocket">
-        <option value="hamster">
-        <option value="thermo">
-        <option value="solar">
-        <option value="wind">
-      </datalist>
+      <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000" />
 
     </div>
 
     <div id='offensive'>
       <label for="armour">armour:</label>
-      <input list="all_armour" name="armour" value={{armour}} />
-
-      <datalist id="all_armour">
-        <option value="none">
-        <option value="wood">
-        <option value="aluminium">
-        <option value="thinsteel">
-        <option value="thicksteel">
-        <option value="titanium">
-      </datalist>
+      <select name="armour" value={{armour}}>
+        <option value="none">none</option>
+        <option value="wood">wood</option>
+        <option value="aluminium">aluminium</option>
+        <option value="thinsteel">thinsteel</option>
+        <option value="thicksteel">thicksteel</option>
+        <option value="titanium">titanium</option>
+      </select>
 
       <label for="attack">attack:</label>
-      <input list="all_attacks" name="attack" value={{attack}} />
+      <select name="attack" value={{attack}}>
+        <option value="none">none</option>
+        <option value="spike">spike</option>
+        <option value="flame">flame</option>
+        <option value="charge">charge</option>
+        <option value="biohazard">biohazard</option>
 
-      <datalist id="all_attacks">
-        <option value="none">
-        <option value="spike">
-        <option value="flame">
-        <option value="charge">
-        <option value="biohazard">
-
-      </datalist>
+      </select>
 
       <label for="qty_attacks">qty_attacks:</label>
-      <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000"/>
+      <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" />
     </div>
 
 
@@ -97,5 +105,18 @@
   </p>
 
 </section>
+
+<script>
+
+  var slider = document.getElementById("slider");
+  var output = document.getElementById("value");
+  output.innerText = slider.value;
+
+
+  slider.oninput = () => {
+    output.innerText = slider.value;
+  }
+
+</script>
 
 {% endblock %}

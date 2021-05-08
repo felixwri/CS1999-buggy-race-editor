@@ -1,0 +1,59 @@
+/* BUGGY FORM */
+
+#make-a-buggy {
+    position: relative;
+    display: block;
+  }
+  
+  #traction{
+    margin-top: 2rem;
+    background-color: var(--black-opacity);
+    padding: 1em;
+    border-radius: 20px;
+  }
+  
+  #traction > *{
+    display: block;
+    margin: 0.5em;
+  }
+  
+  #flag{
+    margin-top: 2rem;
+    background-color: var(--black-opacity);
+    padding: 1em;
+    border-radius: 20px;
+  }
+  
+  #flag > *{
+    display: block;
+    margin: 0.5em;
+  }
+  
+  datalist {
+    display: none !important;
+  }
+  
+  #drive{
+    margin-top: 2rem;
+    padding: 1em;
+    background-color: var(--black-opacity);
+    border-radius: 20px;
+  }
+  
+  #drive > *{
+    display: block;
+    margin: 0.5em;
+  }
+  
+  #offensive {
+    margin-top: 2rem;
+    padding: 1em;
+    background-color: var(--black-opacity);
+    border-radius: 20px;
+  }
+  
+  #offensive > *{
+    display: block;
+    margin: 0.5em;
+  }
+  
