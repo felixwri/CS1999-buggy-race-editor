@@ -17,7 +17,7 @@ BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
 
 @app.route('/')
 def home():
-    return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, style='static/index.css')
+    return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, style='static/styles/index.css')
 
 # ------------------------------------------------------------
 # creating a new buggy:
@@ -44,14 +44,14 @@ def create_buggy():
          armour=data.getCar(index)[11],
          attack=data.getCar(index)[12],
          qty_attacks=data.getCar(index)[13],
-         style='static/create.css'
+         style='static/styles/create.css'
          )
 
     elif request.method == 'POST':
         msg = ""  
         msg = data.updateCar(request.form)
 
-        return render_template("updated.html", msg=msg, style='static/create.css')
+        return render_template("updated.html", msg=msg, style='static/styles/create.css')
 
 # ------------------------------------------------------------
 # a page for displaying the buggy
@@ -65,7 +65,7 @@ def show_buggies():
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
     record = cur.fetchone()
-    return render_template("buggy.html", buggy=record, style='static/show.css')
+    return render_template("buggy.html", buggy=record, style='static/styles/show.css')
 
 
 @app.route('/poster')
