@@ -5,77 +5,119 @@
   margin-left: 60vw;
   width: 150px;
   height: 150px;
-  background-color: rgba(51, 80, 141, 0.548);
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 20px;
   border: 1px solid white;
   z-index: 5;
 }
+.background-blur {
+  position: fixed;
+  margin-left: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0);
+  border: 5px solid var(--blue);
+  filter: blur(5px);
+  box-sizing: border-box;
+  z-index: 6;
 
-#cost, #weight {
+}
+
+#cost,
+#weight {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.7em;
 }
 
-#cost-value, #weight-value {
+#cost-value,
+#weight-value {
   margin-left: 1rem;
 }
 
 #make-a-buggy {
-    position: relative;
-    display: block;
-  }
-  
-  #traction{
-    margin-top: 2rem;
-    background-color: var(--black-opacity);
-    padding: 1em;
-    border-radius: 20px;
-  }
-  
-  #traction > *{
-    display: block;
-    margin: 0.5em;
-  }
-  
-  #flag{
-    margin-top: 2rem;
-    background-color: var(--black-opacity);
-    padding: 1em;
-    border-radius: 20px;
-  }
-  
-  #flag > *{
-    display: block;
-    margin: 0.5em;
-  }
-  
-  datalist {
-    display: none !important;
-  }
-  
-  #drive{
-    margin-top: 2rem;
-    padding: 1em;
-    background-color: var(--black-opacity);
-    border-radius: 20px;
-  }
-  
-  #drive > *{
-    display: block;
-    margin: 0.5em;
-  }
-  
-  #offensive {
-    margin-top: 2rem;
-    padding: 1em;
-    background-color: var(--black-opacity);
-    border-radius: 20px;
-  }
-  
-  #offensive > *{
-    display: block;
-    margin: 0.5em;
-  }
-  
+  position: relative;
+  display: block;
+}
+
+#traction {
+  margin-top: 2rem;
+  background-color: var(--black-opacity);
+  padding: 1em;
+  border-radius: 20px;
+}
+
+#traction > * {
+  display: block;
+  margin: 0.5em;
+}
+
+#flag {
+  margin-top: 2rem;
+  background-color: var(--black-opacity);
+  padding: 1em;
+  border-radius: 20px;
+}
+
+#flag > * {
+  display: block;
+  margin: 0.5em;
+}
+
+datalist {
+  display: none !important;
+}
+
+#drive {
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#drive > * {
+  display: block;
+  margin: 0.5em;
+}
+
+#offensive {
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#offensive > * {
+  display: block;
+  margin: 0.5em;
+}
+
+#misc {
+  margin-top: 2rem;
+  padding: 1em;
+  background-color: var(--black-opacity);
+  border-radius: 20px;
+}
+
+#misc > label {
+  margin: 0.5em;
+}
+#misc > input {
+  display: inline;
+  margin: 0.5em;
+}
+
+div br {
+  display: none;
+}
+
+#algorithm {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#total_cost {
+  display: none;
+}

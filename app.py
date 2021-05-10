@@ -33,22 +33,31 @@ def create_buggy():
         index = 0
 
         return render_template("buggy-form.html",
-         qty_wheels=data.getCar(index)[1],
-         flag_color=data.getCar(index)[2],
-         flag_color_secondary=data.getCar(index)[3],
-         flag_pattern=data.getCar(index)[4],
-         power_type=data.getCar(index)[5],
-         power_units=data.getCar(index)[6],
-         aux_power_type=data.getCar(index)[7],
-         aux_power_units=data.getCar(index)[8],
-         armour=data.getCar(index)[11],
-         attack=data.getCar(index)[12],
-         qty_attacks=data.getCar(index)[13],
-         style='static/styles/create.css'
-         )
+                               qty_wheels=data.getCar(index)[1],
+                               flag_color=data.getCar(index)[2],
+                               flag_color_secondary=data.getCar(index)[3],
+                               flag_pattern=data.getCar(index)[4],
+                               power_type=data.getCar(index)[5],
+                               power_units=data.getCar(index)[6],
+                               aux_power_type=data.getCar(index)[7],
+                               aux_power_units=data.getCar(index)[8],
+                               hamster_booster=data.getCar(index)[9],
+                               tyres=data.getCar(index)[10],
+                               qty_tyres=data.getCar(index)[11],
+                               armour=data.getCar(index)[12],
+                               attack=data.getCar(index)[13],
+                               qty_attacks=data.getCar(index)[14],
+                               fireproof=data.getCar(index)[15],
+                               insulated=data.getCar(index)[16],
+                               antibiotic=data.getCar(index)[17],
+                               banging=data.getCar(index)[18],
+                               algo=data.getCar(index)[19],
+                               total_cost=data.getCar(index)[20],
+                               style='static/styles/create.css'
+                               )
 
     elif request.method == 'POST':
-        msg = ""  
+        msg = ""
         msg = data.updateCar(request.form)
 
         return render_template("updated.html", msg=msg, style='static/styles/create.css')

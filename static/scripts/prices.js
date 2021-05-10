@@ -4,7 +4,8 @@
 
 let raw = `
 {
-    "power_type": {    
+    "power_type": {
+        "units": "power_units",
         "petrol": {
             "cost": 4,
             "weight": 2,
@@ -57,6 +58,7 @@ let raw = `
         }
     },
     "tyres": {
+        "units": "qty_tyres",
         "knobbly": {
             "cost": 15,
             "weight": 20
@@ -79,6 +81,7 @@ let raw = `
         }
     },
     "armour": {
+        "units": "none",
         "none": {
             "cost": 0,
             "weight": 0
@@ -105,6 +108,7 @@ let raw = `
         }
     },
     "attack": {
+        "units": "qty_attacks",
         "none": {
             "cost": 0,
             "weight": 0
@@ -125,6 +129,13 @@ let raw = `
             "cost": 30,
             "weight": 10
         }
+    },
+    "misc": {
+        "hamster_booster": 5,
+        "fireproof": 70,
+        "insulated": 100,
+        "antibiotic": 90,
+        "banging": 42
     }
 }`
 

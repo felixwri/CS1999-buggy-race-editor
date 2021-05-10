@@ -1,5 +1,5 @@
 :root {
-    --primary: hsl(216, 50%, 5%);
+    --primary: hsl(216, 50%, 8%);
 
     --blue: hsl(216, 50%, 50%);
     --dark-blue: hsl(216, 50%, 40%);
@@ -69,7 +69,7 @@ input[type="range"] {
   outline: none; /* Remove outline */
   border: none;
 
-  padding: 0px !important; 
+  padding: 0px !important;
 
   opacity: 0.2; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
@@ -188,3 +188,12 @@ select:focus {
 }
 
 
+input[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  transition: transform 0.2s ease;
+}
+
+input[type="checkbox"]:checked {
+  transform: scale(1.5);
+}
