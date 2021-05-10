@@ -6,11 +6,9 @@ CS1999: Buggy Race Editor
 
 ![image info](./static/images/cat.jpg)
 
-[race server](http://rhul.buggyrace.net).
+[Race server](http://rhul.buggyrace.net)
 
 [Technical & project information](https://rhul-cs-projects.github.io/CS1999-buggy-race-server/)
-
-[race server](http://rhul.buggyrace.net)
 
 [CS1999 Tech Notes](https://rhul-cs-projects.github.io/CS1999-buggy-race-server/).
 

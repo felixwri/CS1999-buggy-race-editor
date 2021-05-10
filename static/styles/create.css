@@ -1,5 +1,27 @@
 /* BUGGY FORM */
 
+#data-sheet {
+  position: fixed;
+  margin-left: 60vw;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(51, 80, 141, 0.548);
+  border-radius: 20px;
+  border: 1px solid white;
+  z-index: 5;
+}
+
+#cost, #weight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7em;
+}
+
+#cost-value, #weight-value {
+  margin-left: 1rem;
+}
+
 #make-a-buggy {
     position: relative;
     display: block;

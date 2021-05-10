@@ -5,6 +5,17 @@
 <section id='make-a-buggy'>
   <h1>Buggy Creation</h1>
 
+  <div id="data-sheet">
+    <div id="cost">
+      <h2>Cost</h2>
+      <h3 id="cost-value"></h3>
+    </div>
+    <div id="weight">
+      <h2>Weight</h2>
+      <h3 id="weight-value"></h3>
+    </div>
+  </div>
+
   <form action="/new" method="post">
     <div id='traction'>
       <label for="qty_wheels">Number of wheels:</label>
@@ -34,7 +45,7 @@
 
     <div id='drive'>
       <label for="power_type">power_type:</label>
-      <select name="power_type" value={{power_type}}>
+      <select name="power_type" value={{power_type}} onchange="calculate()">
 
         <option value="petrol">petrol</option>
         <option value="fusion">fusion</option>
@@ -52,7 +63,7 @@
       <input type="number" name="power_units" value={{power_units}} min="0" max="1000" />
 
       <label for="aux_power_type">aux_power_type:</label>
-      <select name="aux_power_type" value={{aux_power_type}}>
+      <select name="aux_power_type" value={{aux_power_type}} onchange="calculate()">
 
         <option value="petrol">petrol</option>
         <option value="fusion">fusion</option>
@@ -73,7 +84,7 @@
 
     <div id='offensive'>
       <label for="armour">armour:</label>
-      <select name="armour" value={{armour}}>
+      <select name="armour" value={{armour}} onchange="calculate()">
         <option value="none">none</option>
         <option value="wood">wood</option>
         <option value="aluminium">aluminium</option>
@@ -83,7 +94,7 @@
       </select>
 
       <label for="attack">attack:</label>
-      <select name="attack" value={{attack}}>
+      <select name="attack" value={{attack}} onchange="calculate()">
         <option value="none">none</option>
         <option value="spike">spike</option>
         <option value="flame">flame</option>
@@ -118,6 +129,7 @@
   }
 
 </script>
+<script src="/static/scripts/prices.js"></script>
 <script src="/static/scripts/value.js"></script>
 
 {% endblock %}
