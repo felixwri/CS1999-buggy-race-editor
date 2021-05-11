@@ -4,6 +4,7 @@
 
 <section id='make-a-buggy'>
   <h1>Buggy Creation</h1>
+  <a href="/" class="button">home</a>
 
   <div id="data-sheet">
     <div class="background-blur"></div>
@@ -20,7 +21,7 @@
   <form action="/new" method="post">
     <div id='traction'>
       <label for="qty_wheels">Number of wheels</label>
-      <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2" />
+      <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2" onchange="calculate()"/>
       <div id="value"></div>
 
       <label for="tyres">Tyre type</label>
@@ -34,7 +35,7 @@
       </select>
 
       <label for="qty_tyres">Number of Tyres</label>
-      <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2" />
+      <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2" onchange="calculate()"/>
       <div id="value_two"></div>
     </div>
 
@@ -101,7 +102,7 @@
     </div>
 
     <div id='offensive'>
-      <label for="armour">armour:</label>
+      <label for="armour">Armour</label>
       <select name="armour" value={{armour}} onchange="calculate()">
         <option value="{{armour}}" selected hidden>{{armour}}</option>
         <option value="none">none</option>
@@ -112,7 +113,7 @@
         <option value="titanium">titanium</option>
       </select>
 
-      <label for="attack">attack:</label>
+      <label for="attack">Attack</label>
       <select name="attack" value={{attack}} onchange="calculate()">
         <option value="{{attack}}" selected hidden>{{attack}}</option>
         <option value="none">none</option>
@@ -123,7 +124,7 @@
 
       </select>
 
-      <label for="qty_attacks">qty_attacks:</label>
+      <label for="qty_attacks">Number of Attacks<label>
       <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()"/>
     </div>
 
@@ -164,9 +165,9 @@
     <input type="submit" class="button">
   </form>
 
-  <p>
-    <a href="/" class="button">home</a>
-  </p>
+
+  <a id="cancel" href="/" class="button">Cancel</a>
+
 
 </section>
 

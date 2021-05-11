@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3 as sql
-import sys
 
 from components import data
 

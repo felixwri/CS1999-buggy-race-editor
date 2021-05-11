@@ -1,5 +1,7 @@
 import sqlite3 as sql
 
+from components import validation
+
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 
@@ -42,15 +44,16 @@ def getCar(index):
     return data
 
 def updateCar(form):
-    print("recieved form")
-    print("length ", len(form))
+
+    valid, msg = validation.process(form)
+
+    if not valid:
+        return msg
+
 
     try:
         with sql.connect(DATABASE_FILE) as con:
             cur = con.cursor()
-
-            for element in form:
-                print(f"{element}           content: {form[element]}")
 
             cur.execute(
                 """UPDATE buggies set 
@@ -100,7 +103,7 @@ def updateCar(form):
                     DEFAULT_BUGGY_ID
                 )
             )
-            print('here')
+
             con.commit()
             msg = "Record successfully saved"
 

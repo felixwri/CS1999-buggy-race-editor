@@ -12,8 +12,6 @@ let w = 0;
 cost.innerText = c;
 weight.innerText = w;
 
-console.log(inputs)
-
 calculate();
 
 function calculate() {
@@ -26,6 +24,10 @@ function calculate() {
                     break;
                 }
             }
+        }
+        if (select[i].name == 'armour') {
+            c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * (((inputs[0].value - 4) / 10) + 1);
+            w = parseInt(w) + parseInt(prices[select[i].name][select[i].value].weight) * (((inputs[0].value - 4) / 10) + 1);
         }
         if (prices[select[i].name] != undefined) {
             for (let j = 0; j < inputs.length; j++) {
