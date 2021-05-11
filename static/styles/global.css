@@ -111,7 +111,7 @@ input[type="range"]::-moz-range-thumb {
 
 input {
   background-color: black;
-  border: 1px solid var(--white);
+  border: 1px solid var(--grey);
   color: var(--white);
   border-radius: 10px;
   padding: 0.5em;
@@ -128,7 +128,7 @@ input[type="color"] {
 }
 
 input.button {
-  background-color: var(--blue);
+  background-color: var(--black);
   color: var(--white);
 
   transition: background-color 0.2s ease;
@@ -147,7 +147,7 @@ a > .button {
 }
 
 a.button, input.button {
-  border: 1px solid var(--white);
+  border: 1px solid var(--grey);
   color: var(--white);
   padding: 0.5em;
   margin: 0.5em;
@@ -184,7 +184,7 @@ select {
   height: 3rem;
   background-color: var(--black);
   color: var(--white);
-  border: 1px solid var(--white);
+  border: 1px solid var(--grey);
   border-radius: 20px;
   padding-left: 20px;
   font-size: 1.1rem;

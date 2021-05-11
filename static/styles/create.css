@@ -1,8 +1,24 @@
 /* BUGGY FORM */
+#head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#viewport {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  Width: 100%;
+  height: 60vh;
+  background-color: var(--muted-blue);
+  border-radius: 20px;
+}
 
 #data-sheet {
   position: fixed;
   margin-left: 60vw;
+  top: 150px;
   width: 150px;
   height: 150px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -10,6 +26,7 @@
   border: 1px solid white;
   z-index: 5;
 }
+
 .background-blur {
   position: fixed;
   margin-left: 0;
@@ -21,16 +38,97 @@
   filter: blur(5px);
   box-sizing: border-box;
   z-index: 6;
-
 }
 
-input[type="submit"] {
+@media only screen and (min-width: 1200px) {
+  #data-sheet, .background-blur {
+    width: 200px;
+    height: 200px;
+  }
+
+  .container {
+    display: flex;
+    width: 100%;
+    height: 60vh;
+  }
+  .container-two {
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    margin-bottom: 2rem;
+  }
+
+  .column {
+    flex: 1;
+    margin-left: 2rem;
+    flex-direction: column;
+  }
+
+  #drive {
+    flex: 0 0 65%;
+    width: 50%;
+    margin-left: 2rem;
+  }
+  
+  #traction {
+    height: 50%;
+    font-size: 0.9em;
+    flex: 1;
+  }
+
+  #offensive {
+    flex: 0 0 65%;
+  }
+  
+  #misc {
+    height: 40%;
+  }
+
+  #algorithm {
+    width: 15vw;
+  }
+}
+@media only screen and (max-height: 1000px) {
+  .container {
+    font-size: 0.9em;
+  }
+  input[type="select"] {
+    height: 0.5em;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .container {
+    font-size: 0.8em;
+  }
+}
+
+#submit-container {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input[type="submit"] {
   width: 50vw;
+  height: 5vh;
   margin-top: 1rem;
   margin-bottom: 3rem;
+}
+
+#cancel {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  color: var(--white);
+  background-color: var(--black);
+  padding: 0.5em;
+  border-radius: 0.25em;
+  text-decoration: none;
+
+  transition: background-color 0.2s ease;
+}
+#cancel:hover {
+  background-color: var(--red);
 }
 
 #cost,
@@ -48,7 +146,7 @@ input[type="submit"] {
 
 #make-a-buggy {
   position: relative;
-  display: block;
+  /* display: block; */
 }
 
 #traction {
@@ -86,9 +184,13 @@ datalist {
   border-radius: 20px;
 }
 
-#drive > * {
+#drive > label {
   display: block;
   margin: 0.5em;
+}
+
+#drive > input {
+  display: inline !important;
 }
 
 #offensive {
@@ -99,7 +201,7 @@ datalist {
 }
 
 #offensive > * {
-  display: block;
+  display: inline;
   margin: 0.5em;
 }
 
