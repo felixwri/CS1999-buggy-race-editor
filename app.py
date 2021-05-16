@@ -9,62 +9,59 @@ DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
 
-# ------------------------------------------------------------
-# the index page
-# ------------------------------------------------------------
-
-
 @app.route('/')
 def home():
     return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, style='static/styles/index.css')
-
-# ------------------------------------------------------------
-# creating a new buggy:
-#  if it's a POST request process the submitted data
-#  but if it's a GET request, just show the form
-# ------------------------------------------------------------
-
 
 @app.route('/new', methods=['POST', 'GET'])
 def create_buggy():
     if request.method == 'GET':
 
-        index = 0
+        owner = "temp"
+
+        buggyData, privateIDs = data.getCar(owner)
+
+        print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {privateIDs}\n')
 
         return render_template("buggy-form.html",
-                               qty_wheels=data.getCar(index)[1],
-                               flag_color=data.getCar(index)[2],
-                               flag_color_secondary=data.getCar(index)[3],
-                               flag_pattern=data.getCar(index)[4],
-                               power_type=data.getCar(index)[5],
-                               power_units=data.getCar(index)[6],
-                               aux_power_type=data.getCar(index)[7],
-                               aux_power_units=data.getCar(index)[8],
-                               hamster_booster=data.getCar(index)[9],
-                               tyres=data.getCar(index)[10],
-                               qty_tyres=data.getCar(index)[11],
-                               armour=data.getCar(index)[12],
-                               attack=data.getCar(index)[13],
-                               qty_attacks=data.getCar(index)[14],
-                               fireproof=data.getCar(index)[15],
-                               insulated=data.getCar(index)[16],
-                               antibiotic=data.getCar(index)[17],
-                               banging=data.getCar(index)[18],
-                               algo=data.getCar(index)[19],
-                               total_cost=data.getCar(index)[20],
+                               qty_wheels=buggyData[1],
+                               flag_color=buggyData[2],
+                               flag_color_secondary=buggyData[3],
+                               flag_pattern=buggyData[4],
+                               power_type=buggyData[5],
+                               power_units=buggyData[6],
+                               aux_power_type=buggyData[7],
+                               aux_power_units=buggyData[8],
+                               hamster_booster=buggyData[9],
+                               tyres=buggyData[10],
+                               qty_tyres=buggyData[11],
+                               armour=buggyData[12],
+                               attack=buggyData[13],
+                               qty_attacks=buggyData[14],
+                               fireproof=buggyData[15],
+                               insulated=buggyData[16],
+                               antibiotic=buggyData[17],
+                               banging=buggyData[18],
+                               algo=buggyData[19],
+                               total_cost=buggyData[20],
+                               private=buggyData[22],
+                               privateIDs=privateIDs,
+                               buggy_name=buggyData[23],
                                style='static/styles/create.css'
                                )
 
     elif request.method == 'POST':
-        msg = ""
-        msg = data.updateCar(request.form)
+        form = request.form
+
+        if form['task'] == 'ADD':
+            print('Trying to add')
+            msg = data.addCar(form)
+        elif form['task'] == 'DELETE':
+            msg = data.deleteCar(form['private'])
+        else:
+            msg = data.updateCar(form)
 
         return render_template("updated.html", msg=msg, style='static/styles/create.css')
-
-# ------------------------------------------------------------
-# a page for displaying the buggy
-# ------------------------------------------------------------
-
 
 @app.route('/buggy')
 def show_buggies():
@@ -80,26 +77,9 @@ def show_buggies():
 def poster():
     return render_template("poster.html")
 
-# ------------------------------------------------------------
-# a placeholder page for editing the buggy: you'll need
-# to change this when you tackle task 2-EDIT
-# ------------------------------------------------------------
-
-
 # @app.route('/edit')
 # def edit_buggy():
 #     return render_template("buggy-form.html")
-
-# ------------------------------------------------------------
-# You probably don't need to edit this... unless you want to ;)
-#
-# get JSON from current record
-#  This reads the buggy record from the database, turns it
-#  into JSON format (excluding any empty values), and returns
-#  it. There's no .html template here because it's *only* returning
-#  the data, so in effect jsonify() is rendering the data.
-# ------------------------------------------------------------
-
 
 @app.route('/json')
 def summary():
@@ -111,6 +91,26 @@ def summary():
     buggies = dict(zip([column[0]
                    for column in cur.description], cur.fetchone())).items()
     return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
+
+
+@app.route('/api/<user>/<private>')
+def api(user, private):
+
+    #? respond with json for a particular users buggy 
+
+    con = sql.connect(DATABASE_FILE)
+    try:
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute("SELECT * FROM buggies WHERE private=? AND owner=? LIMIT 1", (private, user))
+
+        buggies = dict(zip([column[0]
+                    for column in cur.description], cur.fetchone())).items()
+        return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
+    
+    except Exception as e:
+        print(e)
+        return jsonify(error="Invaild Index")
 
 
 # You shouldn't need to add anything below this!

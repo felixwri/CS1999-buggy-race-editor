@@ -1,5 +1,5 @@
 :root {
-    --primary: hsl(216, 50%, 8%);
+    --primary: hsl(216, 50%, 50%);
 
     --blue: hsl(216, 50%, 50%);
     --dark-blue: hsl(216, 50%, 40%);
@@ -7,12 +7,17 @@
 
     --red: hsl(342, 50%, 50%);
     --dark-red: hsl(342, 50%, 35%);
-  
+
+    --green: hsl(165, 50%, 50%);
+    --dark-green: hsl(165, 50%, 40%);
+    --muted-green: hsl(165, 50%, 10%);
   
     --white: hsl(0, 0%, 100%);
     --grey: hsl(0, 0%, 10%);
     --black: hsl(0, 0%, 0%);
     --black-opacity: rgba(0, 0, 0, 0.575);
+
+    font-size: 16px;
 }
 
 html{
@@ -185,7 +190,7 @@ select {
   background-color: var(--black);
   color: var(--white);
   border: 1px solid var(--grey);
-  border-radius: 20px;
+  border-radius: 10px;
   padding-left: 20px;
   font-size: 1.1rem;
   text-decoration: none !important;
@@ -201,8 +206,9 @@ select:focus {
 
 
 input[type="checkbox"] {
-  height: 15px;
-  width: 15px;
+  display: inline-block;
+  min-height: 15px;
+  min-width: 15px;
   transition: transform 0.2s ease;
 }
 

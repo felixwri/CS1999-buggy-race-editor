@@ -57,6 +57,59 @@ let raw = `
             "consumable": false
         }
     },
+    "aux_power_type": {
+        "units": "aux_power_units",
+        "petrol": {
+            "cost": 4,
+            "weight": 2,
+            "consumable": true
+        },
+        "fusion": {
+            "cost": 400,
+            "weight": 400,
+            "consumable": false
+        },
+        "steam": {
+            "cost": 3,
+            "weight": 4,
+            "consumable": true
+        },
+        "bio": {
+            "cost": 5,
+            "weight": 2,
+            "consumable": true
+        },
+        "electric": {
+            "cost": 20,
+            "weight": 20,
+            "consumable": true
+        },
+        "rocket": {
+            "cost": 16,
+            "weight": 2,
+            "consumable": true
+        },
+        "hamster": {
+            "cost": 3,
+            "weight": 1,
+            "consumable": true
+        },
+        "thermo": {
+            "cost": 300,
+            "weight": 100,
+            "consumable": false
+        },
+        "solar": {
+            "cost": 40,
+            "weight": 30,
+            "consumable": false
+        },
+        "wind": {
+            "cost": 20,
+            "weight": 30,
+            "consumable": false
+        }
+    },
     "tyres": {
         "units": "qty_tyres",
         "knobbly": {

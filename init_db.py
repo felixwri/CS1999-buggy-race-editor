@@ -27,7 +27,7 @@ connection.execute("""
     id                    INTEGER PRIMARY KEY,
     qty_wheels            INTEGER DEFAULT 4,
     flag_color            VARCHAR(20) DEFAULT '#000000',
-    flag_color_secondary  VARCHAR(20) DEFAULT '#000000',
+    flag_color_secondary  VARCHAR(20) DEFAULT '#222222',
     flag_pattern          VARCHAR(20),
     power_type            VARCHAR(20) DEFAULT petrol,
     power_units           INTEGER DEFAULT 1,
@@ -44,7 +44,10 @@ connection.execute("""
     antibiotic            VARCHAR(10) DEFAULT "False",
     banging               VARCHAR(10) DEFAULT "False",
     algo                  VARCHAR(20) DEFAULT steady,
-    total_cost            INTEGER DEFAULT 0
+    total_cost            INTEGER DEFAULT 0,
+    owner                 VARCHAR(20) DEFAULT 'temp',
+    private               INTEGER DEFAULT 22222222,
+    buggy_name            VARCHAR(30) DEFAULT "First"
   )
 
 """)

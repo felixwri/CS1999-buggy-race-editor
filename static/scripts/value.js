@@ -14,22 +14,16 @@ weight.innerText = w;
 
 calculate();
 
-function calculate() {
+async function calculate() {
     for (let i = 0; i < select.length; i++) {
-        if (select[i].name == 'aux_power_type') {
-            for (let j = 0; j < inputs.length; j++) {
-                if (inputs[j].name == 'aux_power_units') {
-                    c = parseInt(c) + parseInt(prices["power_type"][select[i].value].cost) * inputs[j].value;
-                    w = parseInt(w) + parseInt(prices["power_type"][select[i].value].weight) * inputs[j].value;
-                    break;
-                }
-            }
+        //? armour special case
+        if (select[i].name == 'armour' && select[i].value != 'None') {
+            c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * (((inputs[1].value - 4) / 10) + 1);
+            w = parseInt(w) + parseInt(prices[select[i].name][select[i].value].weight) * (((inputs[1].value - 4) / 10) + 1);
         }
-        if (select[i].name == 'armour') {
-            c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * (((inputs[2].value - 4) / 10) + 1);
-            w = parseInt(w) + parseInt(prices[select[i].name][select[i].value].weight) * (((inputs[2].value - 4) / 10) + 1);
-        }
-        if (prices[select[i].name] != undefined) {
+
+        //? all remaining values
+        if (prices[select[i].name] != undefined && select[i].value != 'None') {
             for (let j = 0; j < inputs.length; j++) {
                 if (prices[select[i].name].units == inputs[j].name) {
                     c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * inputs[j].value;
@@ -49,20 +43,103 @@ function calculate() {
     w = 0;
 }
 
-if(document.getElementById("fireproof").checked) {
+if (document.getElementById("fireproof").checked) {
     document.getElementById('fireproofHidden').disabled = true;
 }
 
 
-if(document.getElementById("insulated").checked) {
+if (document.getElementById("insulated").checked) {
     document.getElementById('insulatedHidden').disabled = true;
 }
 
-if(document.getElementById("antibiotic").checked) {
+if (document.getElementById("antibiotic").checked) {
     document.getElementById('antibioticHidden').disabled = true;
 }
 
-if(document.getElementById("banging").checked) {
+if (document.getElementById("banging").checked) {
     document.getElementById('bangingHidden').disabled = true;
+}
+
+let targetSpend = 1000
+const totalSpend = 2000
+
+let spendWeight = targetSpend / totalSpend 
+
+async function automate() {
+    for (let i = 0; i < select.length; i++) {
+        // console.log(select[i].name)
+        let randomIndex = Math.round(Math.random() * (select[i].length - 1));
+        select[i].options[randomIndex].selected = 'selected';
+        // select[i].style.backgroundColor = 'var(--muted-green)';
+
+        if (prices[select[i].name] != undefined && select[i].value != 'None') {
+            targetSpend = targetSpend - parseInt(prices[select[i].name][select[i].value].cost)
+            // console.log(targetSpend)
+        }
+    }
+
+    // console.log(targetSpend);
+
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === 'submit') {
+            continue;
+        }
+        if (inputs[i].type === 'text') {
+            // ? Random name generator
+            console.log(inputs[i].name)
+            names = ["old", "long", "new", "cold", "hot", "diesel", "oil", "electric", "solar", "prime", "light", "dark"]
+
+            fakeName = `${names[Math.round(Math.random() * (names.length - 1))]}  ${names[Math.round(Math.random() * (names.length - 1))]}`;
+
+            console.log(fakeName)
+            inputs[i].value = fakeName;
+            continue;
+        }
+        if (inputs[i].type === 'color') {
+            inputs[i].value = generateColor();
+            continue;
+        }
+        if (inputs[i].type === 'checkbox') {
+            let randomBool = Math.round(Math.random());
+            if (randomBool) {
+                inputs[i].checked = true;
+            } else {
+                inputs[i].checked = false;
+            }
+            continue;
+        }
+        if (inputs[i].name === 'qty_tyres') {
+            let randomValue = Math.round(Math.random() * (inputs[i].max - inputs[i - 1].value)) + inputs[i - 1].value;
+            inputs[i].value = randomValue;
+            continue;
+        }
+        let randomValue = Math.round(Math.random() * (inputs[i].max - 1));
+        if (randomValue > 100) randomValue = 100;
+        inputs[i].value = randomValue;
+        // select[i].style.backgroundColor = 'var(--muted-green)';
+
+        await calculate();
+    }
+}
+
+function generateColor() {
+    let letters = '0123456789ABCDEF';
+    let color = '#';
+
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+}
+
+function loadNewCar(message) {
+    for (let i = 0; i < select.length; i++) {
+        select[i].value = message[select[i].name]
+    }
+    for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].type === "submit") continue;
+        inputs[i].value = message[inputs[i].name]
+    }
 }
 

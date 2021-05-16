@@ -4,14 +4,17 @@
 
 <section id='make-a-buggy'>
   <div id="head">
-    <h1>Buggy Creation</h1>
-    <a class="button" href="/" >home</a>
+    <h1>Developing: {{buggy_name}}</h1>
+    <a class="button" href="/">home</a>
   </div>
 
   <div id="viewport">Visualisation to go here</div>
 
+  <h1 id="buggy-header"> Available Buggies</h1>
+  <div id=buggies>
+  </div>
+
   <div id="data-sheet">
-    <div class="background-blur"></div>
     <div id="cost">
       <h2>Cost</h2>
       <h3 id="cost-value"></h3>
@@ -20,33 +23,20 @@
       <h2>Weight</h2>
       <h3 id="weight-value"></h3>
     </div>
+    <button id="auto" class="side-button" onclick="automate()">Auto Build</button>
   </div>
 
   <form action="/new" method="post">
 
-
-    <div id='flag'>
-      <label for="flag_color">Flag color</label>
-      <input type="color" name="flag_color" value={{flag_color}} />
-      <div class="color-picker"></div>
-
-      <label for="flag_color_secondary">Flag secondary color</label>
-      <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
-
-      <label for="flag_pattern">Flag pattern </label>
-      <select name="flag_pattern" value={{flag_pattern}}>
-        <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
-        <option value="plain">plain</option>
-        <option value="vstripe">vstripe</option>
-        <option value="hstripe">hstripe</option>
-        <option value="dstripe">dstripe</option>
-        <option value="checker">checker</option>
-        <option value="spot">spot</option>
-      </select>
+    <div class='bubble'>
+      <label for="buggy_name">Enter a name for the buggy</label>
+      <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
     </div>
 
+
     <div class='container'>
-      <div id='traction'>
+      <div id='traction' class="bubble">
+        <h2>Traction</h2>
         <label for="qty_wheels">Number of wheels</label>
         <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
           onchange="calculate()" />
@@ -68,7 +58,8 @@
         <div id="value_two"></div>
       </div>
 
-      <div id='drive'>
+      <div id='drive' class="bubble">
+        <h2>Engine</h2>
         <label for="power_type">Power type</label>
         <select name="power_type" value={{power_type}} onchange="calculate()">
           <option value="{{power_type}}" selected hidden>{{power_type}}</option>
@@ -114,7 +105,8 @@
 
 
     <div class='container-two'>
-      <div id='offensive'>
+      <div id='offensive' class="bubble">
+        <h2>Offensive</h2>
         <label for="armour">Armour</label>
         <select name="armour" value={{armour}} onchange="calculate()">
           <option value="{{armour}}" selected hidden>{{armour}}</option>
@@ -141,7 +133,8 @@
             <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
       </div>
       <div class="column">
-        <div id="misc">
+        <div id="misc" class="bubble">
+          <h2>Misc</h2>
           <label for="fireproof">Fireproof</label>
           <input id="fireproof" type="checkbox" name="fireproof" value="True">
           <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
@@ -161,8 +154,8 @@
         </div>
 
 
-        <div id="algorithm">
-          <label for="algo">Algorithm</label>
+        <div id="algorithm" class="bubble">
+          <h2>Algorithm</h2>
           <select name="algo" value={{algo}}>
             <option value="{{algo}}" selected hidden>{{algo}}</option>
             <option value="defensive">defensive</option>
@@ -175,15 +168,67 @@
       </div>
     </div>
 
+    <div id='flag' class="bubble">
+      <label for="flag_color">Flag color</label>
+      <input type="color" name="flag_color" value={{flag_color}} />
+      <div class="color-picker"></div>
+
+      <label for="flag_color_secondary">Flag secondary color</label>
+      <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
+
+      <label for="flag_pattern">Flag pattern </label>
+      <select name="flag_pattern" value={{flag_pattern}}>
+        <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
+        <option value="plain">plain</option>
+        <option value="vstripe">vstripe</option>
+        <option value="hstripe">hstripe</option>
+        <option value="dstripe">dstripe</option>
+        <option value="checker">checker</option>
+        <option value="spot">spot</option>
+      </select>
+    </div>
+
     <input id="total_cost" type="number" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
+    <input id="private" type="hidden" name="private" value="{{private}}"></input>
 
 
     <div id="submit-container">
-      <input type="submit" class="button">
+      <input type="submit" name="task" value="UPDATE" class="button" />
+      <input type="submit" name="task" value="ADD" class="button" />
+      <input type="submit" name="task" value="DELETE" class="button" />
       <a id="cancel" href="/">Cancel</a>
     </div>
   </form>
 </section>
+
+<script>
+  let getBuggy = async (user, index) => {
+    let response = await fetch(`http://localhost:5000/api/${user}/${index}`);
+    let message = await response.json();
+    console.log(message);
+    loadNewCar(message);
+  }
+
+  function appendBuggies() {
+    // this all gets linted even though it works fine
+    let index = {{ privateIDs }}
+  
+    let user = "temp"
+    let availableBuggies = document.getElementById("buggies");
+
+    for (let i = 0; i < index.length; i++) {
+      let node = document.createElement("BUTTON")
+      node.setAttribute("onclick", `getBuggy('${user}', ${index[i]})`)
+      let nodeContent = document.createTextNode(`Buggy: ${index[i]}`)
+      node.appendChild(nodeContent);
+      availableBuggies.appendChild(node)
+  
+    }
+  }
+
+  document.body.onload = appendBuggies();
+
+</script>
 
 <script>
   let slider = document.getElementById("slider");

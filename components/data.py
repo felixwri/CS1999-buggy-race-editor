@@ -1,4 +1,5 @@
 import sqlite3 as sql
+import random
 
 from components import validation
 
@@ -6,25 +7,36 @@ DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
 
 
-def getCar(index):
+def getCar(owner):
     con = sql.Connection(DATABASE_FILE)
     try:
         cur = con.cursor()
-        cur.execute("SELECT * FROM buggies ORDER BY ROWID ASC LIMIT 1")
+        cur.execute(
+            "SELECT * FROM buggies WHERE owner=? ORDER BY ROWID ASC LIMIT 1", (owner,))
+        allData = cur.fetchall()
+        data = allData[0]
+
+        cur.execute(
+            "SELECT * FROM buggies WHERE owner=? ORDER BY ROWID ASC LIMIT 10", (owner,))
+
         allData = cur.fetchall()
 
-        data = allData[index]
+        privateIDs = []
+        for element in allData:
+            privateIDs.append(element[22])
 
     except Exception as e:
         print(e)
         con.rollback()
 
         # default settings
+
+        privateIDs = [1]
         data = (
             0,
             4,
             '#000000',
-            '#000000',
+            '#111111',
             'plain',
             'petrol',
             1,
@@ -32,6 +44,7 @@ def getCar(index):
             0,
             0,
             'knobbly',
+            4,
             'NULL',
             'NULL',
             0,
@@ -39,10 +52,11 @@ def getCar(index):
             'False',
             'False',
             'False',
-            'steady'
+            'steady',
+            0
         )
 
-    return data
+    return data, privateIDs
 
 
 def updateCar(form):
@@ -77,29 +91,31 @@ def updateCar(form):
             antibiotic=?,
             banging=?,
             algo=?,
-            total_cost=?
+            total_cost=?,
+            buggy_name=?
             WHERE id=?""",
             (
-                int(form['qty_wheels']),
+                form['qty_wheels'],
                 form['flag_color'],
                 form['flag_color_secondary'],
                 form['flag_pattern'],
                 form['power_type'],
-                int(form['power_units']),
+                form['power_units'],
                 form['aux_power_type'],
-                int(form['aux_power_units']),
-                int(form['hamster_booster']),
+                form['aux_power_units'],
+                form['hamster_booster'],
                 form['tyres'],
-                int(form['qty_tyres']),
+                form['qty_tyres'],
                 form['armour'],
                 form['attack'],
-                int(form['qty_attacks']),
+                form['qty_attacks'],
                 form['fireproof'],
                 form['insulated'],
                 form['antibiotic'],
                 form['banging'],
                 form['algo'],
-                int(form['total_cost']),
+                form['total_cost'],
+                form['buggy_name'],
 
                 DEFAULT_BUGGY_ID
             )
@@ -124,33 +140,100 @@ def updateCar(form):
 
     return msg
 
+def generateID():
+    ID = random.randint(10000000, 99999999)
+    return ID
 
-def newCar():
+def addCar(form):
     con = sql.Connection(DATABASE_FILE)
+
+    owner = "temp"
+    private = generateID()
 
     try:
         cur = con.cursor()
-        cur.execute(f"INSERT INTO buggies (qty_wheels) VALUES ({6})")
+
+        values = (
+            form['qty_wheels'],
+            form['flag_color'],
+            form['flag_color_secondary'],
+            form['flag_pattern'],
+            form['power_type'],
+            form['power_units'],
+            form['aux_power_type'],
+            form['aux_power_units'],
+            form['hamster_booster'],
+            form['tyres'],
+            form['qty_tyres'],
+            form['armour'],
+            form['attack'],
+            form['qty_attacks'],
+            form['fireproof'],
+            form['insulated'],
+            form['antibiotic'],
+            form['banging'],
+            form['algo'],
+            form['total_cost'],
+            owner,
+            private,
+            form['buggy_name']
+        )
+
+        cur.execute("""INSERT INTO buggies (
+            qty_wheels, 
+            flag_color, 
+            flag_color_secondary, 
+            flag_pattern,
+            power_type,
+            power_units,
+            aux_power_type,
+            aux_power_units,
+            hamster_booster,
+            tyres,
+            qty_tyres,  
+            armour,
+            attack,
+            qty_attacks,
+            fireproof,
+            insulated,
+            antibiotic,
+            banging,
+            algo,
+            total_cost,
+            owner,
+            private,
+            buggy_name
+            ) VALUES (?, ?, ?, ?, ?, ?, 
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?)""",
+            (values))
+
         con.commit()
-        
+        msg = "New buggy added successfully"
+
     except Exception as e:
         print(e)
         con.rollback()
 
-    return
+        msg = "Buggy could not be added :("
 
-def delCar(id):
+    return msg
+
+
+def deleteCar(private):
     con = sql.Connection(DATABASE_FILE)
-
-    #! id is a bad variable name
 
     try:
         cur = con.cursor()
-        cur.execute(f"DELETE FROM buggies WHERE id=?", (id,))
+        cur.execute(f"DELETE FROM buggies WHERE private=?", (private,))
         con.commit()
+
+        msg = f"Deleted buggy with id:{private}"
 
     except Exception as e:
         print(e)
         con.rollback()
 
-    return
+        msg = "Buggy could not be deleted"
+
+    return msg

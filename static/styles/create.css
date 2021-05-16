@@ -15,37 +15,73 @@
   border-radius: 20px;
 }
 
+#buggy-header {
+  font-size: 1rem;
+}
+
+#buggies {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 3rem;
+}
+
+#buggies > button {
+  width: 100%;
+  background-color: var(--black);
+  color: white;
+  border: 1px solid var(--white);
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+
 #data-sheet {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-left: 60vw;
   top: 150px;
-  width: 150px;
-  height: 150px;
+  /* width: 150px;
+  height: 150px; */
+  padding: 1rem;
+  width: 12vw;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid white;
   z-index: 5;
 }
 
-.background-blur {
-  position: fixed;
-  margin-left: 0;
-  width: 150px;
-  height: 150px;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0);
-  border: 2px solid var(--blue);
-  filter: blur(5px);
-  box-sizing: border-box;
-  z-index: 6;
+.side-button {
+  width: 100%;
+  background-color: var(--dark-green);
+  color: white;
+  border: 1px solid var(--white);
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+#auto {
+  background-color: var(--dark-red);
+}
+
+#next {
+  background-color: var(--dark-green);
+}
+
+#cost,
+#weight {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#cost > h2,
+#weight > h2{
+  font-size: 0.8em;
 }
 
 @media only screen and (min-width: 1200px) {
-  #data-sheet, .background-blur {
-    width: 200px;
-    height: 200px;
-  }
-
   .container {
     display: flex;
     width: 100%;
@@ -54,7 +90,7 @@
   .container-two {
     display: flex;
     width: 100%;
-    height: 40vh;
+    height: 45vh;
     margin-bottom: 2rem;
   }
 
@@ -65,13 +101,13 @@
   }
 
   #drive {
-    flex: 0 0 65%;
+    flex: 0 0 60%;
     width: 50%;
     margin-left: 2rem;
   }
   
   #traction {
-    height: 50%;
+    height: 60%;
     font-size: 0.9em;
     flex: 1;
   }
@@ -81,14 +117,22 @@
   }
   
   #misc {
-    height: 40%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  #misc > label {
+    display: inline-flex;
+    flex: 1;
   }
 
   #algorithm {
-    width: 15vw;
+    width: 100%;
   }
 }
-@media only screen and (max-height: 1000px) {
+/* @media only screen and (max-height: 1000px) {
   .container {
     font-size: 0.9em;
   }
@@ -101,7 +145,7 @@
   .container {
     font-size: 0.8em;
   }
-}
+} */
 
 #submit-container {
   display: flex;
@@ -112,13 +156,9 @@
 input[type="submit"] {
   width: 50vw;
   height: 5vh;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
 }
 
 #cancel {
-  margin-top: 1rem;
-  margin-bottom: 3rem;
   color: var(--white);
   background-color: var(--black);
   padding: 0.5em;
@@ -131,102 +171,33 @@ input[type="submit"] {
   background-color: var(--red);
 }
 
-#cost,
-#weight {
+.bubble {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7em;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--black-opacity);
+  border-radius: 10px;
 }
 
-#cost-value,
-#weight-value {
+.bubble > h2 {
+  color: var(--dark-blue);
+  font-size: 1.1rem;
+  top: 0;
+}
+.bubble > * {
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
-#make-a-buggy {
-  position: relative;
-  /* display: block; */
+.bubble > select {
+  width: 90%;
 }
 
-#traction {
-  margin-top: 2rem;
-  background-color: var(--black-opacity);
-  padding: 1em;
-  border-radius: 20px;
-}
-
-#traction > * {
-  display: block;
-  margin: 0.5em;
-}
-
-#flag {
-  margin-top: 2rem;
-  background-color: var(--black-opacity);
-  padding: 1em;
-  border-radius: 20px;
-}
-
-#flag > * {
-  display: block;
-  margin: 0.5em;
-}
 
 datalist {
   display: none !important;
-}
-
-#drive {
-  margin-top: 2rem;
-  padding: 1em;
-  background-color: var(--black-opacity);
-  border-radius: 20px;
-}
-
-#drive > label {
-  display: block;
-  margin: 0.5em;
-}
-
-#drive > input {
-  display: inline !important;
-}
-
-#offensive {
-  margin-top: 2rem;
-  padding: 1em;
-  background-color: var(--black-opacity);
-  border-radius: 20px;
-}
-
-#offensive > * {
-  display: inline;
-  margin: 0.5em;
-}
-
-#misc {
-  margin-top: 2rem;
-  padding: 1em;
-  background-color: var(--black-opacity);
-  border-radius: 20px;
-}
-
-#misc > label {
-  margin: 0.5em;
-}
-#misc > input {
-  display: inline;
-  margin: 0.5em;
-}
-
-div br {
-  display: none;
-}
-
-#algorithm {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 #total_cost {
