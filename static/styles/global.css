@@ -20,11 +20,11 @@
     font-size: 16px;
 }
 
-html{
+/* /* html{
   margin: 0;
   padding: 0;
   font-size: 1rem; 
-}
+} */
 body {
   font-family: 'Noto Sans', sans-serif;
   font-size: 1.2em;
@@ -34,7 +34,7 @@ body {
   transition: margin 0.2s ease;
 }
 
-@media only screen and (min-width: 750px) and (max-width: 1200px) {
+/* @media only screen and (min-width: 750px) and (max-width: 1200px) {
   body {
     margin-left: 10vw;
     margin-right: 10vw;
@@ -46,7 +46,7 @@ body {
     margin-left: 20vw;
     margin-right: 20vw;
   }
-}
+} */
 
 
 
@@ -142,12 +142,12 @@ input.button:hover {
   background-color: var(--dark-blue);
 }
 
-.main-content {
+/* .main-content {
   min-height: 100vh;
   padding: 1em;
-}
+} */
 
-a > .button {
+/* a > .button {
   margin: 10rem;
 }
 
@@ -164,9 +164,9 @@ a.button, input.button {
 a.button:hover {
   background-color: #000000ff;
   color: #ffffff;
-}
+} */
 
-nav {
+/* nav {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -182,7 +182,7 @@ nav > a:hover {
   color: var(--blue);
   text-decoration: none;
   cursor: pointer;
-}
+} */
 
 select {
   width: 100%;

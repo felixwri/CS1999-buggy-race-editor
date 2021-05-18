@@ -1,205 +1,104 @@
-/* BUGGY FORM */
-#head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-#viewport {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  Width: 100%;
-  height: 60vh;
-  background-color: var(--muted-blue);
-  border-radius: 20px;
+nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8rem;
+  background-color: var(--grey);
 }
 
-#buggy-header {
-  font-size: 1rem;
+nav ul {
+  position: relative;
+  list-style: none;
+}
+nav ul div {
+  padding: 0.25em 0.5em;
+  height: 2.5em;
 }
 
-#buggies {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 3rem;
-}
-
-#buggies > button {
-  width: 100%;
-  background-color: var(--black);
-  color: white;
-  border: 1px solid var(--white);
-  border-radius: 10px;
-  font-size: 1.1rem;
-}
-
-#data-sheet {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 60vw;
-  top: 150px;
-  /* width: 150px;
-  height: 150px; */
-  padding: 1rem;
-  width: 12vw;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  border: 1px solid white;
-  z-index: 5;
-}
-
-.side-button {
-  width: 100%;
-  background-color: var(--dark-green);
-  color: white;
-  border: 1px solid var(--white);
-  border-radius: 10px;
-  font-size: 1.1rem;
-}
-#auto {
-  background-color: var(--dark-red);
-}
-
-#next {
-  background-color: var(--dark-green);
-}
-
-#cost,
-#weight {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
-#cost > h2,
-#weight > h2{
+nav ul h1 {
   font-size: 0.8em;
+  color: hsl(0, 0%, 50%);
+  padding: 0.25em 0.5em;
+  height: 2.5em;
 }
 
-@media only screen and (min-width: 1200px) {
-  .container {
-    display: flex;
-    width: 100%;
-    height: 60vh;
-  }
-  .container-two {
-    display: flex;
-    width: 100%;
-    height: 45vh;
-    margin-bottom: 2rem;
-  }
-
-  .column {
-    flex: 1;
-    margin-left: 2rem;
-    flex-direction: column;
-  }
-
-  #drive {
-    flex: 0 0 60%;
-    width: 50%;
-    margin-left: 2rem;
-  }
-  
-  #traction {
-    height: 60%;
-    font-size: 0.9em;
-    flex: 1;
-  }
-
-  #offensive {
-    flex: 0 0 65%;
-  }
-  
-  #misc {
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  #misc > label {
-    display: inline-flex;
-    flex: 1;
-  }
-
-  #algorithm {
-    width: 100%;
-  }
-}
-/* @media only screen and (max-height: 1000px) {
-  .container {
-    font-size: 0.9em;
-  }
-  input[type="select"] {
-    height: 0.5em;
-  }
-}
-
-@media only screen and (max-height: 800px) {
-  .container {
-    font-size: 0.8em;
-  }
-} */
-
-#submit-container {
+nav ul li {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-input[type="submit"] {
-  width: 50vw;
-  height: 5vh;
-}
-
-#cancel {
-  color: var(--white);
-  background-color: var(--black);
-  padding: 0.5em;
-  border-radius: 0.25em;
-  text-decoration: none;
+  padding: 0.25em 0.5em;
+  height: 2.5em;
 
   transition: background-color 0.2s ease;
 }
-#cancel:hover {
-  background-color: var(--red);
+
+nav ul li:hover {
+  background-color: var(--black);
 }
 
-.bubble {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  background-color: var(--black-opacity);
-  border-radius: 10px;
-}
-
-.bubble > h2 {
-  color: var(--dark-blue);
-  font-size: 1.1rem;
+nav ul ul {
+  position: absolute;
+  display: none;
   top: 0;
-}
-.bubble > * {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.bubble > select {
-  width: 90%;
+  left: 8rem;
+  width: 8rem;
+  background-color: hsl(0, 0%, 20%);
 }
 
-
-datalist {
-  display: none !important;
+nav ul .dropdown {
+  position: relative;
 }
 
-#total_cost {
+nav ul .dropdown:hover ul {
+  display: initial;
+}
+
+/* .end {
+  color: hsl(0, 0%, 50%);
+} */
+
+section {
+  margin-left: 8rem;
+}
+
+#head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#viewport {
+  position: absolute;
+  top: 5vh;
+  left: 8rem;
+  width: calc(100vw - 8rem);
+  height: 60vh;
+  background-color: hsl(0, 0%, 20%, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: -1;
+}
+
+.container {
+  position: absolute;
+  max-width: 100%;
+  top: 70vh;
+  max-height: 30vh;
+  /* left: -20rem; */
+}
+
+.hidden {
   display: none;
 }
+
+/* form {
+  display: none;
+} */

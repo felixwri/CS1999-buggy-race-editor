@@ -2,7 +2,43 @@
 
 {% block content %}
 
-<section id='make-a-buggy'>
+<nav>
+  <ul>
+    <li id="user">User</li>
+    <li class="dropdown">
+      Buggies
+      <ul id="buggies">
+      </ul>
+    </li>
+    <li class="dropdown">
+      Create
+      <ul>
+        <li onclick="form('traction')">Wheels</li>
+        <li onclick="form('drive')">Engine</li>
+        <li>Weapon</li>
+        <li>Misc</li>
+        <li>Flag</li>
+        <li onclick="form('submit')">Submit</li>
+      </ul>
+    </li>
+    <br>
+    <h1>Cost</h1>
+    <div id="cost-value">AutoFill</div>
+    <h1>Weight</h1>
+    <div id="weight-value">AutoFill</div>
+    <br>
+    <li class="end">AutoFill</li>
+    <li class="end">Update</li>
+    <li class="end">New</li>
+    <li class="end">Delete</li>
+  </ul>
+</nav>
+
+
+
+<!-- <div id=buggies></div> -->
+
+<section>
   <div id="head">
     <h1>Developing: {{buggy_name}}</h1>
     <a class="button" href="/">home</a>
@@ -10,32 +46,16 @@
 
   <div id="viewport">Visualisation to go here</div>
 
-  <h1 id="buggy-header"> Available Buggies</h1>
-  <div id=buggies>
-  </div>
-
-  <div id="data-sheet">
-    <div id="cost">
-      <h2>Cost</h2>
-      <h3 id="cost-value"></h3>
-    </div>
-    <div id="weight">
-      <h2>Weight</h2>
-      <h3 id="weight-value"></h3>
-    </div>
-    <button id="auto" class="side-button" onclick="automate()">Auto Build</button>
-  </div>
-
   <form action="/new" method="post">
 
-    <div class='bubble'>
+    <div class="container">
+      <div id="name" class="bubble hidden"></div>
       <label for="buggy_name">Enter a name for the buggy</label>
       <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
     </div>
 
-
-    <div class='container'>
-      <div id='traction' class="bubble">
+    <div class="container">
+      <div id="traction" class="bubble hidden">
         <h2>Traction</h2>
         <label for="qty_wheels">Number of wheels</label>
         <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
@@ -57,8 +77,10 @@
           onchange="calculate()" />
         <div id="value_two"></div>
       </div>
+    </div>
 
-      <div id='drive' class="bubble">
+    <div class="container">
+      <div id="drive" class="bubble hidden">
         <h2>Engine</h2>
         <label for="power_type">Power type</label>
         <select name="power_type" value={{power_type}} onchange="calculate()">
@@ -104,8 +126,8 @@
     </div>
 
 
-    <div class='container-two'>
-      <div id='offensive' class="bubble">
+    <div class="container">
+      <div id="offensive" class="bubble hidden">
         <h2>Offensive</h2>
         <label for="armour">Armour</label>
         <select name="armour" value={{armour}} onchange="calculate()">
@@ -132,74 +154,82 @@
         <label for="qty_attacks">Number of Attacks<label>
             <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
       </div>
-      <div class="column">
-        <div id="misc" class="bubble">
-          <h2>Misc</h2>
-          <label for="fireproof">Fireproof</label>
-          <input id="fireproof" type="checkbox" name="fireproof" value="True">
-          <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
+    </div> 
+
+    <div class="container">
+      <div id="misc" class="bubble hidden">
+        <h2>Misc</h2>
+        <label for="fireproof">Fireproof</label>
+        <input id="fireproof" type="checkbox" name="fireproof" value="True">
+        <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
 
 
-          <label for="insulated">Insulated</label>
-          <input id="insulated" type="checkbox" name="insulated" value="True">
-          <input id="insulatedHidden" type="hidden" name="insulated" value="False">
+        <label for="insulated">Insulated</label>
+        <input id="insulated" type="checkbox" name="insulated" value="True">
+        <input id="insulatedHidden" type="hidden" name="insulated" value="False">
 
-          <label for="antibiotic">Antibiotic</label>
-          <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
-          <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
+        <label for="antibiotic">Antibiotic</label>
+        <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
+        <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
 
-          <label for="banging">Banging</label>
-          <input id="banging" type="checkbox" name="banging" value="True">
-          <input id="bangingHidden" type="hidden" name="banging" value="False">
-        </div>
-
-
-        <div id="algorithm" class="bubble">
-          <h2>Algorithm</h2>
-          <select name="algo" value={{algo}}>
-            <option value="{{algo}}" selected hidden>{{algo}}</option>
-            <option value="defensive">defensive</option>
-            <option value="steady">steady</option>
-            <option value="offensive">offensive</option>
-            <option value="titfortat">titfortat</option>
-            <option value="birandomohazard">random</option>
-          </select>
-        </div>
+        <label for="banging">Banging</label>
+        <input id="banging" type="checkbox" name="banging" value="True">
+        <input id="bangingHidden" type="hidden" name="banging" value="False">
       </div>
     </div>
 
-    <div id='flag' class="bubble">
-      <label for="flag_color">Flag color</label>
-      <input type="color" name="flag_color" value={{flag_color}} />
-      <div class="color-picker"></div>
-
-      <label for="flag_color_secondary">Flag secondary color</label>
-      <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
-
-      <label for="flag_pattern">Flag pattern </label>
-      <select name="flag_pattern" value={{flag_pattern}}>
-        <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
-        <option value="plain">plain</option>
-        <option value="vstripe">vstripe</option>
-        <option value="hstripe">hstripe</option>
-        <option value="dstripe">dstripe</option>
-        <option value="checker">checker</option>
-        <option value="spot">spot</option>
-      </select>
+    <div class="container">
+      <div id="algorithm" class="bubble hidden">
+        <h2>Algorithm</h2>
+        <select name="algo" value={{algo}}>
+          <option value="{{algo}}" selected hidden>{{algo}}</option>
+          <option value="defensive">defensive</option>
+          <option value="steady">steady</option>
+          <option value="offensive">offensive</option>
+          <option value="titfortat">titfortat</option>
+          <option value="birandomohazard">random</option>
+        </select>
+      </div>
     </div>
 
-    <input id="total_cost" type="number" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
+    <div class="container">
+      <div id="flag" class="bubble hidden">
+        <label for="flag_color">Flag color</label>
+        <input type="color" name="flag_color" value={{flag_color}} />
+        <div class="color-picker"></div>
+
+        <label for="flag_color_secondary">Flag secondary color</label>
+        <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
+
+        <label for="flag_pattern">Flag pattern </label>
+        <select name="flag_pattern" value={{flag_pattern}}>
+          <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
+          <option value="plain">plain</option>
+          <option value="vstripe">vstripe</option>
+          <option value="hstripe">hstripe</option>
+          <option value="dstripe">dstripe</option>
+          <option value="checker">checker</option>
+          <option value="spot">spot</option>
+        </select>
+      </div>
+    </div>
+    <input id="total_cost" type="hidden" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
     <input id="private" type="hidden" name="private" value="{{private}}"></input>
 
-
-    <div id="submit-container">
-      <input type="submit" name="task" value="UPDATE" class="button" />
-      <input type="submit" name="task" value="ADD" class="button" />
-      <input type="submit" name="task" value="DELETE" class="button" />
-      <a id="cancel" href="/">Cancel</a>
+    <div class="container">
+      <div id="submit" class="bubble hidden">
+        <input type="submit" name="task" value="UPDATE" class="button" />
+        <input type="submit" name="task" value="ADD" class="button" />
+        <input type="submit" name="task" value="DELETE" class="button" />
+      </div>
     </div>
   </form>
 </section>
+
+
+
+
+
 
 <script>
   let getBuggy = async (user, index) => {
@@ -217,8 +247,8 @@
     let availableBuggies = document.getElementById("buggies");
 
     for (let i = 0; i < index.length; i++) {
-      let node = document.createElement("BUTTON")
-      node.setAttribute("onclick", `getBuggy('${user}', ${index[i]})`)
+      let node = document.createElement("LI")
+      node.setAttribute("onclick", `getBuggy("${user}", ${index[i]})`)
       let nodeContent = document.createTextNode(`Buggy: ${index[i]}`)
       node.appendChild(nodeContent);
       availableBuggies.appendChild(node)
