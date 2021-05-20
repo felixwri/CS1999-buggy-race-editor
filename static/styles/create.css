@@ -1,104 +1,88 @@
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-}
-
-nav {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 8rem;
-  background-color: var(--grey);
-}
-
-nav ul {
-  position: relative;
-  list-style: none;
-}
-nav ul div {
-  padding: 0.25em 0.5em;
-  height: 2.5em;
-}
-
-nav ul h1 {
-  font-size: 0.8em;
-  color: hsl(0, 0%, 50%);
-  padding: 0.25em 0.5em;
-  height: 2.5em;
-}
-
-nav ul li {
-  display: flex;
-  align-items: center;
-  padding: 0.25em 0.5em;
-  height: 2.5em;
-
-  transition: background-color 0.2s ease;
-}
-
-nav ul li:hover {
-  background-color: var(--black);
-}
-
-nav ul ul {
-  position: absolute;
-  display: none;
-  top: 0;
-  left: 8rem;
-  width: 8rem;
-  background-color: hsl(0, 0%, 20%);
-}
-
-nav ul .dropdown {
-  position: relative;
-}
-
-nav ul .dropdown:hover ul {
-  display: initial;
-}
-
-/* .end {
-  color: hsl(0, 0%, 50%);
-} */
-
-section {
-  margin-left: 8rem;
+  overflow: overlay;
 }
 
 #head {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  text-align: center;
+  margin-bottom: 2vw;
 }
 
 #viewport {
-  position: absolute;
-  top: 5vh;
-  left: 8rem;
-  width: calc(100vw - 8rem);
-  height: 60vh;
-  background-color: hsl(0, 0%, 20%, 0.5);
+  height: 50vh;
+  width: 100vw;
+  background-color: var(--dark-red);
+}
 
+nav {
+  background-color: var(--black);
+  font-size: 0.8em;
+}
+nav ul{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+}
 
-  z-index: -1;
+nav ul li {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  list-style: none;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+nav ul li:hover {
+  border-radius: 5px;
+  background-color: var(--dark-blue);
+}
+
+form {
+  height: 50vh;
+  background-color: hsl(235, 56%, 17%);
+}
+
+.hidden {
+  display: none !important;
+  /* margin-left: 100%; */
 }
 
 .container {
   position: absolute;
-  max-width: 100%;
-  top: 70vh;
-  max-height: 30vh;
-  /* left: -20rem; */
+  width: 100%;
+  /* height: 100%; */
+
+  transition: margin 0.2s ease;
 }
 
-.hidden {
-  display: none;
+.bubble {
+  height: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
 }
 
-/* form {
-  display: none;
-} */
+#buggies {
+  margin-top: 2vw;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 2vw;
+}
+
+#buggies li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  aspect-ratio: 1;
+  border: 1px solid var(--white);
+  background-color: var(--muted-blue);
+}

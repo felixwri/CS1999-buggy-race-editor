@@ -141,22 +141,25 @@ function loadNewCar(message) {
         if (inputs[i].type === "submit") continue;
         inputs[i].value = message[inputs[i].name]
     }
-    let title = document.getElementById('head');
+    let title = document.getElementById('head-header');
 
     title.innerText = `Developing: ${message['buggy_name']}`;
-    title.style.fontSize = "2rem"
 }
 
-let active = "none"
-
 function form(section) {
-    sections = ['name', 'traction', 'drive', 'offensive', 'misc', 'algorithm', 'flag', 'submit']
+    sections = ['buggies', 'wheels', 'engine', 'offensive', 'flag', 'misc', 'submit']
 
+    previus = document.getElementById(active)
+    previus.classList.add('hidden')
     current = document.getElementById(section)
     current.classList.remove('hidden')
 
-    console.log(current)
+    highlight = document.getElementById(`list-${section}`)
+    
 
-    return current;
+    console.log(section)
+    console.log(active)
+
+    active = section;
 }
 

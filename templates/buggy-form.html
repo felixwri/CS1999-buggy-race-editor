@@ -2,60 +2,33 @@
 
 {% block content %}
 
-<nav>
-  <ul>
-    <li id="user">User</li>
-    <li class="dropdown">
-      Buggies
-      <ul id="buggies">
-      </ul>
-    </li>
-    <li class="dropdown">
-      Create
-      <ul>
-        <li onclick="form('traction')">Wheels</li>
-        <li onclick="form('drive')">Engine</li>
-        <li>Weapon</li>
-        <li>Misc</li>
-        <li>Flag</li>
-        <li onclick="form('submit')">Submit</li>
-      </ul>
-    </li>
-    <br>
-    <h1>Cost</h1>
-    <div id="cost-value">AutoFill</div>
-    <h1>Weight</h1>
-    <div id="weight-value">AutoFill</div>
-    <br>
-    <li class="end">AutoFill</li>
-    <li class="end">Update</li>
-    <li class="end">New</li>
-    <li class="end">Delete</li>
-  </ul>
-</nav>
-
-
-
-<!-- <div id=buggies></div> -->
-
 <section>
   <div id="head">
-    <h1>Developing: {{buggy_name}}</h1>
+    <h1 id="head-header">Developing: {{buggy_name}}</h1>
     <a class="button" href="/">home</a>
   </div>
 
-  <div id="viewport">Visualisation to go here</div>
+  <div id="viewport"></div>
+
+  <nav>
+    <ul>
+      <li onclick="form('buggies')">Buggies</li>
+      <li onclick="form('wheels')">Wheels</li>
+      <li onclick="form('engine')">Engine</li>
+      <li onclick="form('offensive')">Offensive</li>
+      <li onclick="form('flag')">Flag</li>
+      <li onclick="form('misc')">Misc</li>
+      <li onclick="form('submit')">Submit</li>
+    </ul>
+  </nav>
 
   <form action="/new" method="post">
-
     <div class="container">
-      <div id="name" class="bubble hidden"></div>
-      <label for="buggy_name">Enter a name for the buggy</label>
-      <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
+      <div id=buggies></div>
     </div>
 
     <div class="container">
-      <div id="traction" class="bubble hidden">
+      <div id="wheels" class="bubble hidden">
         <h2>Traction</h2>
         <label for="qty_wheels">Number of wheels</label>
         <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
@@ -80,7 +53,7 @@
     </div>
 
     <div class="container">
-      <div id="drive" class="bubble hidden">
+      <div id="engine" class="bubble hidden">
         <h2>Engine</h2>
         <label for="power_type">Power type</label>
         <select name="power_type" value={{power_type}} onchange="calculate()">
@@ -154,10 +127,21 @@
         <label for="qty_attacks">Number of Attacks<label>
             <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
       </div>
-    </div> 
+    </div>
 
     <div class="container">
       <div id="misc" class="bubble hidden">
+
+        <h2>Algorithm</h2>
+        <select name="algo" value={{algo}}>
+          <option value="{{algo}}" selected hidden>{{algo}}</option>
+          <option value="defensive">defensive</option>
+          <option value="steady">steady</option>
+          <option value="offensive">offensive</option>
+          <option value="titfortat">titfortat</option>
+          <option value="birandomohazard">random</option>
+        </select>
+
         <h2>Misc</h2>
         <label for="fireproof">Fireproof</label>
         <input id="fireproof" type="checkbox" name="fireproof" value="True">
@@ -175,20 +159,6 @@
         <label for="banging">Banging</label>
         <input id="banging" type="checkbox" name="banging" value="True">
         <input id="bangingHidden" type="hidden" name="banging" value="False">
-      </div>
-    </div>
-
-    <div class="container">
-      <div id="algorithm" class="bubble hidden">
-        <h2>Algorithm</h2>
-        <select name="algo" value={{algo}}>
-          <option value="{{algo}}" selected hidden>{{algo}}</option>
-          <option value="defensive">defensive</option>
-          <option value="steady">steady</option>
-          <option value="offensive">offensive</option>
-          <option value="titfortat">titfortat</option>
-          <option value="birandomohazard">random</option>
-        </select>
       </div>
     </div>
 
@@ -218,6 +188,8 @@
 
     <div class="container">
       <div id="submit" class="bubble hidden">
+        <label for="buggy_name">Enter a name for the buggy</label>
+        <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
         <input type="submit" name="task" value="UPDATE" class="button" />
         <input type="submit" name="task" value="ADD" class="button" />
         <input type="submit" name="task" value="DELETE" class="button" />
@@ -242,21 +214,23 @@
   function appendBuggies() {
     // this all gets linted even though it works fine
     let index = {{ privateIDs }}
-  
+
     let user = "temp"
     let availableBuggies = document.getElementById("buggies");
 
     for (let i = 0; i < index.length; i++) {
       let node = document.createElement("LI")
       node.setAttribute("onclick", `getBuggy("${user}", ${index[i]})`)
-      let nodeContent = document.createTextNode(`Buggy: ${index[i]}`)
+      let nodeContent = document.createTextNode(`${index[i]}`)
       node.appendChild(nodeContent);
       availableBuggies.appendChild(node)
-  
+
     }
   }
 
   document.body.onload = appendBuggies();
+  
+  let active = "buggies";
 
 </script>
 
