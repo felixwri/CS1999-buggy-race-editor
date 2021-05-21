@@ -2,87 +2,98 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: overlay;
 }
-
+body {
+  overflow-x: hidden;
+}
+#background {
+  position: absolute;
+  z-index: -2;
+}
 #head {
+  /* width: 100vw; */
   display: flex;
-  justify-content: space-between;
-  text-align: center;
-  margin-bottom: 2vw;
+  justify-content: center;
+  color: grey;
 }
-
 #viewport {
-  height: 50vh;
-  width: 100vw;
-  background-color: var(--dark-red);
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100vh;
+
+  background-color: black;
+
+  z-index: -2;
 }
 
-nav {
-  background-color: var(--black);
-  font-size: 0.8em;
+/* nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20vw;
+  height: 100vh;
+
+  background-color: darkblue;
 }
-nav ul{
+
+nav ul {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
-}
-
-nav ul li {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
   list-style: none;
-  cursor: pointer;
-
-  transition: background-color 0.2s ease;
-}
-
-nav ul li:hover {
-  border-radius: 5px;
-  background-color: var(--dark-blue);
 }
 
 form {
-  height: 50vh;
-  background-color: hsl(235, 56%, 17%);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: darkred;
+} */
+
+section {
+  display: flex;
+}
+#left {
+  width: 25%;
+  background-color: hsl(0, 0%, 0%, 0.9);
 }
 
-.hidden {
-  display: none !important;
-  /* margin-left: 100%; */
+#left nav{
+  display: flex;
+  justify-content: column;
 }
 
+#center {
+  width: 50%;
+}
+
+#right {
+  flex: 1 1 0%;
+  background-color: hsl(0, 0%, 0%, 0.9);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100vh;
+}
 .container {
-  position: absolute;
-  width: 100%;
-  /* height: 100%; */
-
-  transition: margin 0.2s ease;
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: hsl(0, 0%, 8%);
 }
 
 .bubble {
-  height: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-}
-
-#buggies {
-  margin-top: 2vw;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 2vw;
-}
-
-#buggies li {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  list-style: none;
-  aspect-ratio: 1;
-  border: 1px solid var(--white);
-  background-color: var(--muted-blue);
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.resizer {
+  width: 4px;
+  background-color: white;
+  cursor: ew-resize;
 }
