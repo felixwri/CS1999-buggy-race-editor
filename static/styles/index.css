@@ -1,22 +1,49 @@
 #title {
+    height: 20vh;
     font-size: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#home {
+.scene {
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: var(--muted-blue);
-    margin-top: 2rem;
-    border-radius: 20px;
     width: 100%;
-    height: 40vh;
+    height: 100vh;
+
+    z-index: -2;
 }
 
-#graph {
+.spacer {
+    position: absolute;
+    top: 20vh;
+    left: 20vw;
     background-color: var(--muted-blue);
-    margin-top: 2rem;
-    border-radius: 20px;
-    width: 100%;
-    height: 40vh;
+    width: 30vw;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    border-left: 2px solid white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    padding-left: 1rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    
+    transition: background-color 0.2s ease;
+    transition: padding 0.2s ease;
+}
+
+a:hover {
+    background-color: hsla(0, 0%, 0%, 0.1);
+    padding-left: 2rem;
 }

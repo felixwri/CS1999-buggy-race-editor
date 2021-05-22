@@ -4,7 +4,6 @@
 <div id=background>
   <div id="head">
     <h1 id="head-header">Developing: {{buggy_name}}</h1>
-    <button class="button">pressme</button>
   </div>
   <div id="viewport">
   </div>
@@ -14,12 +13,26 @@
   <div class="mega-container">
     <div id="left">
       <div class="user">
-        <p>lorem ipsum dolor sit amet, consectet</p>
+        <img src="../static/content/images/cat.jpg" alt="profile">
+        <h2>Guest</h2>
       </div>
       <div class="container">
-        <h1>all available buggies</h1>
+        <h1>All Buggies</h1>
         <div id=buggies></div>
       </div>
+
+      <div class="container">
+        <h1 onclick="automate()">Auto Build</h1>
+      </div>
+
+      <div class="container">
+        <h1>Stats</h1>
+        <label>Cost</label>
+        <div id="cost-value">0</div>
+        <label>Weight</label>
+        <div id="weight-value">0</div>
+      </div>
+
     </div>
     <div id="horizontalDragLeft" class="resizer"></div>
     <div id="left-scaffold"></div>
@@ -194,7 +207,7 @@
             <label for="buggy_name">Enter a name for the buggy</label>
             <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
             <input type="submit" name="task" value="UPDATE" class="button" />
-            <input type="submit" name="task" value="ADD" class="button" />
+            <input type="submit" name="task" value="NEW COPY" class="button" />
             <input type="submit" name="task" value="DELETE" class="button" />
           </div>
         </div>
@@ -208,7 +221,7 @@
 
 
 
-<script>
+<script type="text/javascript">
   let getBuggy = async (user, index) => {
     let response = await fetch(`http://localhost:5000/api/${user}/${index}`);
     let message = await response.json();
@@ -216,17 +229,30 @@
     loadNewCar(message);
   }
 
+  function buildProfiles() {
+    let raw = {{ profiles | tojson}} 
+    let profiles = [];
+
+    for (let i = 0; i < raw.length; i++) {
+      profiles.push(JSON.parse(raw[i]))
+    }
+
+    return profiles
+  }
+
   function appendBuggies() {
     // this all gets linted even though it works fine
-    let index = {{ privateIDs }}
+    let profiles = buildProfiles()
 
     let user = "temp"
     let availableBuggies = document.getElementById("buggies");
 
-    for (let i = 0; i < index.length; i++) {
+    for (let i = 0; i < profiles.length; i++) {
       let node = document.createElement("DIV")
-      node.setAttribute("onclick", `getBuggy("${user}", ${index[i]})`)
-      let nodeContent = document.createTextNode(`${index[i]}`)
+      node.style.backgroundColor = `${profiles[i].primary_color}`
+      node.setAttribute("onclick", `getBuggy("${user}", ${profiles[i].privateID})`)
+
+      let nodeContent = document.createTextNode(`${profiles[i].name} | ${profiles[i].privateID}`)
       node.appendChild(nodeContent);
       availableBuggies.appendChild(node)
 

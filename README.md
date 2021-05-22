@@ -4,7 +4,7 @@ CS1999: Buggy Race Editor
 > This is the "buggy editor" component of the Foundation Year Computer Science
 > project at RHUL.
 
-![image info](./static/images/cat.jpg)
+![image info](./static/content/images/cat.jpg)
 
 [Race server](http://rhul.buggyrace.net)
 

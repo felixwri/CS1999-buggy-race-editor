@@ -7,15 +7,19 @@
   <a href="/buggy" class="link">Show</a>
   <a href="/poster" class="link">Poster</a>
   <a href="/json" class="link">JSON</a>
+  <a href="{{ server_url }}">Race server</a>
+
 </nav>
 
-  <h1 id="title">
-    Buggy Developer
-  </h1>
+<h1 id="title">
+  Buggy Developer
+</h1>
 
-  <a href="{{ server_url }}">Race server</a>
-  <div id="home"></div>
-  <div id="graph"></div>
- 
+<div class="scene"></div>
+
+
+<script type="text/javascript" src="../static/scripts/three/three.js"></script>
+<script type="text/javascript" src="../static/scripts/three/GLTFLoader.js"></script>
+<script type="text/javascript" src="../static/scripts/scene.js"></script>
 
 {% endblock %}

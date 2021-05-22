@@ -72,10 +72,10 @@ async function automate() {
         select[i].options[randomIndex].selected = 'selected';
         // select[i].style.backgroundColor = 'var(--muted-green)';
 
-        if (prices[select[i].name] != undefined && select[i].value != 'None') {
-            targetSpend = targetSpend - parseInt(prices[select[i].name][select[i].value].cost)
-            // console.log(targetSpend)
-        }
+        // if (prices[select[i].name] != undefined && select[i].value != 'None') {
+        //     targetSpend = targetSpend - parseInt(prices[select[i].name][select[i].value].cost)
+        //     // console.log(targetSpend)
+        // }
     }
 
     // console.log(targetSpend);

@@ -1,4 +1,5 @@
 import sqlite3 as sql
+import json
 import random
 
 from components import validation
@@ -21,9 +22,16 @@ def getCar(owner):
 
         allData = cur.fetchall()
 
-        privateIDs = []
+        profiles = []
         for element in allData:
-            privateIDs.append(element[22])
+            carProfile = {
+                "name": element[23],
+                "privateID": element[22],
+                "primary_color": element[2],
+                "secondary_color": element[3],
+                "flag_pattern": element[4]
+            }
+            profiles.append(json.dumps(carProfile, sort_keys=True))
 
     except Exception as e:
         print(e)
@@ -31,7 +39,15 @@ def getCar(owner):
 
         # default settings
 
-        privateIDs = [1]
+        carProfile = {
+                "name": "first",
+                "privateID": "22222222",
+                "primary_color": "#ffffff",
+                "secondary_color": "#ffffff",
+                "flag_pattern": "plain"
+        }
+
+        profiles = [carProfile]
         data = (
             0,
             4,
@@ -56,7 +72,7 @@ def getCar(owner):
             0
         )
 
-    return data, privateIDs
+    return data, profiles
 
 
 def updateCar(form):

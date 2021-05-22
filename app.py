@@ -19,9 +19,9 @@ def create_buggy():
 
         owner = "temp"
 
-        buggyData, privateIDs = data.getCar(owner)
+        buggyData, profiles = data.getCar(owner)
 
-        print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {privateIDs}\n')
+        # print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {profiles}\n')
 
         return render_template("buggy-form.html",
                                qty_wheels=buggyData[1],
@@ -45,7 +45,7 @@ def create_buggy():
                                algo=buggyData[19],
                                total_cost=buggyData[20],
                                private=buggyData[22],
-                               privateIDs=privateIDs,
+                               profiles=profiles,
                                buggy_name=buggyData[23],
                                style='static/styles/create.css'
                                )
@@ -53,7 +53,7 @@ def create_buggy():
     elif request.method == 'POST':
         form = request.form
 
-        if form['task'] == 'ADD':
+        if form['task'] == 'NEW COPY':
             print('Trying to add')
             msg = data.addCar(form)
         elif form['task'] == 'DELETE':
