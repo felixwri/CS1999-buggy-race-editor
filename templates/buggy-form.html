@@ -1,205 +1,212 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<section id='make-a-buggy'>
+<div id=background>
   <div id="head">
-    <h1>Developing: {{buggy_name}}</h1>
-    <a class="button" href="/">home</a>
+    <h1 id="head-header">Developing: {{buggy_name}}</h1>
+    <button class="button">pressme</button>
   </div>
-
-  <div id="viewport">Visualisation to go here</div>
-
-  <h1 id="buggy-header"> Available Buggies</h1>
-  <div id=buggies>
+  <div id="viewport">
   </div>
+</div>
 
-  <div id="data-sheet">
-    <div id="cost">
-      <h2>Cost</h2>
-      <h3 id="cost-value"></h3>
-    </div>
-    <div id="weight">
-      <h2>Weight</h2>
-      <h3 id="weight-value"></h3>
-    </div>
-    <button id="auto" class="side-button" onclick="automate()">Auto Build</button>
-  </div>
-
-  <form action="/new" method="post">
-
-    <div class='bubble'>
-      <label for="buggy_name">Enter a name for the buggy</label>
-      <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
-    </div>
-
-
-    <div class='container'>
-      <div id='traction' class="bubble">
-        <h2>Traction</h2>
-        <label for="qty_wheels">Number of wheels</label>
-        <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
-          onchange="calculate()" />
-        <div id="value"></div>
-
-        <label for="tyres">Tyre type</label>
-        <select name="tyres" value={{tyres}} onchange="calculate()">
-          <option value="{{tyres}}" selected hidden>{{tyres}}</option>
-          <option value="knobbly">knobbly</option>
-          <option value="slick">slick</option>
-          <option value="steelband">steelband</option>
-          <option value="reactive">reactive</option>
-          <option value="maglev">maglev</option>
-        </select>
-
-        <label for="qty_tyres">Number of Tyres</label>
-        <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2"
-          onchange="calculate()" />
-        <div id="value_two"></div>
+<section>
+  <div class="mega-container">
+    <div id="left">
+      <div class="user">
+        <p>lorem ipsum dolor sit amet, consectet</p>
       </div>
-
-      <div id='drive' class="bubble">
-        <h2>Engine</h2>
-        <label for="power_type">Power type</label>
-        <select name="power_type" value={{power_type}} onchange="calculate()">
-          <option value="{{power_type}}" selected hidden>{{power_type}}</option>
-          <option value="petrol">petrol</option>
-          <option value="fusion">fusion</option>
-          <option value="steam">steam</option>
-          <option value="bio">bio</option>
-          <option value="electric">electric</option>
-          <option value="rocket">rocket</option>
-          <option value="hamster">hamster</option>
-          <option value="thermo">thermo</option>
-          <option value="solar">solar</option>
-          <option value="wind">wind</option>
-        </select>
-
-        <label for="power_units">Power units</label>
-        <input type="number" name="power_units" value={{power_units}} min="0" max="1000" onchange="calculate()" />
-
-        <label for="aux_power_type">Auxillary power</label>
-        <select name="aux_power_type" value={{aux_power_type}} onchange="calculate()">
-          <option value="{{aux_power_type}}" selected hidden>{{aux_power_type}}</option>
-          <option value="petrol">petrol</option>
-          <option value="fusion">fusion</option>
-          <option value="steam">steam</option>
-          <option value="bio">bio</option>
-          <option value="electric">electric</option>
-          <option value="rocket">rocket</option>
-          <option value="hamster">hamster</option>
-          <option value="thermo">thermo</option>
-          <option value="solar">solar</option>
-          <option value="wind">wind</option>
-        </select>
-
-        <label for="aux_power_units">Auxillary units</label>
-        <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"
-          onchange="calculate()" />
-
-        <label for="hamster_booster">H. booster</label>
-        <input type="number" name="hamster_booster" value={{hamster_booster}} min="0" max="1000"
-          onchange="calculate()" />
+      <div class="container">
+        <h1>all available buggies</h1>
+        <div id=buggies></div>
       </div>
     </div>
+    <div id="horizontalDragLeft" class="resizer"></div>
+    <div id="left-scaffold"></div>
+  </div>
 
+  <div class="mega-container">
+    <div id="right-scaffold"></div>
+    <div id="horizontalDragRight" class="resizer"></div>
+    <div id="right">
+      <form action="/new" method="post">
+        <div class="container">
+          <div id="wheels" class="bubble hidden">
+            <h2>Traction</h2>
+            <label for="qty_wheels">Number of wheels</label>
+            <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
+              onchange="calculate()" />
+            <div id="value"></div>
 
-    <div class='container-two'>
-      <div id='offensive' class="bubble">
-        <h2>Offensive</h2>
-        <label for="armour">Armour</label>
-        <select name="armour" value={{armour}} onchange="calculate()">
-          <option value="{{armour}}" selected hidden>{{armour}}</option>
-          <option value="none">none</option>
-          <option value="wood">wood</option>
-          <option value="aluminium">aluminium</option>
-          <option value="thinsteel">thinsteel</option>
-          <option value="thicksteel">thicksteel</option>
-          <option value="titanium">titanium</option>
-        </select>
+            <label for="tyres">Tyre type</label>
+            <select name="tyres" value={{tyres}} onchange="calculate()">
+              <option value="{{tyres}}" selected hidden>{{tyres}}</option>
+              <option value="knobbly">knobbly</option>
+              <option value="slick">slick</option>
+              <option value="steelband">steelband</option>
+              <option value="reactive">reactive</option>
+              <option value="maglev">maglev</option>
+            </select>
 
-        <label for="attack">Attack</label>
-        <select name="attack" value={{attack}} onchange="calculate()">
-          <option value="{{attack}}" selected hidden>{{attack}}</option>
-          <option value="none">none</option>
-          <option value="spike">spike</option>
-          <option value="flame">flame</option>
-          <option value="charge">charge</option>
-          <option value="biohazard">biohazard</option>
+            <label for="qty_tyres">Number of Tyres</label>
+            <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2"
+              onchange="calculate()" />
+            <div id="value_two"></div>
+          </div>
+        </div>
 
-        </select>
+        <div class="container">
+          <div id="engine" class="bubble hidden">
+            <h2>Engine</h2>
+            <label for="power_type">Power type</label>
+            <select name="power_type" value={{power_type}} onchange="calculate()">
+              <option value="{{power_type}}" selected hidden>{{power_type}}</option>
+              <option value="petrol">petrol</option>
+              <option value="fusion">fusion</option>
+              <option value="steam">steam</option>
+              <option value="bio">bio</option>
+              <option value="electric">electric</option>
+              <option value="rocket">rocket</option>
+              <option value="hamster">hamster</option>
+              <option value="thermo">thermo</option>
+              <option value="solar">solar</option>
+              <option value="wind">wind</option>
+            </select>
 
-        <label for="qty_attacks">Number of Attacks<label>
-            <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
-      </div>
-      <div class="column">
-        <div id="misc" class="bubble">
-          <h2>Misc</h2>
-          <label for="fireproof">Fireproof</label>
-          <input id="fireproof" type="checkbox" name="fireproof" value="True">
-          <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
+            <label for="power_units">Power units</label>
+            <input type="number" name="power_units" value={{power_units}} min="0" max="1000" onchange="calculate()" />
 
+            <label for="aux_power_type">Auxillary power</label>
+            <select name="aux_power_type" value={{aux_power_type}} onchange="calculate()">
+              <option value="{{aux_power_type}}" selected hidden>{{aux_power_type}}</option>
+              <option value="petrol">petrol</option>
+              <option value="fusion">fusion</option>
+              <option value="steam">steam</option>
+              <option value="bio">bio</option>
+              <option value="electric">electric</option>
+              <option value="rocket">rocket</option>
+              <option value="hamster">hamster</option>
+              <option value="thermo">thermo</option>
+              <option value="solar">solar</option>
+              <option value="wind">wind</option>
+            </select>
 
-          <label for="insulated">Insulated</label>
-          <input id="insulated" type="checkbox" name="insulated" value="True">
-          <input id="insulatedHidden" type="hidden" name="insulated" value="False">
+            <label for="aux_power_units">Auxillary units</label>
+            <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"
+              onchange="calculate()" />
 
-          <label for="antibiotic">Antibiotic</label>
-          <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
-          <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
-
-          <label for="banging">Banging</label>
-          <input id="banging" type="checkbox" name="banging" value="True">
-          <input id="bangingHidden" type="hidden" name="banging" value="False">
+            <label for="hamster_booster">H. booster</label>
+            <input type="number" name="hamster_booster" value={{hamster_booster}} min="0" max="1000"
+              onchange="calculate()" />
+          </div>
         </div>
 
 
-        <div id="algorithm" class="bubble">
-          <h2>Algorithm</h2>
-          <select name="algo" value={{algo}}>
-            <option value="{{algo}}" selected hidden>{{algo}}</option>
-            <option value="defensive">defensive</option>
-            <option value="steady">steady</option>
-            <option value="offensive">offensive</option>
-            <option value="titfortat">titfortat</option>
-            <option value="birandomohazard">random</option>
-          </select>
+        <div class="container">
+          <div id="offensive" class="bubble hidden">
+            <h2>Offensive</h2>
+            <label for="armour">Armour</label>
+            <select name="armour" value={{armour}} onchange="calculate()">
+              <option value="{{armour}}" selected hidden>{{armour}}</option>
+              <option value="none">none</option>
+              <option value="wood">wood</option>
+              <option value="aluminium">aluminium</option>
+              <option value="thinsteel">thinsteel</option>
+              <option value="thicksteel">thicksteel</option>
+              <option value="titanium">titanium</option>
+            </select>
+
+            <label for="attack">Attack</label>
+            <select name="attack" value={{attack}} onchange="calculate()">
+              <option value="{{attack}}" selected hidden>{{attack}}</option>
+              <option value="none">none</option>
+              <option value="spike">spike</option>
+              <option value="flame">flame</option>
+              <option value="charge">charge</option>
+              <option value="biohazard">biohazard</option>
+
+            </select>
+
+            <label for="qty_attacks">Number of Attacks<label>
+                <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
+          </div>
         </div>
-      </div>
+
+        <div class="container">
+          <div id="misc" class="bubble hidden">
+
+            <h2>Algorithm</h2>
+            <select name="algo" value={{algo}}>
+              <option value="{{algo}}" selected hidden>{{algo}}</option>
+              <option value="defensive">defensive</option>
+              <option value="steady">steady</option>
+              <option value="offensive">offensive</option>
+              <option value="titfortat">titfortat</option>
+              <option value="birandomohazard">random</option>
+            </select>
+
+            <h2>Misc</h2>
+            <label for="fireproof">Fireproof</label>
+            <input id="fireproof" type="checkbox" name="fireproof" value="True">
+            <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
+
+
+            <label for="insulated">Insulated</label>
+            <input id="insulated" type="checkbox" name="insulated" value="True">
+            <input id="insulatedHidden" type="hidden" name="insulated" value="False">
+
+            <label for="antibiotic">Antibiotic</label>
+            <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
+            <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
+
+            <label for="banging">Banging</label>
+            <input id="banging" type="checkbox" name="banging" value="True">
+            <input id="bangingHidden" type="hidden" name="banging" value="False">
+          </div>
+        </div>
+
+        <div class="container">
+          <div id="flag" class="bubble hidden">
+            <label for="flag_color">Flag color</label>
+            <input type="color" name="flag_color" value={{flag_color}} />
+            <div class="color-picker"></div>
+
+            <label for="flag_color_secondary">Flag secondary color</label>
+            <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
+
+            <label for="flag_pattern">Flag pattern </label>
+            <select name="flag_pattern" value={{flag_pattern}}>
+              <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
+              <option value="plain">plain</option>
+              <option value="vstripe">vstripe</option>
+              <option value="hstripe">hstripe</option>
+              <option value="dstripe">dstripe</option>
+              <option value="checker">checker</option>
+              <option value="spot">spot</option>
+            </select>
+          </div>
+        </div>
+        <input id="total_cost" type="hidden" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
+        <input id="private" type="hidden" name="private" value="{{private}}"></input>
+
+        <div class="container">
+          <div id="submit" class="bubble hidden">
+            <label for="buggy_name">Enter a name for the buggy</label>
+            <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
+            <input type="submit" name="task" value="UPDATE" class="button" />
+            <input type="submit" name="task" value="ADD" class="button" />
+            <input type="submit" name="task" value="DELETE" class="button" />
+          </div>
+        </div>
+      </form>
     </div>
-
-    <div id='flag' class="bubble">
-      <label for="flag_color">Flag color</label>
-      <input type="color" name="flag_color" value={{flag_color}} />
-      <div class="color-picker"></div>
-
-      <label for="flag_color_secondary">Flag secondary color</label>
-      <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
-
-      <label for="flag_pattern">Flag pattern </label>
-      <select name="flag_pattern" value={{flag_pattern}}>
-        <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
-        <option value="plain">plain</option>
-        <option value="vstripe">vstripe</option>
-        <option value="hstripe">hstripe</option>
-        <option value="dstripe">dstripe</option>
-        <option value="checker">checker</option>
-        <option value="spot">spot</option>
-      </select>
-    </div>
-
-    <input id="total_cost" type="number" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
-    <input id="private" type="hidden" name="private" value="{{private}}"></input>
-
-
-    <div id="submit-container">
-      <input type="submit" name="task" value="UPDATE" class="button" />
-      <input type="submit" name="task" value="ADD" class="button" />
-      <input type="submit" name="task" value="DELETE" class="button" />
-      <a id="cancel" href="/">Cancel</a>
-    </div>
-  </form>
+  </div>
 </section>
+
+
+
+
+
 
 <script>
   let getBuggy = async (user, index) => {
@@ -212,21 +219,23 @@
   function appendBuggies() {
     // this all gets linted even though it works fine
     let index = {{ privateIDs }}
-  
+
     let user = "temp"
     let availableBuggies = document.getElementById("buggies");
 
     for (let i = 0; i < index.length; i++) {
-      let node = document.createElement("BUTTON")
-      node.setAttribute("onclick", `getBuggy('${user}', ${index[i]})`)
-      let nodeContent = document.createTextNode(`Buggy: ${index[i]}`)
+      let node = document.createElement("DIV")
+      node.setAttribute("onclick", `getBuggy("${user}", ${index[i]})`)
+      let nodeContent = document.createTextNode(`${index[i]}`)
       node.appendChild(nodeContent);
       availableBuggies.appendChild(node)
-  
+
     }
   }
 
   document.body.onload = appendBuggies();
+
+  let active = "buggies";
 
 </script>
 
@@ -253,5 +262,6 @@
 </script>
 <script src="/static/scripts/prices.js"></script>
 <script src="/static/scripts/value.js"></script>
+<script src="/static/scripts/resize.js"></script>
 
 {% endblock %}

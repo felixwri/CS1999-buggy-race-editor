@@ -87,7 +87,7 @@ async function automate() {
         if (inputs[i].type === 'text') {
             // ? Random name generator
             console.log(inputs[i].name)
-            names = ["old", "long", "new", "cold", "hot", "diesel", "oil", "electric", "solar", "prime", "light", "dark"]
+            names = ["old", "long", "new", "cold", "hot", "diesel", "oil", "electric", "solar", "prime", "light", "dark", "lost", "ruined", "grey", "blue", "spark"]
 
             fakeName = `${names[Math.round(Math.random() * (names.length - 1))]}  ${names[Math.round(Math.random() * (names.length - 1))]}`;
 
@@ -141,5 +141,25 @@ function loadNewCar(message) {
         if (inputs[i].type === "submit") continue;
         inputs[i].value = message[inputs[i].name]
     }
+    let title = document.getElementById('head-header');
+
+    title.innerText = `Developing: ${message['buggy_name']}`;
+}
+
+function form(section) {
+    sections = ['buggies', 'wheels', 'engine', 'offensive', 'flag', 'misc', 'submit']
+
+    previus = document.getElementById(active)
+    previus.classList.add('hidden')
+    current = document.getElementById(section)
+    current.classList.remove('hidden')
+
+    highlight = document.getElementById(`list-${section}`)
+    
+
+    console.log(section)
+    console.log(active)
+
+    active = section;
 }
 
