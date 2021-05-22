@@ -1,8 +1,12 @@
 const rightResizer = document.getElementById('horizontalDragRight');
 const leftResizer = document.getElementById('horizontalDragLeft');
 
+// layer 1
+const leftSideScaffold = document.getElementById('left-scaffold');
 const leftSide = document.getElementById('left');
-const center = document.getElementById('center');
+
+//layer 2
+const rightSideScaffold = document.getElementById('right-scaffold');
 const rightSide = document.getElementById('right');
 
 // The current position of mouse for the right side
@@ -24,9 +28,8 @@ const mouseDownHandlerRight = function(e) {
     // Get the current mouse position
     rightX = e.clientX;
     rightY = e.clientY;
-    centerWidth = center.getBoundingClientRect().width;
 
-    console.log(centerWidth)
+    scaffoldWidth = rightSideScaffold.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
     document.addEventListener('mousemove', mouseMoveHandlerRight);
@@ -36,19 +39,22 @@ const mouseDownHandlerRight = function(e) {
 const mouseMoveHandlerRight = function(e) {
     // How far the mouse has been moved
     // console.log(`${e.clientX}, ${window.innerWidth}`)
+    const limit = leftSide.getBoundingClientRect().width;
     const dx = e.clientX - rightX;
     // const dy = e.clientY - rightY;
 
     if (e.clientX > window.innerWidth) return;
+    if (e.clientX + 150 > window.innerWidth) return;
+    if (e.clientX - 20 < limit) return;
 
-    const newcenterWidth = (centerWidth + dx) * 100 / rightResizer.parentNode.getBoundingClientRect().width;
+    const newScaffoldWidth = (scaffoldWidth + dx) * 100 / rightResizer.parentNode.getBoundingClientRect().width;
     // console.log(`${newcenterWidth}`)
-    center.style.width = `${newcenterWidth}%`;
+    rightSideScaffold.style.width = `${newScaffoldWidth}%`;
 
     rightResizer.style.cursor = 'col-resize';
 
-    center.style.userSelect = 'none';
-    center.style.pointerEvents = 'none';
+    rightSideScaffold.style.userSelect = 'none';
+    rightSideScaffold.style.pointerEvents = 'none';
 
     rightSide.style.userSelect = 'none';
     rightSide.style.pointerEvents = 'none';
@@ -57,8 +63,8 @@ const mouseMoveHandlerRight = function(e) {
 const mouseUpHandlerRight = function() {
     rightResizer.style.removeProperty('cursor');
 
-    center.style.removeProperty('user-select');
-    center.style.removeProperty('pointer-events');
+    rightSideScaffold.style.removeProperty('user-select');
+    rightSideScaffold.style.removeProperty('pointer-events');
 
     rightSide.style.removeProperty('user-select');
     rightSide.style.removeProperty('pointer-events');
@@ -81,10 +87,7 @@ const mouseDownHandlerLeft = function(e) {
     leftX = e.clientX;
     leftY = e.clientY;
     
-    leftWidth = left.getBoundingClientRect().width;
-    centerWidth = center.getBoundingClientRect().width;
-
-    console.log(leftWidth)
+    leftWidth = leftSide.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
     document.addEventListener('mousemove', mouseMoveHandlerLeft);
@@ -93,37 +96,37 @@ const mouseDownHandlerLeft = function(e) {
 
 const mouseMoveHandlerLeft = function(e) {
     // How far the mouse has been moved
-    // console.log(`${e.clientX}, ${window.innerWidth}`)
+
+    const limit = rightSide.getBoundingClientRect().left;
     const dx = e.clientX - leftX;
     // const dy = e.clientY - leftY;
 
-    if (e.clientX > window.innerWidth) return;
+    if (e.clientX < 0) return;
+    if (e.clientX - 150 < 0) return;
+    if (e.clientX + 20 > limit) return;
 
-    const newLeftWidth = (leftWidth + dx) * 100 / leftResizer.parentNode.getBoundingClientRect().width;
+    const newScaffoldWidth = (leftWidth + dx) * 100 / leftResizer.parentNode.getBoundingClientRect().width;
 
     // console.log(`${newcenterWidth}`)
-    left.style.width = `${newLeftWidth}%`;
-
-    // console.log(center.style.width)
-    // left.style.width = `${newLeftWidth}%`;
+    leftSideScaffold.style.width = `${100 - newScaffoldWidth}%`;
 
     leftResizer.style.cursor = 'col-resize';
 
-    center.style.userSelect = 'none';
-    center.style.pointerEvents = 'none';
+    leftSide.style.userSelect = 'none';
+    leftSide.style.pointerEvents = 'none';
 
-    rightSide.style.userSelect = 'none';
-    rightSide.style.pointerEvents = 'none';
+    leftSideScaffold.style.userSelect = 'none';
+    leftSideScaffold.style.pointerEvents = 'none';
 };
 
 const mouseUpHandlerLeft = function() {
     leftResizer.style.removeProperty('cursor');
 
-    center.style.removeProperty('user-select');
-    center.style.removeProperty('pointer-events');
+    leftSide.style.removeProperty('user-select');
+    leftSide.style.removeProperty('pointer-events');
 
-    rightSide.style.removeProperty('user-select');
-    rightSide.style.removeProperty('pointer-events');
+    leftSideScaffold.style.removeProperty('user-select');
+    leftSideScaffold.style.removeProperty('pointer-events');
 
     // Remove the handlers of `mousemove` and `mouseup`
     document.removeEventListener('mousemove', mouseMoveHandlerLeft);
