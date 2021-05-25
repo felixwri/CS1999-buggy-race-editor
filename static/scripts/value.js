@@ -163,3 +163,19 @@ function form(section) {
     active = section;
 }
 
+async function submit() {
+    const response = await fetch('http://localhost:5000/new', {
+
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({a: 1, b: 'Textual content'})
+  });
+
+//   const content = await response.json();
+
+  console.log(await response);
+}
+

@@ -1,23 +1,78 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 import sqlite3 as sql
+import json
 
 from components import data
+from components import users
 
 app = Flask(__name__)
 
+USERS = []
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
-BUGGY_RACE_SERVER_URL = "http://rhul.buggyrace.net"
+BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
-@app.route('/')
+app.secret_key = "super_secret_key"
+
+
+def validate():
+    if session.get('user') is not None:
+        print('real user')
+        return "true"
+    else:
+        print('does note exist')
+        return "false"
+
+
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, style='static/styles/index.css')
+    if request.method == 'GET':
+
+        print(f"IP: {request.remote_addr}\nSession.get: { session.get('user') }")
+
+        if session.get('user') is not None:
+            skipLogin = json.dumps(
+                {
+                    "username": session.get('user')
+                }
+            )
+        else:
+            skipLogin = json.dumps(
+                {
+                    "username": "none"
+                }
+            )
+
+        return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, skip=skipLogin, style='static/styles/index.css')
+
+    elif request.method == 'POST':
+
+        # ? login
+
+        print(f"IP: {request.remote_addr}\nSession: { session.get('user') }")
+
+        username = request.json['username']
+        password = request.json['password']
+
+        if username == "guest" and password == "none":
+            valid = "true"
+        else:
+            valid = users.exists(username, password)
+
+        if valid == "true":
+            session['user'] = username
+            return jsonify(username=username)
+        else:
+            return jsonify(username="none")
+
 
 @app.route('/new', methods=['POST', 'GET'])
 def create_buggy():
     if request.method == 'GET':
 
         owner = "temp"
+
+        print(session['user'])
 
         buggyData, profiles = data.getCar(owner)
 
@@ -61,7 +116,9 @@ def create_buggy():
         else:
             msg = data.updateCar(form)
 
+        # return msg
         return render_template("updated.html", msg=msg, style='static/styles/create.css')
+
 
 @app.route('/buggy')
 def show_buggies():
@@ -81,6 +138,7 @@ def poster():
 # def edit_buggy():
 #     return render_template("buggy-form.html")
 
+
 @app.route('/json')
 def summary():
     con = sql.connect(DATABASE_FILE)
@@ -96,18 +154,19 @@ def summary():
 @app.route('/api/<user>/<private>')
 def api(user, private):
 
-    #? respond with json for a particular users buggy 
+    # ? respond with json for a particular users buggy
 
     con = sql.connect(DATABASE_FILE)
     try:
         con.row_factory = sql.Row
         cur = con.cursor()
-        cur.execute("SELECT * FROM buggies WHERE private=? AND owner=? LIMIT 1", (private, user))
+        cur.execute(
+            "SELECT * FROM buggies WHERE private=? AND owner=? LIMIT 1", (private, user))
 
         buggies = dict(zip([column[0]
-                    for column in cur.description], cur.fetchone())).items()
+                            for column in cur.description], cur.fetchone())).items()
         return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
-    
+
     except Exception as e:
         print(e)
         return jsonify(error="Invaild Index")

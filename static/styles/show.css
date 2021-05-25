@@ -1,10 +1,14 @@
+body {
+  background-color: var(--muted-blue);
+}
+
 table {
     border: 1px solid #000000;
     border-collapse: collapse;
     margin: 0 0 2em 0;
   }
-  table td, table th {
-    padding: 0.25em;
-    border: 1px solid var(--blue);
-    padding: 0.5rem;
-  }
+table td, table th {
+  padding: 0.25em;
+  border: 1px solid var(--dark-blue);
+  padding: 0.5rem;
+}

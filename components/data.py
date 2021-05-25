@@ -109,7 +109,7 @@ def updateCar(form):
             algo=?,
             total_cost=?,
             buggy_name=?
-            WHERE id=?""",
+            WHERE private=?""",
             (
                 form['qty_wheels'],
                 form['flag_color'],
@@ -133,12 +133,12 @@ def updateCar(form):
                 form['total_cost'],
                 form['buggy_name'],
 
-                DEFAULT_BUGGY_ID
+                form['private']
             )
         )
 
         con.commit()
-        msg = "Record successfully saved"
+        msg = f"Record successfully updated for: {form['buggy_name']} {form['private']}"
 
     except Exception as e:
         print(e)

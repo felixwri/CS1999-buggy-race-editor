@@ -5,8 +5,9 @@ let renderer;
 let scene;
 let model;
 let timeline = 0;
+let loggedIn = false;
 
-var raycaster, mouse = { x: 0, y: 0 };
+let raycaster, mouse = { x: 0, y: 0 };
 
 let textureLoader = new THREE.TextureLoader();
 
@@ -42,32 +43,24 @@ function init() {
     container = document.querySelector('.scene');
 
     const manager = new THREE.LoadingManager();
-    manager.onStart = function (url, itemsLoaded, itemsTotal) {
-
+    manager.onStart = (url, itemsLoaded, itemsTotal) => {
         // console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
         console.log('Started loading file: ' + url + '.');
-
     };
 
-    manager.onLoad = function () {
+    manager.onLoad = () => {
         console.log('Loading complete!');
-
         // let loadingScreen = document.getElementById("loading");
         // loadingScreen.className += "loaded";
-
     };
 
-    manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-
+    manager.onProgress = (url, itemsLoaded, itemsTotal) => {
         console.log('Loaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
         // console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
-
     };
 
-    manager.onError = function (url) {
-
+    manager.onError = (url) => {
         console.log('There was an error loading ' + url);
-
     };
 
     raycaster = new THREE.Raycaster();
@@ -82,7 +75,7 @@ function init() {
 
     // camera
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.set(0, 1, 0);
+    camera.position.set(0, 1.5, 10);
     // camera.rotation.x = -0.2
 
     // lights
@@ -101,7 +94,7 @@ function init() {
     container.appendChild(renderer.domElement);
 
 
-    renderer.domElement.addEventListener('click', raycast, false);
+    // renderer.domElement.addEventListener('click', raycast, false);
     // renderer.domElement.addEventListener( 'move', raycast, false );
 
 
@@ -149,14 +142,31 @@ function animate() {
     // rot += 0.01;
     model.rotation.y = model.rotation.y + Math.sin(timeline * Math.PI / 180) / (75)
 
-    if (timeline > 0) { timeline = timeline - 0.1 } else { timeline = 0 }
+    // if (timeline > 0) { timeline = timeline - 0.1 } else { timeline = 0 }
 
-    if ( wireframe.material.opacity < 0.5) { wireframe.material.opacity += 0.01 }
+    if ( wireframe.material.opacity < 0.5) wireframe.material.opacity += 0.01 
+
+    if ( camera.position.z > 5 && loggedIn == false ) { 
+
+        camera.position.z -= ( ( camera.position.z - 5 ) / 100 ) 
+
+    } else if ( camera.position.z > 0 && loggedIn == true ) {
+
+        camera.position.z -= ( camera.position.z / 100 ) 
+
+    }
+
+    wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 50000
+    wireframe.rotation.z = (mouse.y - (window.innerHeight / 2)) / 50000
 
     renderer.render(scene, camera);
+
+    // console.log(mouse.x, mouse.y)
 }
 
 init();
+
+// other functions
 
 function onWindowResize() {
     camera.aspect = container.clientWidth / container.clientHeight;
@@ -166,6 +176,11 @@ function onWindowResize() {
 }
 
 window.addEventListener("resize", onWindowResize);
+
+window.addEventListener("mousemove", (event) => {
+    mouse.x = event.x
+    mouse.y = event.y
+})
 
 function raycast(e) {
 
@@ -184,6 +199,5 @@ function raycast(e) {
     //     console.log(intersects.length);
     //     timeline = 45;
     // }
-
 }
 

@@ -1,9 +1,135 @@
-#title {
+title {
     height: 20vh;
     font-size: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.login {
+    z-index: 5;
+
+    position: absolute;
+    top: 20vh;
+    left: 20vw;
+    /* background-color: var(--muted-blue); */
+    width: 25vw;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    border-left: 2px solid white;
+
+    transition: left 1s ease;
+}
+
+.login > * {
+    padding-left: 1rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.login-side-panel {
+    z-index: 5;
+
+    position: absolute;
+    top: 20vh;
+    left: 50vw;
+
+    width: 25vw;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    opacity: 1;
+
+    transition: opacity 1s ease;
+
+    /* border-left: 2px solid white; */
+
+}
+
+.login-side-panel > * {
+    padding-left: 1rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#profile {
+    z-index: 5;
+
+    position: absolute;
+    top: 20vh;
+    left: 70vw;
+    /* background-color: var(--muted-blue); */
+    width: 25vw;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+
+    /* border-top: 2px solid white; */
+}
+#profile-name {
+    font-size: 3rem;
+}
+/* #profile > * {
+    padding-left: 1rem;
+} */
+
+svg {
+    fill: white;
+    transition: fill 0.2s ease;
+}
+
+svg:hover {
+    fill: var(--blue);
+}
+
+.inline {
+    width: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#profile img[alt="profile"] {
+    max-width: 5rem;
+    max-height: 5rem;
+}
+
+
+input {
+    background: none;
+    border: none;
+    outline: none;
+    height: 3rem;
+    font-size: 1.2rem;
+    color: white;
+    
+}
+
+.login-option {
+    text-decoration: none;
+    color: white;
+    
+    transition: background-color 0.2s ease;
+    transition: padding 0.2s ease;
+}
+
+.login-option:hover {
+    background-color: hsla(0, 0%, 0%, 0.1);
+    padding-left: 2rem;
 }
 
 .scene {
@@ -16,13 +142,12 @@
 
     z-index: -2;
 }
-
 .spacer {
     position: absolute;
     top: 20vh;
     left: 20vw;
-    background-color: var(--muted-blue);
-    width: 30vw;
+    /* background-color: var(--muted-blue); */
+    width: 25vw;
     height: 30vh;
 
     display: flex;
@@ -32,7 +157,7 @@
     border-left: 2px solid white;
 }
 
-a {
+.spacer > * {
     text-decoration: none;
     color: white;
     padding-left: 1rem;
@@ -43,7 +168,15 @@ a {
     transition: padding 0.2s ease;
 }
 
-a:hover {
+.spacer > *:hover {
     background-color: hsla(0, 0%, 0%, 0.1);
     padding-left: 2rem;
+}
+
+.opacity {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.none {
+    display: none;
 }

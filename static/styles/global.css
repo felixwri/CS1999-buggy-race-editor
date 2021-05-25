@@ -18,7 +18,7 @@
     --black-opacity: rgba(0, 0, 0, 0.575);
 
     --editor-background: hsla(0, 0%, 5%, 1);
-    --editor-clear: hsla(0, 0%, 5%, 0.2);
+    --editor-clear: hsla(0, 0%, 5%, 1);
 
     font-size: 16px;
 }
@@ -27,7 +27,7 @@ body {
   font-family: 'Noto Sans', sans-serif;
   font-size: 1.2em;
   color: var(--white);
-  background-color: var(--primary);
+  background-color: var(--muted-blue);
 
   transition: margin 0.2s ease;
 }
