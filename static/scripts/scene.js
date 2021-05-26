@@ -156,8 +156,8 @@ function animate() {
 
     }
 
-    wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 50000
-    wireframe.rotation.z = (mouse.y - (window.innerHeight / 2)) / 50000
+    wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 30000
+    wireframe.rotation.z = (mouse.y - (window.innerHeight / 2)) / 30000
 
     renderer.render(scene, camera);
 

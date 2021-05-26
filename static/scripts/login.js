@@ -13,14 +13,32 @@ const auth = async (object) => {
     return response
 };
 
+// !
+// ! This needs server side validation 
+// ! 
 
-async function formToJson() {
-    const inputs = document.getElementsByTagName('input')
+async function newToJson() {
+    const inputs = document.getElementsByClassName('new')
 
     let obj =
     {
         "username": inputs[0].value,
-        "password": inputs[1].value
+        "password": inputs[1].value,
+        "create": true
+    }
+
+    return obj;
+}
+
+
+async function existingToJson() {
+    const inputs = document.getElementsByClassName('existing')
+
+    let obj =
+    {
+        "username": inputs[0].value,
+        "password": inputs[1].value,
+        "create": false
     }
 
     return obj;
@@ -30,7 +48,8 @@ async function loginAsGuest() {
     let obj =
     {
         "username": "guest",
-        "password": "none"
+        "password": "none",
+        "create": false
     }
 
     let valid = await auth(obj)
@@ -41,12 +60,21 @@ async function loginAsGuest() {
 }
 
 async function tryLogin() {
-    let obj = await formToJson()
+    let obj = await existingToJson()
     let valid = await auth(obj)
     console.log(valid)
     if (valid.username === 'none') return;
 
-    transition("admin")
+    transition(valid.username)
+}
+
+async function tryCreate() {
+    let obj = await newToJson()
+    let valid = await auth(obj)
+    console.log(valid)
+    if (valid.username === 'none') return;
+
+    transition(valid.username)
 }
 
 function showLogin() {

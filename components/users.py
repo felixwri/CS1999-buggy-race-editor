@@ -23,3 +23,27 @@ def exists(username, password):
         print("failed")
 
         return "false"
+
+def create(username, password):
+    con = sql.Connection(DATABASE_FILE)
+
+    try:
+        cur = con.cursor()
+
+        values = (
+            username,
+            password
+        )
+
+        cur.execute("""INSERT INTO users ( username, password) VALUES (?, ?)""", (values))
+
+        con.commit()
+        msg = "success"
+
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        msg = "failed"
+
+    return msg

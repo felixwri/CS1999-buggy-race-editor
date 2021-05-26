@@ -15,25 +15,16 @@ BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 app.secret_key = "super_secret_key"
 
 
-def validate():
-    if session.get('user') is not None:
-        print('real user')
-        return "true"
-    else:
-        print('does note exist')
-        return "false"
-
-
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
 
-        print(f"IP: {request.remote_addr}\nSession.get: { session.get('user') }")
+        # print(f"IP: {request.remote_addr}\nSession.get: { session.get('user') }")
 
-        if session.get('user') is not None:
+        if session.get('username') is not None:
             skipLogin = json.dumps(
                 {
-                    "username": session.get('user')
+                    "username": session.get('username')
                 }
             )
         else:
@@ -49,20 +40,32 @@ def home():
 
         # ? login
 
-        print(f"IP: {request.remote_addr}\nSession: { session.get('user') }")
+        print(f"IP: {request.remote_addr}\nSession: { session.get('username') }\nPermission: { session.get('permission') }")
 
         username = request.json['username']
         password = request.json['password']
+        createAccount = request.json['create']
+
+        # ? set permissions to normal, if username is guest sets the permission to guest
+        permission = "normal"
+
+        if createAccount:
+            users.create(username, password)
 
         if username == "guest" and password == "none":
             valid = "true"
+            permission = "guest"
+
         else:
             valid = users.exists(username, password)
 
         if valid == "true":
-            session['user'] = username
+            session['username'] = username
+            session['permission'] = permission
             return jsonify(username=username)
         else:
+            session['username'] = None
+            session['permission'] = None
             return jsonify(username="none")
 
 
@@ -70,13 +73,21 @@ def home():
 def create_buggy():
     if request.method == 'GET':
 
+        if session.get('permission') == None or session.get('username') is None:
+            return """
+            <h1> No permissions found </h1>
+            <p> Try signing in as guest </p>
+            """
+
         owner = "temp"
 
-        print(session['user'])
+        print(session['username'])
 
         buggyData, profiles = data.getCar(owner)
 
         # print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {profiles}\n')
+
+        
 
         return render_template("buggy-form.html",
                                qty_wheels=buggyData[1],
@@ -102,6 +113,7 @@ def create_buggy():
                                private=buggyData[22],
                                profiles=profiles,
                                buggy_name=buggyData[23],
+                               username=session.get('username'),
                                style='static/styles/create.css'
                                )
 
