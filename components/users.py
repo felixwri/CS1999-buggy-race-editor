@@ -38,12 +38,36 @@ def create(username, password):
         cur.execute("""INSERT INTO users ( username, password) VALUES (?, ?)""", (values))
 
         con.commit()
-        msg = "success"
+        msg = "successfully added"
 
     except Exception as e:
         print(e)
         con.rollback()
 
-        msg = "failed"
+        msg = "failed to add"
+
+    return msg
+
+def destroy(username, password):
+    con = sql.Connection(DATABASE_FILE)
+
+    try:
+        cur = con.cursor()
+
+        values = (
+            username,
+            password
+        )
+
+        cur.execute("""DELETE FROM users WHERE username=? AND password=? LIMIT 1""", (username, password))
+
+        con.commit()
+        msg = "successfully deleted"
+
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        msg = "failed to delete"
 
     return msg

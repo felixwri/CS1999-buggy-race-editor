@@ -5,7 +5,9 @@ let renderer;
 let scene;
 let model;
 let timeline = 0;
+
 let loggedIn = false;
+let reset = false;
 
 let raycaster, mouse = { x: 0, y: 0 };
 
@@ -124,7 +126,7 @@ function init() {
         // });
         // console.log(model.geometry)
         wireframe = new ObjectBuilder().wireframe(model.geometry, 0.5);
-        wireframe.material.opacity = 0; 
+        wireframe.material.opacity = 0;
         scene.add(wireframe);
         // model.rotation.y = 45;
         animate();
@@ -144,16 +146,35 @@ function animate() {
 
     // if (timeline > 0) { timeline = timeline - 0.1 } else { timeline = 0 }
 
-    if ( wireframe.material.opacity < 0.5) wireframe.material.opacity += 0.01 
+    if (wireframe.material.opacity < 0.5) wireframe.material.opacity += 0.01
 
-    if ( camera.position.z > 5 && loggedIn == false ) { 
+    if (!reset) {
+        if (camera.position.z > 5 && loggedIn == false) {
 
-        camera.position.z -= ( ( camera.position.z - 5 ) / 100 ) 
+            camera.position.z -= ((camera.position.z - 5) / 100)
 
-    } else if ( camera.position.z > 0 && loggedIn == true ) {
+        } else if (camera.position.z > -5 && loggedIn == false) {
 
-        camera.position.z -= ( camera.position.z / 100 ) 
+            camera.position.z -= (camera.position.z / 100)
 
+        } else if (camera.position.z > 0 && loggedIn == true) {
+
+            camera.position.z -= (camera.position.z / 100)
+
+        }
+
+    } else {
+        
+        if (camera.position.z < 5) {
+
+            camera.position.z += ((5.5 - camera.position.z) / 50)
+
+        } else {
+
+            reset = false;
+            loggedIn = false;
+
+        }
     }
 
     wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 30000

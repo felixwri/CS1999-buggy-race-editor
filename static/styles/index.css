@@ -79,7 +79,6 @@ title {
 
     transition: opacity 1s ease;
 
-    /* border-top: 2px solid white; */
 }
 #profile-name {
     font-size: 3rem;
@@ -88,14 +87,33 @@ title {
     padding-left: 1rem;
 } */
 
-svg {
+.positive {
     fill: white;
+}
+
+.positive:hover {
+    fill: var(--green);
     transition: fill 0.2s ease;
 }
 
-svg:hover {
-    fill: var(--blue);
+.neutral {
+    fill: white;
 }
+
+.neutral:hover {
+    fill: var(--blue);
+    transition: fill 0.2s ease;
+}
+
+.warning {
+    fill: white;
+}
+
+.warning:hover {
+    fill: var(--red);
+    transition: fill 0.2s ease;
+}
+
 
 .inline {
     width: 5rem;
@@ -113,7 +131,7 @@ input {
     background: none;
     border: none;
     outline: none;
-    height: 3rem;
+    /* height: 3rem; */
     font-size: 1.2rem;
     color: white;
     

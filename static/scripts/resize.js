@@ -45,7 +45,7 @@ const mouseMoveHandlerRight = function(e) {
 
     if (e.clientX > window.innerWidth) return;
     if (e.clientX + 150 > window.innerWidth) return;
-    if (e.clientX - 20 < limit) return;
+    if (e.clientX - 30 < limit) return;
 
     const newScaffoldWidth = (scaffoldWidth + dx) * 100 / rightResizer.parentNode.getBoundingClientRect().width;
     // console.log(`${newcenterWidth}`)
@@ -103,7 +103,7 @@ const mouseMoveHandlerLeft = function(e) {
 
     if (e.clientX < 0) return;
     if (e.clientX - 150 < 0) return;
-    if (e.clientX + 20 > limit) return;
+    if (e.clientX + 30 > limit) return;
 
     const newScaffoldWidth = (leftWidth + dx) * 100 / leftResizer.parentNode.getBoundingClientRect().width;
 

@@ -21,6 +21,8 @@ def home():
 
         # print(f"IP: {request.remote_addr}\nSession.get: { session.get('user') }")
 
+        print(f"IP: {request.remote_addr}\nSession: { session.get('username') }\nPermission: { session.get('permission') }")
+
         if session.get('username') is not None:
             skipLogin = json.dumps(
                 {
@@ -38,23 +40,36 @@ def home():
 
     elif request.method == 'POST':
 
-        # ? login
+        # ? logout
 
-        print(f"IP: {request.remote_addr}\nSession: { session.get('username') }\nPermission: { session.get('permission') }")
+        method = request.json['method']
+
+        if method == "logout":
+            session.pop('username', None)
+            session.pop('permission', None)
+            return jsonify(username="None: logged out")
+        
+        # ? login
 
         username = request.json['username']
         password = request.json['password']
-        createAccount = request.json['create']
+        
 
         # ? set permissions to normal, if username is guest sets the permission to guest
         permission = "normal"
 
-        if createAccount:
+        # ? create account
+
+        if method == "create":
             users.create(username, password)
+
+        # ? sign in as guest
 
         if username == "guest" and password == "none":
             valid = "true"
             permission = "guest"
+
+        # ? check if user exists
 
         else:
             valid = users.exists(username, password)
@@ -86,8 +101,6 @@ def create_buggy():
         buggyData, profiles = data.getCar(owner)
 
         # print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {profiles}\n')
-
-        
 
         return render_template("buggy-form.html",
                                qty_wheels=buggyData[1],
@@ -134,6 +147,13 @@ def create_buggy():
 
 @app.route('/buggy')
 def show_buggies():
+
+    if session.get('permission') == None or session.get('username') is None:
+            return """
+            <h1> No permissions found </h1>
+            <p> Try signing in as guest </p>
+            """
+
     con = sql.connect(DATABASE_FILE)
     con.row_factory = sql.Row
     cur = con.cursor()
@@ -144,6 +164,13 @@ def show_buggies():
 
 @app.route('/poster')
 def poster():
+
+    if session.get('permission') == None or session.get('username') is None:
+            return """
+            <h1> No permissions found </h1>
+            <p> Try signing in as guest </p>
+            """
+
     return render_template("poster.html")
 
 # @app.route('/edit')
@@ -153,6 +180,13 @@ def poster():
 
 @app.route('/json')
 def summary():
+
+    if session.get('permission') == None or session.get('username') is None:
+            return """
+            <h1> No permissions found </h1>
+            <p> Try signing in as guest </p>
+            """
+
     con = sql.connect(DATABASE_FILE)
     con.row_factory = sql.Row
     cur = con.cursor()
