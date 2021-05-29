@@ -1,4 +1,7 @@
 import sqlite3
+from dotenv import dotenv_values
+
+config = dotenv_values(".env")
 
 DATABASE_FILE = "database.db"
 
@@ -32,8 +35,8 @@ connection.execute("""
     banging               VARCHAR(10) DEFAULT "False",
     algo                  VARCHAR(20) DEFAULT steady,
     total_cost            INTEGER DEFAULT 0,
-    owner                 VARCHAR(20) DEFAULT 'temp',
-    private               INTEGER DEFAULT 22222222,
+    owner                 VARCHAR(20) DEFAULT 'guest',
+    private               INTEGER DEFAULT 10000000,
     buggy_name            VARCHAR(30) DEFAULT "First"
   )
 
@@ -61,7 +64,8 @@ connection.execute("""
 CREATE TABLE IF NOT EXISTS users (
   id                    INTEGER PRIMARY KEY,
   username              VARCHAR(32),
-  password              VARCHAR(64)
+  password              VARCHAR(64),
+  is_admin              VARCHAR(1) DEFAULT FALSE
 )
 
 """)
@@ -73,7 +77,7 @@ cursor = connection.cursor()
 cursor.execute("SELECT * FROM users LIMIT 1")
 rows = cursor.fetchall()
 if len(rows) == 0:
-  cursor.execute("INSERT INTO users (username, password) VALUES ('admin', 'admin21')")
+  cursor.execute(f"INSERT INTO users (username, password) VALUES ('admin',  '{ config['ADMIN'] }')")
   connection.commit()
   print("Added admin account")
 else:

@@ -71,3 +71,24 @@ def destroy(username, password):
         msg = "failed to delete"
 
     return msg
+
+def updatePassword(password):
+    con = sql.Connection(DATABASE_FILE)
+
+    try:
+        cur = con.cursor()
+
+        cur.execute("""UPDATE users set password=?, WHERE password=?""", ( password ))
+
+        msg = "successfully updated password"
+    
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        msg = "failed to update password"
+
+    finally:
+        con.close()
+
+    return msg

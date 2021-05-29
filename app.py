@@ -14,6 +14,8 @@ BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
 app.secret_key = "super_secret_key"
 
+app.config['ENV'] = "development"
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -94,13 +96,15 @@ def create_buggy():
             <p> Try signing in as guest </p>
             """
 
-        owner = "temp"
+        owner = session.get('username')
 
         print(session['username'])
 
         buggyData, profiles = data.getCar(owner)
 
         # print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {profiles}\n')
+
+        print(f"Report:\nBuggy Data:\n{buggyData}\nProfiles:\n{profiles}")
 
         return render_template("buggy-form.html",
                                qty_wheels=buggyData[1],
@@ -123,9 +127,9 @@ def create_buggy():
                                banging=buggyData[18],
                                algo=buggyData[19],
                                total_cost=buggyData[20],
-                               private=buggyData[22],
+                               private=buggyData[21],
+                               buggy_name=buggyData[22],
                                profiles=profiles,
-                               buggy_name=buggyData[23],
                                username=session.get('username'),
                                style='static/styles/create.css'
                                )
@@ -135,7 +139,7 @@ def create_buggy():
 
         if form['task'] == 'NEW COPY':
             print('Trying to add')
-            msg = data.addCar(form)
+            msg = data.addCar(form, session.get('username'))
         elif form['task'] == 'DELETE':
             msg = data.deleteCar(form['private'])
         else:

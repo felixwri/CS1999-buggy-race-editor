@@ -17,6 +17,8 @@ def getCar(owner):
         allData = cur.fetchall()
         data = allData[0]
 
+        print(data)
+
         cur.execute(
             "SELECT * FROM buggies WHERE owner=? ORDER BY ROWID ASC LIMIT 10", (owner,))
 
@@ -39,37 +41,41 @@ def getCar(owner):
 
         # default settings
 
+        unnamedId = generateID()
+
         carProfile = {
-                "name": "first",
-                "privateID": "22222222",
-                "primary_color": "#ffffff",
-                "secondary_color": "#ffffff",
-                "flag_pattern": "plain"
+            "name": "Unnamed",
+            "privateID": unnamedId,
+            "primary_color": "#000000",
+            "secondary_color": "#aa1111",
+            "flag_pattern": "plain"
         }
 
-        profiles = [carProfile]
+        profiles = [json.dumps(carProfile, sort_keys=True)]
         data = (
             0,
             4,
             '#000000',
-            '#111111',
+            '#aa1111',
             'plain',
             'petrol',
             1,
-            'NULL',
+            'None',
             0,
             0,
             'knobbly',
             4,
-            'NULL',
-            'NULL',
+            'None',
+            'None',
             0,
             'False',
             'False',
             'False',
             'False',
             'steady',
-            0
+            0,
+            unnamedId,
+            'Unnamed',
         )
 
     return data, profiles
@@ -156,14 +162,15 @@ def updateCar(form):
 
     return msg
 
+
 def generateID():
     ID = random.randint(10000000, 99999999)
     return ID
 
-def addCar(form):
+
+def addCar(form, owner):
     con = sql.Connection(DATABASE_FILE)
 
-    owner = "temp"
     private = generateID()
 
     try:
@@ -222,7 +229,7 @@ def addCar(form):
             ) VALUES (?, ?, ?, ?, ?, ?, 
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             ?, ?, ?, ?, ?, ?, ?)""",
-            (values))
+                    (values))
 
         con.commit()
         msg = "New buggy added successfully"

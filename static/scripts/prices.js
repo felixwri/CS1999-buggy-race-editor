@@ -2,7 +2,7 @@
 //? would like to do this with native json
 //? chrome really didn't like it though
 
-let raw = `
+const prices = 
 {
     "power_type": {
         "units": "power_units",
@@ -190,6 +190,5 @@ let raw = `
         "antibiotic": 90,
         "banging": 42
     }
-}`
+}
 
-const prices = JSON.parse(raw);
