@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, jsonify, session
 import sqlite3 as sql
 import json
 
+# ? .env config with name of app and development type
+from dotenv import dotenv_values
+config = dotenv_values(".env")
+
 from components import data
 from components import users
 

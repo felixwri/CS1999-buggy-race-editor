@@ -1,6 +1,6 @@
 import sqlite3
-from dotenv import dotenv_values
 
+from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 DATABASE_FILE = "database.db"
