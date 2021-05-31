@@ -5,6 +5,8 @@ DATABASE_FILE = "database.db"
 def exists(username, password):
     con = sql.Connection(DATABASE_FILE)
 
+    print("Looking through db")
+
     try:
         cur = con.cursor()
         cur.execute(
@@ -12,9 +14,11 @@ def exists(username, password):
         allData = cur.fetchall()
         data = allData[0]
 
-        print(data)
+        print(f"Resulting data: {data}")
 
-        return "true"
+        con.close()
+
+        return True
 
     except Exception as e:
         print(e)
@@ -22,7 +26,10 @@ def exists(username, password):
 
         print("failed")
 
-        return "false"
+        con.close()
+
+        return False
+
 
 def create(username, password):
     con = sql.Connection(DATABASE_FILE)
@@ -37,16 +44,22 @@ def create(username, password):
 
         cur.execute("""INSERT INTO users ( username, password) VALUES (?, ?)""", (values))
 
-        con.commit()
-        msg = "successfully added"
+        if cur.rowcount < 1:
+            result = False
+        else:
+            con.commit()
+            result = True
 
     except Exception as e:
         print(e)
         con.rollback()
 
-        msg = "failed to add"
+        result = False
+    
+    finally:
+        con.close()
 
-    return msg
+    return result
 
 def destroy(username, password):
     con = sql.Connection(DATABASE_FILE)
@@ -59,36 +72,45 @@ def destroy(username, password):
             password
         )
 
-        cur.execute("""DELETE FROM users WHERE username=? AND password=? LIMIT 1""", (username, password))
+        cur.execute("""DELETE FROM users WHERE username=? AND password=?""", (username, password))
+        
+        
 
-        con.commit()
-        msg = "successfully deleted"
+        if cur.rowcount < 1:
+            result = False
+        else:
+            con.commit()
+            result = True
 
     except Exception as e:
         print(e)
         con.rollback()
 
-        msg = "failed to delete"
+        result = False
+    
+    finally:
+        con.close()
 
-    return msg
+    return result
 
-def updatePassword(password):
+def updatePassword(username, newPassword, oldPassword):
     con = sql.Connection(DATABASE_FILE)
 
     try:
         cur = con.cursor()
 
-        cur.execute("""UPDATE users set password=?, WHERE password=?""", ( password ))
+        cur.execute("""UPDATE users set password=? WHERE username=? AND password=?""", ( newPassword, username, oldPassword))
 
-        msg = "successfully updated password"
+        con.commit()
+        result = True
     
     except Exception as e:
         print(e)
         con.rollback()
 
-        msg = "failed to update password"
+        result = False
 
     finally:
         con.close()
 
-    return msg
+    return result

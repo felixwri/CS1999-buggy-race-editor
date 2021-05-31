@@ -77,7 +77,7 @@ cursor = connection.cursor()
 cursor.execute("SELECT * FROM users LIMIT 1")
 rows = cursor.fetchall()
 if len(rows) == 0:
-  cursor.execute(f"INSERT INTO users (username, password) VALUES ('admin',  '{ config['ADMIN'] }')")
+  cursor.execute(f"INSERT INTO users (username, password, is_admin) VALUES ('admin',  '{ config['ADMIN'] }', 'TRUE')")
   connection.commit()
   print("Added admin account")
 else:

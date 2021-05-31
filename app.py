@@ -18,9 +18,6 @@ BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
 app.secret_key = "super_secret_key"
 
-app.config['ENV'] = "development"
-
-
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
@@ -50,10 +47,43 @@ def home():
 
         method = request.json['method']
 
+        print(f"Method: { method }")
+
+
         if method == "logout":
             session.pop('username', None)
             session.pop('permission', None)
             return jsonify(username="None: logged out")
+
+        if method == "changeColor":
+            content = request.json['content']
+
+            # ? possible addition of custom themes yet to be implemented
+            
+            return jsonify(success=True)
+
+        if method == "changePassword":
+            content = request.json['content']
+
+            result = users.updatePassword(session['username'], content['new'], content['old'])
+
+            if not result:
+                return jsonify(success=False)
+
+            return jsonify(success=True)
+
+        if method == "delete":
+            content = request.json['content']
+
+            result = users.destroy(session['username'], content)
+
+            if not result:
+                return jsonify(success=False)
+            
+            session.pop('username', None)
+            session.pop('permission', None)
+
+            return jsonify(success=True)
         
         # ? login
 
@@ -75,12 +105,16 @@ def home():
             valid = "true"
             permission = "guest"
 
+        elif username == "admin" and password == config["ADMIN"]:
+            valid = "true"
+            permission = "admin"
+
         # ? check if user exists
 
         else:
             valid = users.exists(username, password)
 
-        if valid == "true":
+        if valid:
             session['username'] = username
             session['permission'] = permission
             return jsonify(username=username)

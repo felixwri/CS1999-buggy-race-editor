@@ -8,6 +8,8 @@ let timeline = 0;
 
 let loggedIn = false;
 let reset = false;
+let settingsTransition = false;
+let themeColor = 0xFFFFFF;
 
 let raycaster, mouse = { x: 0, y: 0 };
 
@@ -164,7 +166,7 @@ function animate() {
         }
 
     } else {
-        
+
         if (camera.position.z < 5) {
 
             camera.position.z += ((5.5 - camera.position.z) / 50)
@@ -176,6 +178,14 @@ function animate() {
 
         }
     }
+
+    if (settingsTransition) {
+        wireframe.material.color.setHex(themeColor);
+    } else {
+        wireframe.material.color.setHex(0xFFFFFF);
+    }
+    
+
 
     wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 30000
     wireframe.rotation.z = (mouse.y - (window.innerHeight / 2)) / 30000
