@@ -15,6 +15,34 @@
   </div>
 </div>
 
+<div id="receipt" class="none">
+  <div id="receipt-elements">
+    <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 0 24 24" width="5rem" fill="#FFFFFF">
+      <path d="M0 0h24v24H0V0z" fill="none" />
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z" />
+    </svg>
+    <div>Complete</div>
+    <div id="receipt-message">Message</div>
+
+    <div id="receipt-options">
+      <div onclick="home()" class="hitbox">
+        <svg xmlns="http://www.w3.org/2000/svg" height="3rem" viewBox="0 0 24 24" width="3rem" fill="#FFFFFF">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+        </svg>
+      </div>
+      <div onclick="reload()" class="hitbox">
+        <svg xmlns="http://www.w3.org/2000/svg" height="3rem" viewBox="0 0 24 24" width="3rem" fill="#FFFFFF">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="filter">
 
   <div id="background">
@@ -62,262 +90,260 @@
         <div class="resizer-content"></div>
       </div>
       <div id="right">
-        <form action="/new" method="post">
-          <div class="container">
-            <div id="wheels" class="bubble hidden">
-              <h2>Traction</h2>
-              <label for="qty_wheels">Number of wheels</label>
-              <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
-                onchange="calculate()" />
-              <div id="value"></div>
+        <div class="container">
+          <div id="wheels" class="bubble hidden">
+            <h2>Traction</h2>
+            <label for="qty_wheels">Number of wheels</label>
+            <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
+              onchange="calculate()" />
+            <div id="value"></div>
 
-              <label for="tyres">Tyre type</label>
-              <select name="tyres" value={{tyres}} onchange="calculate()">
-                <option value="{{tyres}}" selected hidden>{{tyres}}</option>
-                <option value="knobbly">knobbly</option>
-                <option value="slick">slick</option>
-                <option value="steelband">steelband</option>
-                <option value="reactive">reactive</option>
-                <option value="maglev">maglev</option>
-              </select>
+            <label for="tyres">Tyre type</label>
+            <select name="tyres" value={{tyres}} onchange="calculate()">
+              <option value="{{tyres}}" selected hidden>{{tyres}}</option>
+              <option value="knobbly">knobbly</option>
+              <option value="slick">slick</option>
+              <option value="steelband">steelband</option>
+              <option value="reactive">reactive</option>
+              <option value="maglev">maglev</option>
+            </select>
 
-              <label for="qty_tyres">Number of Tyres</label>
-              <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2"
-                onchange="calculate()" />
-              <div id="value_two"></div>
-            </div>
+            <label for="qty_tyres">Number of Tyres</label>
+            <input id="slider_two" type="range" name="qty_tyres" value={{qty_tyres}} min="4" max="20" step="2"
+              onchange="calculate()" />
+            <div id="value_two"></div>
           </div>
+        </div>
 
-          <div class="container">
-            <div id="engine" class="bubble hidden">
-              <h2>Engine</h2>
-              <label for="power_type">Power type</label>
-              <select name="power_type" value={{power_type}} onchange="calculate()">
-                <option value="{{power_type}}" selected hidden>{{power_type}}</option>
-                <option value="petrol">petrol</option>
-                <option value="fusion">fusion</option>
-                <option value="steam">steam</option>
-                <option value="bio">bio</option>
-                <option value="electric">electric</option>
-                <option value="rocket">rocket</option>
-                <option value="hamster">hamster</option>
-                <option value="thermo">thermo</option>
-                <option value="solar">solar</option>
-                <option value="wind">wind</option>
-              </select>
+        <div class="container">
+          <div id="engine" class="bubble hidden">
+            <h2>Engine</h2>
+            <label for="power_type">Power type</label>
+            <select name="power_type" value={{power_type}} onchange="calculate()">
+              <option value="{{power_type}}" selected hidden>{{power_type}}</option>
+              <option value="petrol">petrol</option>
+              <option value="fusion">fusion</option>
+              <option value="steam">steam</option>
+              <option value="bio">bio</option>
+              <option value="electric">electric</option>
+              <option value="rocket">rocket</option>
+              <option value="hamster">hamster</option>
+              <option value="thermo">thermo</option>
+              <option value="solar">solar</option>
+              <option value="wind">wind</option>
+            </select>
 
-              <label for="power_units">Power units</label>
-              <input type="number" name="power_units" value={{power_units}} min="0" max="1000" onchange="calculate()" />
+            <label for="power_units">Power units</label>
+            <input type="number" name="power_units" value={{power_units}} min="0" max="1000" onchange="calculate()" />
 
-              <label for="aux_power_type">Auxillary power</label>
-              <select name="aux_power_type" value={{aux_power_type}} onchange="calculate()">
-                <option value="{{aux_power_type}}" selected hidden>{{aux_power_type}}</option>
-                <option value="petrol">petrol</option>
-                <option value="fusion">fusion</option>
-                <option value="steam">steam</option>
-                <option value="bio">bio</option>
-                <option value="electric">electric</option>
-                <option value="rocket">rocket</option>
-                <option value="hamster">hamster</option>
-                <option value="thermo">thermo</option>
-                <option value="solar">solar</option>
-                <option value="wind">wind</option>
-              </select>
+            <label for="aux_power_type">Auxillary power</label>
+            <select name="aux_power_type" value={{aux_power_type}} onchange="calculate()">
+              <option value="{{aux_power_type}}" selected hidden>{{aux_power_type}}</option>
+              <option value="petrol">petrol</option>
+              <option value="fusion">fusion</option>
+              <option value="steam">steam</option>
+              <option value="bio">bio</option>
+              <option value="electric">electric</option>
+              <option value="rocket">rocket</option>
+              <option value="hamster">hamster</option>
+              <option value="thermo">thermo</option>
+              <option value="solar">solar</option>
+              <option value="wind">wind</option>
+            </select>
 
-              <label for="aux_power_units">Auxillary units</label>
-              <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"
-                onchange="calculate()" />
+            <label for="aux_power_units">Auxillary units</label>
+            <input type="number" name="aux_power_units" value={{aux_power_units}} min="0" max="1000"
+              onchange="calculate()" />
 
-              <label for="hamster_booster">H. booster</label>
-              <input type="number" name="hamster_booster" value={{hamster_booster}} min="0" max="1000"
-                onchange="calculate()" />
-            </div>
+            <label for="hamster_booster">H. booster</label>
+            <input type="number" name="hamster_booster" value={{hamster_booster}} min="0" max="1000"
+              onchange="calculate()" />
           </div>
+        </div>
 
 
-          <div class="container">
-            <div id="offensive" class="bubble hidden">
-              <h2>Offensive</h2>
-              <label for="armour">Armour</label>
-              <select name="armour" value={{armour}} onchange="calculate()">
-                <option value="{{armour}}" selected hidden>{{armour}}</option>
-                <option value="none">none</option>
-                <option value="wood">wood</option>
-                <option value="aluminium">aluminium</option>
-                <option value="thinsteel">thinsteel</option>
-                <option value="thicksteel">thicksteel</option>
-                <option value="titanium">titanium</option>
-              </select>
+        <div class="container">
+          <div id="offensive" class="bubble hidden">
+            <h2>Offensive</h2>
+            <label for="armour">Armour</label>
+            <select name="armour" value={{armour}} onchange="calculate()">
+              <option value="{{armour}}" selected hidden>{{armour}}</option>
+              <option value="none">none</option>
+              <option value="wood">wood</option>
+              <option value="aluminium">aluminium</option>
+              <option value="thinsteel">thinsteel</option>
+              <option value="thicksteel">thicksteel</option>
+              <option value="titanium">titanium</option>
+            </select>
 
-              <label for="attack">Attack</label>
-              <select name="attack" value={{attack}} onchange="calculate()">
-                <option value="{{attack}}" selected hidden>{{attack}}</option>
-                <option value="none">none</option>
-                <option value="spike">spike</option>
-                <option value="flame">flame</option>
-                <option value="charge">charge</option>
-                <option value="biohazard">biohazard</option>
+            <label for="attack">Attack</label>
+            <select name="attack" value={{attack}} onchange="calculate()">
+              <option value="{{attack}}" selected hidden>{{attack}}</option>
+              <option value="none">none</option>
+              <option value="spike">spike</option>
+              <option value="flame">flame</option>
+              <option value="charge">charge</option>
+              <option value="biohazard">biohazard</option>
 
-              </select>
+            </select>
 
-              <label for="qty_attacks">Number of Attacks<label>
-                  <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000"
-                    onchange="calculate()" />
-            </div>
+            <label for="qty_attacks">Number of Attacks<label>
+                <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000"
+                  onchange="calculate()" />
           </div>
+        </div>
 
-          <div class="container">
-            <div id="misc" class="bubble hidden">
+        <div class="container">
+          <div id="misc" class="bubble hidden">
 
-              <h2>Algorithm</h2>
-              <select name="algo" value={{algo}}>
-                <option value="{{algo}}" selected hidden>{{algo}}</option>
-                <option value="defensive">defensive</option>
-                <option value="steady">steady</option>
-                <option value="offensive">offensive</option>
-                <option value="titfortat">titfortat</option>
-                <option value="birandomohazard">random</option>
-              </select>
+            <h2>Algorithm</h2>
+            <select name="algo" value={{algo}}>
+              <option value="{{algo}}" selected hidden>{{algo}}</option>
+              <option value="defensive">defensive</option>
+              <option value="steady">steady</option>
+              <option value="offensive">offensive</option>
+              <option value="titfortat">titfortat</option>
+              <option value="birandomohazard">random</option>
+            </select>
 
-              <h2>Misc</h2>
-              <label for="fireproof">Fireproof</label>
-              <input id="fireproof" type="checkbox" name="fireproof" value="True">
-              <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
+            <h2>Misc</h2>
+            <label for="fireproof">Fireproof</label>
+            <input id="fireproof" type="checkbox" name="fireproof" value="True">
+            <input id="fireproofHidden" type="hidden" name="fireproof" value="False">
 
 
-              <label for="insulated">Insulated</label>
-              <input id="insulated" type="checkbox" name="insulated" value="True">
-              <input id="insulatedHidden" type="hidden" name="insulated" value="False">
+            <label for="insulated">Insulated</label>
+            <input id="insulated" type="checkbox" name="insulated" value="True">
+            <input id="insulatedHidden" type="hidden" name="insulated" value="False">
 
-              <label for="antibiotic">Antibiotic</label>
-              <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
-              <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
+            <label for="antibiotic">Antibiotic</label>
+            <input id="antibiotic" type="checkbox" name="antibiotic" value="True">
+            <input id="antibioticHidden" type="hidden" name="antibiotic" value="False">
 
-              <label for="banging">Banging</label>
-              <input id="banging" type="checkbox" name="banging" value="True">
-              <input id="bangingHidden" type="hidden" name="banging" value="False">
-            </div>
+            <label for="banging">Banging</label>
+            <input id="banging" type="checkbox" name="banging" value="True">
+            <input id="bangingHidden" type="hidden" name="banging" value="False">
           </div>
+        </div>
 
-          <div class="container">
-            <div id="flag" class="bubble hidden">
-              <label for="flag_color">Flag color</label>
-              <input type="color" name="flag_color" value={{flag_color}} onchange="updateFlag()" />
-              <div class="color-picker"></div>
+        <div class="container">
+          <div id="flag" class="bubble hidden">
+            <label for="flag_color">Flag color</label>
+            <input type="color" name="flag_color" value={{flag_color}} onchange="updateFlag()" />
+            <div class="color-picker"></div>
 
-              <label for="flag_color_secondary">Flag secondary color</label>
-              <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} onchange="updateFlag()" />
+            <label for="flag_color_secondary">Flag secondary color</label>
+            <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} onchange="updateFlag()" />
 
-              <label for="flag_pattern">Flag pattern </label>
-              <select name="flag_pattern" value={{flag_pattern}} onchange="updateFlag()">
-                <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
-                <option value="plain">plain</option>
-                <option value="vstripe">vstripe</option>
-                <option value="hstripe">hstripe</option>
-                <option value="dstripe">dstripe</option>
-                <option value="checker">checker</option>
-                <option value="spot">spot</option>
-              </select>
+            <label for="flag_pattern">Flag pattern </label>
+            <select name="flag_pattern" value={{flag_pattern}} onchange="updateFlag()">
+              <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
+              <option value="plain">plain</option>
+              <option value="vstripe">vstripe</option>
+              <option value="hstripe">hstripe</option>
+              <option value="dstripe">dstripe</option>
+              <option value="checker">checker</option>
+              <option value="spot">spot</option>
+            </select>
 
-              <label>Rendered Icon</label>
-              <div class="flag-icon">
-                <svg id="Layer_1" name="plain" class="f-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 186 186">
-                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
-                  <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
-                </svg>
-                <svg id="Layer_1" name="spot" class="f-icon none" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 186 186">
-                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
-                  <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
-                  <circle class="cls-2" cx="93" cy="93" r="47.94" />
-                  <path
-                    d="M100,52.56A47.44,47.44,0,1,1,52.56,100,47.49,47.49,0,0,1,100,52.56m0-1A48.44,48.44,0,1,0,148.44,100,48.44,48.44,0,0,0,100,51.56Z"
-                    transform="translate(-7 -7)" />
-                  <circle class="cls-2" cx="151.13" cy="34.88" r="19.84" />
-                  <path
-                    d="M158.12,22.53a19.35,19.35,0,1,1-19.34,19.35,19.37,19.37,0,0,1,19.34-19.35m0-1a20.35,20.35,0,1,0,20.35,20.35,20.35,20.35,0,0,0-20.35-20.35Z"
-                    transform="translate(-7 -7)" />
-                  <circle class="cls-2" cx="151.13" cy="151.13" r="19.84" />
-                  <path
-                    d="M158.12,138.78a19.35,19.35,0,1,1-19.34,19.34,19.37,19.37,0,0,1,19.34-19.34m0-1a20.35,20.35,0,1,0,20.35,20.34,20.34,20.34,0,0,0-20.35-20.34Z"
-                    transform="translate(-7 -7)" />
-                  <circle class="cls-2" cx="34.88" cy="34.88" r="19.84" />
-                  <path
-                    d="M41.88,22.53A19.35,19.35,0,1,1,22.53,41.88,19.37,19.37,0,0,1,41.88,22.53m0-1A20.35,20.35,0,1,0,62.22,41.88,20.35,20.35,0,0,0,41.88,21.53Z"
-                    transform="translate(-7 -7)" />
-                  <circle class="cls-2" cx="34.88" cy="151.13" r="19.84" />
-                  <path
-                    d="M41.88,138.78a19.35,19.35,0,1,1-19.35,19.34,19.37,19.37,0,0,1,19.35-19.34m0-1a20.35,20.35,0,1,0,20.34,20.34,20.35,20.35,0,0,0-20.34-20.34Z"
-                    transform="translate(-7 -7)" />
-                </svg>
-                <svg id="Layer_1" name="checker" class="f-icon none" data-name="Layer 1"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 187">
-                  <rect class="cls-1" x="1" y="1" width="185" height="185" />
-                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" transform="translate(0.5 0.5)" />
-                  <rect class="cls-2" x="0.5" y="0.5" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="47" y="140" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="0.5" y="93.5" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="0.5" y="47" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="0.5" y="140" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="47" y="93.5" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="140" y="140" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="93.5" y="140" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="140" y="47" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="93.5" y="0.5" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="47" y="0.5" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="93.5" y="47" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="140" y="0.5" width="46.5" height="46.5" />
-                  <rect class="cls-3" x="140" y="93.5" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="47" y="47" width="46.5" height="46.5" />
-                  <rect class="cls-2" x="93.5" y="93.5" width="46.5" height="46.5" />
-                </svg>
-                <svg id="Layer_1" name="vstripe" class="f-icon none" data-name="Layer 1"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
-                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
-                  <path class="cls-2" d="M1,1,93,185,185,1V185H1V1H185m1-1H0V186H186Z" />
-                  <polygon class="cls-1" points="27.5 2.58 93 129.97 93 2.58 27.5 2.58" />
-                </svg>
-                <svg id="Layer_1" name="dstripe" class="f-icon none" data-name="Layer 1"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
-                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
-                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
-                  <rect class="cls-2" x="37.4" y="0.5" width="36.9" height="184.5" />
-                  <rect class="cls-3" x="0.5" y="0.5" width="36.9" height="184.5" />
-                  <rect class="cls-2" x="111.2" y="0.5" width="36.9" height="184.5" />
-                  <rect class="cls-3" x="74.3" y="0.5" width="36.9" height="184.5" />
-                  <rect class="cls-3" x="148.1" y="0.5" width="36.9" height="184.5" />
-                </svg>
-                <svg id="Layer_1" name="hstripe" class="f-icon none" data-name="Layer 1"
-                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
-                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
-                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
-                  <rect class="cls-2" x="0.5" y="0.5" width="184.5" height="184.5" />
-                  <line class="cls-2" x1="123.5" y1="0.5" x2="123.5" y2="185" />
-                  <line class="cls-2" x1="62" y1="0.5" x2="62" y2="185" />
-                  <rect class="cls-3" x="62" y="0.5" width="20.5" height="184.5" />
-                  <rect class="cls-3" x="103" y="0.5" width="20.5" height="184.5" />
-                  <rect class="cls-2" x="82.5" y="0.5" width="20.5" height="184.5" />
-                </svg>
-              </div>
-
-
+            <label>Rendered Icon</label>
+            <div class="flag-icon">
+              <svg id="Layer_1" name="plain" class="f-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 186 186">
+                <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
+              </svg>
+              <svg id="Layer_1" name="spot" class="f-icon none" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 186 186">
+                <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
+                <circle class="cls-2" cx="93" cy="93" r="47.94" />
+                <path
+                  d="M100,52.56A47.44,47.44,0,1,1,52.56,100,47.49,47.49,0,0,1,100,52.56m0-1A48.44,48.44,0,1,0,148.44,100,48.44,48.44,0,0,0,100,51.56Z"
+                  transform="translate(-7 -7)" />
+                <circle class="cls-2" cx="151.13" cy="34.88" r="19.84" />
+                <path
+                  d="M158.12,22.53a19.35,19.35,0,1,1-19.34,19.35,19.37,19.37,0,0,1,19.34-19.35m0-1a20.35,20.35,0,1,0,20.35,20.35,20.35,20.35,0,0,0-20.35-20.35Z"
+                  transform="translate(-7 -7)" />
+                <circle class="cls-2" cx="151.13" cy="151.13" r="19.84" />
+                <path
+                  d="M158.12,138.78a19.35,19.35,0,1,1-19.34,19.34,19.37,19.37,0,0,1,19.34-19.34m0-1a20.35,20.35,0,1,0,20.35,20.34,20.34,20.34,0,0,0-20.35-20.34Z"
+                  transform="translate(-7 -7)" />
+                <circle class="cls-2" cx="34.88" cy="34.88" r="19.84" />
+                <path
+                  d="M41.88,22.53A19.35,19.35,0,1,1,22.53,41.88,19.37,19.37,0,0,1,41.88,22.53m0-1A20.35,20.35,0,1,0,62.22,41.88,20.35,20.35,0,0,0,41.88,21.53Z"
+                  transform="translate(-7 -7)" />
+                <circle class="cls-2" cx="34.88" cy="151.13" r="19.84" />
+                <path
+                  d="M41.88,138.78a19.35,19.35,0,1,1-19.35,19.34,19.37,19.37,0,0,1,19.35-19.34m0-1a20.35,20.35,0,1,0,20.34,20.34,20.35,20.35,0,0,0-20.34-20.34Z"
+                  transform="translate(-7 -7)" />
+              </svg>
+              <svg id="Layer_1" name="checker" class="f-icon none" data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 187">
+                <rect class="cls-1" x="1" y="1" width="185" height="185" />
+                <path d="M185,1V185H1V1H185m1-1H0V186H186Z" transform="translate(0.5 0.5)" />
+                <rect class="cls-2" x="0.5" y="0.5" width="46.5" height="46.5" />
+                <rect class="cls-2" x="47" y="140" width="46.5" height="46.5" />
+                <rect class="cls-2" x="0.5" y="93.5" width="46.5" height="46.5" />
+                <rect class="cls-3" x="0.5" y="47" width="46.5" height="46.5" />
+                <rect class="cls-3" x="0.5" y="140" width="46.5" height="46.5" />
+                <rect class="cls-3" x="47" y="93.5" width="46.5" height="46.5" />
+                <rect class="cls-2" x="140" y="140" width="46.5" height="46.5" />
+                <rect class="cls-3" x="93.5" y="140" width="46.5" height="46.5" />
+                <rect class="cls-2" x="140" y="47" width="46.5" height="46.5" />
+                <rect class="cls-2" x="93.5" y="0.5" width="46.5" height="46.5" />
+                <rect class="cls-3" x="47" y="0.5" width="46.5" height="46.5" />
+                <rect class="cls-3" x="93.5" y="47" width="46.5" height="46.5" />
+                <rect class="cls-3" x="140" y="0.5" width="46.5" height="46.5" />
+                <rect class="cls-3" x="140" y="93.5" width="46.5" height="46.5" />
+                <rect class="cls-2" x="47" y="47" width="46.5" height="46.5" />
+                <rect class="cls-2" x="93.5" y="93.5" width="46.5" height="46.5" />
+              </svg>
+              <svg id="Layer_1" name="vstripe" class="f-icon none" data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                <path class="cls-2" d="M1,1,93,185,185,1V185H1V1H185m1-1H0V186H186Z" />
+                <polygon class="cls-1" points="27.5 2.58 93 129.97 93 2.58 27.5 2.58" />
+              </svg>
+              <svg id="Layer_1" name="dstripe" class="f-icon none" data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
+                <rect class="cls-2" x="37.4" y="0.5" width="36.9" height="184.5" />
+                <rect class="cls-3" x="0.5" y="0.5" width="36.9" height="184.5" />
+                <rect class="cls-2" x="111.2" y="0.5" width="36.9" height="184.5" />
+                <rect class="cls-3" x="74.3" y="0.5" width="36.9" height="184.5" />
+                <rect class="cls-3" x="148.1" y="0.5" width="36.9" height="184.5" />
+              </svg>
+              <svg id="Layer_1" name="hstripe" class="f-icon none" data-name="Layer 1"
+                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
+                <rect class="cls-2" x="0.5" y="0.5" width="184.5" height="184.5" />
+                <line class="cls-2" x1="123.5" y1="0.5" x2="123.5" y2="185" />
+                <line class="cls-2" x1="62" y1="0.5" x2="62" y2="185" />
+                <rect class="cls-3" x="62" y="0.5" width="20.5" height="184.5" />
+                <rect class="cls-3" x="103" y="0.5" width="20.5" height="184.5" />
+                <rect class="cls-2" x="82.5" y="0.5" width="20.5" height="184.5" />
+              </svg>
             </div>
-          </div>
-          <input id="total_cost" type="hidden" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
-          <input id="private" type="hidden" name="private" value="{{private}}"></input>
 
-          <div class="container">
-            <div id="submit" class="bubble hidden">
-              <label for="buggy_name">Enter a name for the buggy</label>
-              <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
-              <br>
-              <input type="submit" name="task" value="UPDATE" class="button" />
-              <input type="submit" name="task" value="NEW COPY" class="button" />
-              <input type="submit" name="task" value="DELETE" class="button" />
-            </div>
+
           </div>
-        </form>
+        </div>
+        <input id="total_cost" type="hidden" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
+        <input id="private" type="hidden" name="private" value="{{private}}"></input>
+
+        <div class="container">
+          <div id="submit" class="bubble hidden">
+            <label for="buggy_name">Enter a name for the buggy</label>
+            <input type="text" name="buggy_name" maxlength="30" value={{buggy_name}}>
+            <br>
+            <input type="button" onclick="submit(this)" name="task" value="UPDATE" class="button" />
+            <input type="button" onclick="submit(this)" name="task" value="NEW COPY" class="button" />
+            <input type="button" onclick="submit(this)" name="task" value="DELETE" class="button" />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -415,7 +441,7 @@
 
 </script>
 <script src="/static/scripts/prices.js"></script>
-<script src="/static/scripts/value.js"></script>
+<script src="/static/scripts/create.js"></script>
 <script src="/static/scripts/resize.js"></script>
 
 {% endblock %}

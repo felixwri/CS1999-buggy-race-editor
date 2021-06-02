@@ -24,7 +24,6 @@ let centerWidth = 0;
 // 
 
 const mouseDownHandlerRight = function(e) {
-    console.log("rightside")
     // Get the current mouse position
     rightX = e.clientX;
     rightY = e.clientY;
@@ -44,7 +43,7 @@ const mouseMoveHandlerRight = function(e) {
     // const dy = e.clientY - rightY;
 
     if (e.clientX > window.innerWidth) return;
-    if (e.clientX + 150 > window.innerWidth) return;
+    if (e.clientX + 250 > window.innerWidth) return;
     if (e.clientX - 30 < limit) return;
 
     const newScaffoldWidth = (scaffoldWidth + dx) * 100 / rightResizer.parentNode.getBoundingClientRect().width;
@@ -82,7 +81,6 @@ rightResizer.addEventListener('mousedown', mouseDownHandlerRight);
 // 
 
 const mouseDownHandlerLeft = function(e) {
-    console.log("leftside")
     // Get the current mouse position
     leftX = e.clientX;
     leftY = e.clientY;
@@ -102,7 +100,7 @@ const mouseMoveHandlerLeft = function(e) {
     // const dy = e.clientY - leftY;
 
     if (e.clientX < 0) return;
-    if (e.clientX - 150 < 0) return;
+    if (e.clientX - 250 < 0) return;
     if (e.clientX + 30 > limit) return;
 
     const newScaffoldWidth = (leftWidth + dx) * 100 / leftResizer.parentNode.getBoundingClientRect().width;

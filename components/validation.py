@@ -10,11 +10,6 @@ def process(form):
     valid = True
 
     msg = "Form data is invalid and can't be accepted. "
-
-    for field in form:
-        if len(form[field]) > 100:
-            return False, msg
-    
     # ? game rules
 
     # ? Wheels must be > 4 

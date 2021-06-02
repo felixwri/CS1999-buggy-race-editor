@@ -165,15 +165,15 @@ def create_buggy():
                                banging=buggyData[18],
                                algo=buggyData[19],
                                total_cost=buggyData[20],
-                               private=buggyData[21],
-                               buggy_name=buggyData[22],
+                               private=buggyData[22],
+                               buggy_name=buggyData[23],
                                profiles=profiles,
                                username=session.get('username'),
                                style='static/styles/create.css'
                                )
 
     elif request.method == 'POST':
-        form = request.form
+        form = request.json
 
         if form['task'] == 'NEW COPY':
             print('Trying to add')
@@ -184,7 +184,7 @@ def create_buggy():
             msg = data.updateCar(form)
 
         # return msg
-        return render_template("updated.html", msg=msg, style='static/styles/create.css')
+        return msg
 
 
 @app.route('/buggy')

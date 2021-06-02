@@ -238,7 +238,7 @@ def addCar(form, owner):
         msg = "New buggy added successfully"
 
     except Exception as e:
-        print(e)
+        print(f"error: {e} ")
         con.rollback()
 
         msg = "Buggy could not be added :("
