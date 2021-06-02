@@ -2,6 +2,8 @@ import sqlite3 as sql
 
 DATABASE_FILE = "database.db"
 
+# ! check if guest
+
 def exists(username, password):
     con = sql.Connection(DATABASE_FILE)
 

@@ -10,6 +10,9 @@ DEFAULT_BUGGY_ID = "1"
 
 def getCar(owner):
     con = sql.Connection(DATABASE_FILE)
+
+    # ! check if user is guest
+
     try:
         cur = con.cursor()
         cur.execute(

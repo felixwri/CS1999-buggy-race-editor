@@ -353,3 +353,23 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   transform: scale(1.5);
 }
+
+.none {
+  display: none !important;
+}
+
+.flag-icon {
+  max-width: 10vw;
+}
+
+.cls-1 {
+  fill: rgb(43, 185, 0);
+}
+
+.cls-2 {
+  fill: rgb(3, 26, 235);
+}
+
+.cls-3 {
+  fill: rgb(255, 0, 221);
+}

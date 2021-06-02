@@ -120,6 +120,7 @@ async function automate() {
 
         await calculate();
     }
+    await updateFlag();
 }
 
 function generateColor() {

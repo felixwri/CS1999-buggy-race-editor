@@ -56,12 +56,17 @@ body {
 .all-tasks {
   width: 100%;
   display: grid;
-  grid-template-columns: 50% calc(50% - 5rem);
-  grid-gap: 5rem;
+  grid-template-columns: 50% calc(50% - 2rem);
+  grid-gap: 2rem;
+}
+
+.page:nth-of-type(3) .all-tasks {
+  grid-template-rows: 60% 40%;
 }
 
 .task {
-  height: 25vh;
+  min-height: 15rem;
+  height: 100%;
   padding: 1rem;
 
   border: 1px solid white;

@@ -161,7 +161,8 @@
               </select>
 
               <label for="qty_attacks">Number of Attacks<label>
-                  <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000" onchange="calculate()" />
+                  <input type="number" name="qty_attacks" value={{qty_attacks}} min="0" max="1000"
+                    onchange="calculate()" />
             </div>
           </div>
 
@@ -201,14 +202,14 @@
           <div class="container">
             <div id="flag" class="bubble hidden">
               <label for="flag_color">Flag color</label>
-              <input type="color" name="flag_color" value={{flag_color}} />
+              <input type="color" name="flag_color" value={{flag_color}} onchange="updateFlag()" />
               <div class="color-picker"></div>
 
               <label for="flag_color_secondary">Flag secondary color</label>
-              <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} />
+              <input type="color" name="flag_color_secondary" value={{flag_color_secondary}} onchange="updateFlag()" />
 
               <label for="flag_pattern">Flag pattern </label>
-              <select name="flag_pattern" value={{flag_pattern}}>
+              <select name="flag_pattern" value={{flag_pattern}} onchange="updateFlag()">
                 <option value="{{flag_pattern}}" selected hidden>{{flag_pattern}}</option>
                 <option value="plain">plain</option>
                 <option value="vstripe">vstripe</option>
@@ -217,6 +218,90 @@
                 <option value="checker">checker</option>
                 <option value="spot">spot</option>
               </select>
+
+              <label>Rendered Icon</label>
+              <div class="flag-icon">
+                <svg id="Layer_1" name="plain" class="f-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 186 186">
+                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                  <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
+                </svg>
+                <svg id="Layer_1" name="spot" class="f-icon none" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 186 186">
+                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                  <path d="M192,8V192H8V8H192m1-1H7V193H193V7Z" transform="translate(-7 -7)" />
+                  <circle class="cls-2" cx="93" cy="93" r="47.94" />
+                  <path
+                    d="M100,52.56A47.44,47.44,0,1,1,52.56,100,47.49,47.49,0,0,1,100,52.56m0-1A48.44,48.44,0,1,0,148.44,100,48.44,48.44,0,0,0,100,51.56Z"
+                    transform="translate(-7 -7)" />
+                  <circle class="cls-2" cx="151.13" cy="34.88" r="19.84" />
+                  <path
+                    d="M158.12,22.53a19.35,19.35,0,1,1-19.34,19.35,19.37,19.37,0,0,1,19.34-19.35m0-1a20.35,20.35,0,1,0,20.35,20.35,20.35,20.35,0,0,0-20.35-20.35Z"
+                    transform="translate(-7 -7)" />
+                  <circle class="cls-2" cx="151.13" cy="151.13" r="19.84" />
+                  <path
+                    d="M158.12,138.78a19.35,19.35,0,1,1-19.34,19.34,19.37,19.37,0,0,1,19.34-19.34m0-1a20.35,20.35,0,1,0,20.35,20.34,20.34,20.34,0,0,0-20.35-20.34Z"
+                    transform="translate(-7 -7)" />
+                  <circle class="cls-2" cx="34.88" cy="34.88" r="19.84" />
+                  <path
+                    d="M41.88,22.53A19.35,19.35,0,1,1,22.53,41.88,19.37,19.37,0,0,1,41.88,22.53m0-1A20.35,20.35,0,1,0,62.22,41.88,20.35,20.35,0,0,0,41.88,21.53Z"
+                    transform="translate(-7 -7)" />
+                  <circle class="cls-2" cx="34.88" cy="151.13" r="19.84" />
+                  <path
+                    d="M41.88,138.78a19.35,19.35,0,1,1-19.35,19.34,19.37,19.37,0,0,1,19.35-19.34m0-1a20.35,20.35,0,1,0,20.34,20.34,20.35,20.35,0,0,0-20.34-20.34Z"
+                    transform="translate(-7 -7)" />
+                </svg>
+                <svg id="Layer_1" name="checker" class="f-icon none" data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 187 187">
+                  <rect class="cls-1" x="1" y="1" width="185" height="185" />
+                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" transform="translate(0.5 0.5)" />
+                  <rect class="cls-2" x="0.5" y="0.5" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="47" y="140" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="0.5" y="93.5" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="0.5" y="47" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="0.5" y="140" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="47" y="93.5" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="140" y="140" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="93.5" y="140" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="140" y="47" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="93.5" y="0.5" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="47" y="0.5" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="93.5" y="47" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="140" y="0.5" width="46.5" height="46.5" />
+                  <rect class="cls-3" x="140" y="93.5" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="47" y="47" width="46.5" height="46.5" />
+                  <rect class="cls-2" x="93.5" y="93.5" width="46.5" height="46.5" />
+                </svg>
+                <svg id="Layer_1" name="vstripe" class="f-icon none" data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                  <path class="cls-2" d="M1,1,93,185,185,1V185H1V1H185m1-1H0V186H186Z" />
+                  <polygon class="cls-1" points="27.5 2.58 93 129.97 93 2.58 27.5 2.58" />
+                </svg>
+                <svg id="Layer_1" name="dstripe" class="f-icon none" data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
+                  <rect class="cls-2" x="37.4" y="0.5" width="36.9" height="184.5" />
+                  <rect class="cls-3" x="0.5" y="0.5" width="36.9" height="184.5" />
+                  <rect class="cls-2" x="111.2" y="0.5" width="36.9" height="184.5" />
+                  <rect class="cls-3" x="74.3" y="0.5" width="36.9" height="184.5" />
+                  <rect class="cls-3" x="148.1" y="0.5" width="36.9" height="184.5" />
+                </svg>
+                <svg id="Layer_1" name="hstripe" class="f-icon none" data-name="Layer 1"
+                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186 186">
+                  <rect class="cls-1" x="0.5" y="0.5" width="185" height="185" />
+                  <path d="M185,1V185H1V1H185m1-1H0V186H186Z" />
+                  <rect class="cls-2" x="0.5" y="0.5" width="184.5" height="184.5" />
+                  <line class="cls-2" x1="123.5" y1="0.5" x2="123.5" y2="185" />
+                  <line class="cls-2" x1="62" y1="0.5" x2="62" y2="185" />
+                  <rect class="cls-3" x="62" y="0.5" width="20.5" height="184.5" />
+                  <rect class="cls-3" x="103" y="0.5" width="20.5" height="184.5" />
+                  <rect class="cls-2" x="82.5" y="0.5" width="20.5" height="184.5" />
+                </svg>
+              </div>
+
+
             </div>
           </div>
           <input id="total_cost" type="hidden" name="total_cost" for="total_cost" value="{{total_cost}}"></input>
@@ -240,7 +325,7 @@
 
 
 
-
+<script src="/static/scripts/flag.js"></script>
 <script type="text/javascript">
   let getBuggy = async (user, index) => {
     let response = await fetch(`http://localhost:5000/api/${user}/${index}`);
@@ -250,17 +335,18 @@
   }
 
   function buildProfiles() {
-    let raw = {{ profiles | tojson}} 
-    let profiles = [];
+    let raw = {{ profiles | tojson
+  }}
+  let profiles = [];
 
-    for (let i = 0; i < raw.length; i++) {
-      profiles.push(JSON.parse(raw[i]))
-    }
-
-    return profiles
+  for (let i = 0; i < raw.length; i++) {
+    profiles.push(JSON.parse(raw[i]))
   }
 
-  function appendBuggies() {
+  return profiles
+  }
+
+  async function appendBuggies() {
     // this all gets linted even though it works fine
     let profiles = buildProfiles()
 
@@ -272,19 +358,19 @@
         let node = document.createElement("DIV");
 
         let nameChild = document.createElement("SPAN");
-        let nameContent= document.createTextNode(`${profiles[i].name}`)
+        let nameContent = document.createTextNode(`${profiles[i].name}`)
         nameChild.style.width = "50%"
         nameChild.appendChild(nameContent);
 
-        let idChild = document.createElement("SPAN"); 
-        let idContent= document.createTextNode(`${profiles[i].privateID}`)
+        let idChild = document.createElement("SPAN");
+        let idContent = document.createTextNode(`${profiles[i].privateID}`)
         idChild.style.fontSize = "0.75em"
         idChild.appendChild(idContent);
 
         let colorChild = document.createElement("SPAN");
         colorChild.style.backgroundColor = `${profiles[i].primary_color}`
 
-        
+
         node.setAttribute("onclick", `getBuggy("${user}", ${profiles[i].privateID})`)
         node.appendChild(nameChild);
         node.appendChild(idChild);
@@ -293,6 +379,7 @@
 
       }
     }
+    await updateFlag()
   }
 
   document.body.onload = appendBuggies();
