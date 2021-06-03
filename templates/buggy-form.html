@@ -349,6 +349,13 @@
   </section>
 </div>
 
+<style>
+  #viewport {
+    background-color: {{ theme }};
+  }
+
+</style>
+
 
 
 <script src="/static/scripts/flag.js"></script>
@@ -361,15 +368,14 @@
   }
 
   function buildProfiles() {
-    let raw = {{ profiles | tojson
-  }}
-  let profiles = [];
+    let raw = {{ profiles | tojson }}
+    let profiles = [];
 
-  for (let i = 0; i < raw.length; i++) {
-    profiles.push(JSON.parse(raw[i]))
-  }
+    for (let i = 0; i < raw.length; i++) {
+      profiles.push(JSON.parse(raw[i]))
+    }
 
-  return profiles
+    return profiles
   }
 
   async function appendBuggies() {

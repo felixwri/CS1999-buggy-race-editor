@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS users (
   id                    INTEGER PRIMARY KEY,
   username              VARCHAR(32),
   password              VARCHAR(64),
+  theme_primary         VARCHAR(32) DEFAULT "#ffffff",
+  theme_secondary       VARCHAR(32) DEFAULT "#17191c",
   is_admin              VARCHAR(1) DEFAULT FALSE
 )
 

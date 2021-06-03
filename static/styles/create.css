@@ -240,7 +240,7 @@ img[alt="profile"] {
 .resizer-content {
   
   background-color: hsla(0, 0%, 50%, 0);
-  width: 10px;
+  width: 5px;
   height: 100%;
 
   transition: background-color 0.2s ease;
@@ -248,7 +248,7 @@ img[alt="profile"] {
 }
 
 .resizer:hover .resizer-content {
-  background-color: var(--primary);
+  background-color: var(--blue);
   /* width: 10px; */
 }
 

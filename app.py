@@ -27,6 +27,7 @@ def home():
         print(f"IP: {request.remote_addr}\nSession: { session.get('username') }\nPermission: { session.get('permission') }")
 
         if session.get('username') is not None:
+            
             skipLogin = json.dumps(
                 {
                     "username": session.get('username')
@@ -39,7 +40,9 @@ def home():
                 }
             )
 
-        return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, skip=skipLogin, style='static/styles/index.css')
+        theme = users.getTheme(session.get('username'))
+
+        return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, theme=theme, skip=skipLogin, style='static/styles/index.css')
 
     elif request.method == 'POST':
 
@@ -58,7 +61,7 @@ def home():
         if method == "changeColor":
             content = request.json['content']
 
-            # ? possible addition of custom themes yet to be implemented
+            result = users.updateTheme(session['username'], content["primary"], content["secondary"],)
             
             return jsonify(success=True)
 
@@ -134,15 +137,14 @@ def create_buggy():
             <p> Try signing in as guest </p>
             """
 
-        owner = session.get('username')
+        # print(session['username'])
 
-        print(session['username'])
-
-        buggyData, profiles = data.getCar(owner)
+        buggyData, profiles = data.getCar(session.get('username'))
+        theme = users.getTheme(session.get('username'))
 
         # print(f'\nbuggy: {buggyData} \nlength: {len(buggyData)}\nIDs: {profiles}\n')
 
-        print(f"Report:\nBuggy Data:\n{buggyData}\nProfiles:\n{profiles}")
+        # print(f"Report:\nBuggy Data:\n{buggyData}\nProfiles:\n{profiles}")
 
         return render_template("buggy-form.html",
                                qty_wheels=buggyData[1],
@@ -168,6 +170,7 @@ def create_buggy():
                                private=buggyData[22],
                                buggy_name=buggyData[23],
                                profiles=profiles,
+                               theme=theme["secondary"],
                                username=session.get('username'),
                                style='static/styles/create.css'
                                )
@@ -195,13 +198,16 @@ def show_buggies():
             <h1> No permissions found </h1>
             <p> Try signing in as guest </p>
             """
+    
+    buggyData, profiles = data.getCar(session.get('username'))
+    theme = users.getTheme(session.get('username'))
 
     con = sql.connect(DATABASE_FILE)
     con.row_factory = sql.Row
     cur = con.cursor()
     cur.execute("SELECT * FROM buggies")
     record = cur.fetchone()
-    return render_template("buggy.html", buggy=record, style='static/styles/show.css')
+    return render_template("buggy.html", username=session.get('username'), theme=theme["secondary"], profiles=profiles, buggy=record, style='static/styles/show.css')
 
 
 @app.route('/poster')

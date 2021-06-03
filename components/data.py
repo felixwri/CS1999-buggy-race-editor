@@ -77,6 +77,7 @@ def getCar(owner):
             'False',
             'steady',
             0,
+            owner,
             unnamedId,
             'Unnamed',
         )

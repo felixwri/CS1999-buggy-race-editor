@@ -125,14 +125,26 @@
     <div class="vline"></div>
     <div class="settings-options">
       <div id="col" class="s-option">
-        <div>Primary Theme Color</div>
-        <input onchange="themeChange(this)" id="colors" type="color" name="theme_color" />
-        <div class="hitbox" onclick="changeColor()">
-          <svg class="icon-button positive" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" width="2rem"
-            fill="#FFFFFF">
-            <path d="M0 0h24v24H0V0z" fill="none" />
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
-          </svg>
+        <div>Primary Theme Color <span style="color: rgb(99, 99, 99); font-size: 0.75em;">A Bright Colour Is Recommended</span></div>
+        <input onchange="themeChange(this)" id="colors" type="color" name="theme_color" value="{{ theme['primary'] }}" />
+        <div>Secondary Theme Color <span style="color: rgb(99, 99, 99); font-size: 0.75em;">A Dark Colour Is Recommended</span></div>
+        <input onchange="themeChange(this)" id="colors" type="color" name="theme_color" value="{{ theme['secondary'] }}" />
+        <div class="color-options">
+          <div class="hitbox" onclick="changeColor()">
+            <svg class="icon-button positive" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24"
+              width="2rem" fill="#FFFFFF">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+            </svg>
+          </div>
+          <div class="hitbox" onclick="resetColor()">
+            <svg class="icon-button neutral" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24"
+              width="2rem" fill="#FFFFFF">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path
+                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+            </svg>
+          </div>
         </div>
       </div>
       <div id="pwd" class="s-option none">
@@ -143,8 +155,8 @@
         <input class="s-input" type="password" name="new_password" />
         <input class="s-input" type="password" name="new_password" />
         <div class="hitbox" onclick="changePassword()">
-          <svg class="icon-button positive" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" width="2rem"
-            fill="#FFFFFF">
+          <svg class="icon-button positive" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24"
+            width="2rem" fill="#FFFFFF">
             <path d="M0 0h24v24H0V0z" fill="none" />
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
           </svg>
@@ -153,10 +165,10 @@
       <div id="del" class="s-option none">
         <div>Delete Account</div>
         <div>Type out your password to confirm</div>
-        <input class="s-input" type="text" name="delete"/>
+        <input class="s-input" type="text" name="delete" />
         <div class="hitbox" onclick="destroy()">
-          <svg class="icon-button warning" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24" width="2rem"
-            fill="#FFFFFF">
+          <svg class="icon-button warning" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24"
+            width="2rem" fill="#FFFFFF">
             <path d="M0 0h24v24H0V0z" fill="none" />
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
           </svg>
@@ -183,7 +195,9 @@
 <script type="text/javascript" src="../static/scripts/login.js"></script>
 
 <script type="text/javascript">
-  const alreadyLoggedIn = JSON.parse({{ skip | tojson }})
+  let themeColorPrimary = "{{ theme['primary'] }}";
+  hexThemeColor = themeColorPrimary.replace("#", "0x");
+  const alreadyLoggedIn = JSON.parse({{ skip | tojson }});
   document.body.onload = skipLogin();
 </script>
 

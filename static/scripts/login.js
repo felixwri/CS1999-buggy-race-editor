@@ -196,8 +196,14 @@ function sleep(ms) {
 }
 
 function themeChange(element) {
-    themeColor = element.value.replace("#", "0x")
-    console.log(themeColor)
+    colorInput = document.getElementsByName("theme_color");
+
+    themeColorPrimary = colorInput[0].value
+    themeColorSecondary = colorInput[1].value
+
+    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace("#", "0x")
+    console.log(hexThemeColor)
 }
 
 function displayOption(option) {
@@ -224,11 +230,36 @@ function displayOption(option) {
 async function changeColor() {
     let obj = {
         "method": "changeColor",
-        "content": themeColor
+        "content": {
+            "primary": themeColorPrimary,
+            "secondary": themeColorSecondary
+        }
     }
 
     let valid = await auth(obj)
     console.log(valid)
+}
+
+async function resetColor() {
+    let obj = {
+        "method": "changeColor",
+        "content": {
+            "primary": "#ffffff",
+            "secondary": "#17191c"
+        }
+    }
+
+    let valid = await auth(obj)
+    console.log(valid)
+
+    colorInput = document.getElementsByName("theme_color");
+
+    themeColorPrimary =  "#ffffff";
+    themeColorSecondary = "#17191c";
+
+    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace("#", "0x")
+    console.log(hexThemeColor)
 }
 
 async function changePassword() {

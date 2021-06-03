@@ -1,5 +1,5 @@
 :root {
-    --primary: hsl(216, 50%, 50%);
+    --primary: hsl(216, 10%, 10%);
 
     --blue: hsl(216, 50%, 50%);
     --dark-blue: hsl(216, 50%, 40%);
@@ -27,9 +27,7 @@ body {
   font-family: 'Noto Sans', sans-serif;
   font-size: 1.2em;
   color: var(--white);
-  background-color: var(--muted-blue);
-
-  transition: margin 0.2s ease;
+  background-color: var(--primary);
 }
 
 /* @media only screen and (min-width: 750px) and (max-width: 1200px) {

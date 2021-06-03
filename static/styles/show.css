@@ -1,14 +1,41 @@
 body {
-  background-color: var(--muted-blue);
+  background-color: var(--primary);
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
 
-table {
-    border: 1px solid #000000;
-    border-collapse: collapse;
-    margin: 0 0 2em 0;
-  }
-table td, table th {
-  padding: 0.25em;
-  border: 1px solid var(--dark-blue);
-  padding: 0.5rem;
+.profile {
+  margin: 1rem 0rem 1rem 0rem;
+
+  padding: 1rem;
+  
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 20px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+.card {
+  border: 1px solid white;
+  height: 8rem;
+
+  padding: 1rem;
+}
+
+.card-name {
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+.card-id {
+  color: hsl(0, 0%, 50%);
+}
+
+.colors {
+  width: 4rem;
+  height: 4rem;
 }

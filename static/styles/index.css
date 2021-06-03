@@ -154,7 +154,7 @@ input {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: var(--muted-blue);
+    background-color: var(--primary);
     width: 100%;
     height: 100vh;
 
@@ -308,4 +308,10 @@ div[onclick="displayOption('del')"] {
 
 input[name="delete"] {
     color: var(--red);
+}
+
+.color-options {
+    width: 7rem;
+    display: flex;
+    justify-content: space-between;
 }

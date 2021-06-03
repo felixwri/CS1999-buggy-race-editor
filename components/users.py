@@ -116,3 +116,54 @@ def updatePassword(username, newPassword, oldPassword):
         con.close()
 
     return result
+
+def updateTheme(username, primary, secondary):
+    con = sql.Connection(DATABASE_FILE)
+
+    try:
+        cur = con.cursor()
+
+        cur.execute("""UPDATE users set theme_primary=?, theme_secondary=? WHERE username=?""", (primary, secondary, username))
+
+        con.commit()
+        result = True
+    
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        result = False
+
+    finally:
+        con.close()
+
+    return result
+
+def getTheme(username):
+    con = sql.Connection(DATABASE_FILE)
+
+    print(username)
+
+    try:
+        cur = con.cursor()
+
+        cur.execute("SELECT * FROM users WHERE username=? LIMIT 1", (username,))
+
+        fields =  cur.fetchall()[0]
+
+
+        data = { "primary" : fields[3], "secondary" : fields[4] }
+
+        con.commit()
+        result = data
+
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        result = { "primary" : "#ffffff", "secondary" : "#17191c" }
+
+    finally:
+        con.close()
+
+    return result
