@@ -67,6 +67,7 @@
 <main class="opacity">
 
   <nav class="spacer">
+    <a href="/admin" id="admin" class="link none">Admin</a>
     <a href="/new" class="link">Create</a>
     <a href="/buggy" class="link">Show</a>
     <a href="/poster" class="link">Poster</a>
@@ -126,9 +127,9 @@
     <div class="settings-options">
       <div id="col" class="s-option">
         <div>Primary Theme Color <span style="color: rgb(99, 99, 99); font-size: 0.75em;">A Bright Colour Is Recommended</span></div>
-        <input onchange="themeChange(this)" id="colors" type="color" name="theme_color" value="{{ theme['primary'] }}" />
+        <input onchange="themeChange()" id="colors" type="color" name="theme_color" value="{{ theme['primary'] }}" />
         <div>Secondary Theme Color <span style="color: rgb(99, 99, 99); font-size: 0.75em;">A Dark Colour Is Recommended</span></div>
-        <input onchange="themeChange(this)" id="colors" type="color" name="theme_color" value="{{ theme['secondary'] }}" />
+        <input onchange="themeChange()" id="colors" type="color" name="theme_color" value="{{ theme['secondary'] }}" />
         <div class="color-options">
           <div class="hitbox" onclick="changeColor()">
             <svg class="icon-button positive" xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 0 24 24"
@@ -188,6 +189,12 @@
 
 <div class="scene"></div>
 
+<style>
+  canvas {
+    background-color: {{ theme["secondary"] }}
+  }
+</style>
+
 
 <script type="text/javascript" src="../static/scripts/three/three.js"></script>
 <script type="text/javascript" src="../static/scripts/three/GLTFLoader.js"></script>
@@ -195,7 +202,9 @@
 <script type="text/javascript" src="../static/scripts/login.js"></script>
 
 <script type="text/javascript">
+  let username = "{{ admin }}";
   let themeColorPrimary = "{{ theme['primary'] }}";
+  let themeColorSecondary = "{{ theme['secondary'] }}";
   hexThemeColor = themeColorPrimary.replace("#", "0x");
   const alreadyLoggedIn = JSON.parse({{ skip | tojson }});
   document.body.onload = skipLogin();

@@ -40,9 +40,10 @@ def home():
                 }
             )
 
+        admin = "admin" if session.get('permission') == 'admin' else "None"
         theme = users.getTheme(session.get('username'))
 
-        return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, theme=theme, skip=skipLogin, style='static/styles/index.css')
+        return render_template('index.html', server_url=BUGGY_RACE_SERVER_URL, admin=admin, theme=theme, skip=skipLogin, style='static/styles/index.css')
 
     elif request.method == 'POST':
 
@@ -117,10 +118,11 @@ def home():
         else:
             valid = users.exists(username, password)
 
-        if valid:
+        if valid: 
+            theme = users.getTheme(username)
             session['username'] = username
             session['permission'] = permission
-            return jsonify(username=username)
+            return jsonify(username=username, theme=theme)
         else:
             session['username'] = None
             session['permission'] = None
@@ -224,6 +226,19 @@ def poster():
 # @app.route('/edit')
 # def edit_buggy():
 #     return render_template("buggy-form.html")
+
+@app.route('/admin')
+def admin():
+
+    if session.get('permission') != "admin" or session.get('username') is None:
+            return """
+            <h1> No permissions found </h1>
+            <p> You must be an admin to view this page </p>
+            """
+
+    database = data.dump()
+
+    return render_template("admin.html", database=database)
 
 
 @app.route('/json')

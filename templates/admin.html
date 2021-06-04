@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1> Admin Panel</h1>
+
+<main id="database"></main>
+
+<style>
+    #database {
+        display: flex;
+    }
+    .collection{
+        margin: 2rem;
+    }
+    
+    .collection:nth-child(even) {
+        background-color:rgb(53, 53, 53);
+    }
+    
+    .collection:nth-child(odd) > div{
+        border: 1px solid rgb(53, 53, 53);
+        width: 10rem;
+    }
+
+    .collection:nth-child(even) > div{
+        border: 1px solid var(--primary);
+        width: 10rem;
+    }
+</style>
+
+<script>
+    let data = {{ database | tojson }};
+
+    let container = document.getElementById('database');
+
+    for (let i = 0; i < data.length; i++) {
+        let node = document.createElement("DIV");
+        node.classList.add("collection");
+
+        for (let j = 0; j < data[i].length; j++) {
+            let childNode = document.createElement("DIV");
+            childNode.classList.add("element");
+            childNode.innerText = ` ${data[i][j]} `;
+            node.appendChild(childNode);
+        }
+        container.appendChild(node);
+    }
+    
+</script>
+{% endblock %}

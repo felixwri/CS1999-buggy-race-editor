@@ -45,7 +45,28 @@ async function tryLogin() {
     console.log(valid)
     if (valid.username === 'none') return;
 
+    username = valid.username;
+
+    if (username == "admin") {
+        document.getElementById("admin").classList.remove("none");
+    } else {
+        if (!document.getElementById("admin").classList.contains("none")) {
+            document.getElementById("admin").classList.add("none");
+        }
+    }
+
+    color(valid.theme.primary, valid.theme.secondary)
+
+
     transition(valid.username)
+}
+
+function color(primary, secondary) {
+    themeColorPrimary = primary;
+    themeColorSecondary = secondary;
+
+    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace("#", "0x")
 }
 
 async function tryCreate() {
@@ -90,6 +111,14 @@ function showAccountCreation() {
 
 function skipLogin() {
     if (alreadyLoggedIn.username != "none") {
+
+        if (username == "admin") {
+            document.getElementById("admin").classList.remove("none");
+        } else {
+            if (!document.getElementById("admin").classList.contains("none")) {
+                document.getElementById("admin").classList.add("none");
+            }
+        }
 
         transition(alreadyLoggedIn.username)
         // console.log("continue");
@@ -138,6 +167,7 @@ async function logout() {
         inputs[i].value = "";
     }
 
+    color("#ffffff", "#17191c");
 
     inverseTransition()
 }
@@ -195,15 +225,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function themeChange(element) {
+async function themeChange() {
     colorInput = document.getElementsByName("theme_color");
 
-    themeColorPrimary = colorInput[0].value
-    themeColorSecondary = colorInput[1].value
+    // ? Dumb error correction
+    if (!(colorInput[0].value == "#000000" && colorInput[1].value == "#000000")) {
+        themeColorPrimary = colorInput[0].value
+        themeColorSecondary = colorInput[1].value
+    }
 
     document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
     hexThemeColor = themeColorPrimary.replace("#", "0x")
-    console.log(hexThemeColor)
 }
 
 function displayOption(option) {

@@ -264,3 +264,21 @@ def deleteCar(private):
         msg = "Buggy could not be deleted"
 
     return msg
+
+
+def dump():
+    con = sql.Connection(DATABASE_FILE)
+    try:
+        cur = con.cursor()
+
+        cur.execute("SELECT * FROM buggies ORDER BY ROWID ASC LIMIT 100")
+
+        data = cur.fetchall()
+
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        data = "none"
+
+    return data
