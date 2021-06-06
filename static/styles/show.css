@@ -10,7 +10,7 @@ body {
   padding: 1rem;
   
   background-color: hsla(0, 0%, 100%, 0.1);
-  border-radius: 20px;
+  border-radius: 5px;
   
 }
 
@@ -25,7 +25,16 @@ body {
   border: 1px solid white;
   height: 8rem;
 
+  border-radius: 5px;
+
   padding: 1rem;
+
+  cursor: pointer;
+
+  transition: border 0.2s ease;
+}
+.card:hover {
+  border: 1px solid var(--primary);
 }
 
 .card-name {
@@ -39,4 +48,52 @@ body {
 .colors {
   width: 4rem;
   height: 4rem;
+}
+
+.active {
+  margin: 1rem 0rem 1rem 0rem;
+
+  padding: 1rem;
+  
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-radius: 5px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.active div {
+  display: inline;
+}
+
+.options {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.options button {
+  margin-left: 5rem;
+}
+
+button {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  padding: 0.5em;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  border: none;
+
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: hsla(207, 86%, 37%, 0.4);
+}
+
+.child {
+  margin: 0.2em;
+  padding: 0.1em;
+  background-color: hsla(0, 0%, 0%, 0.1);
+  border-radius: 5px;
 }

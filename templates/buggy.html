@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1> All Buggies</h1>
+<h1> Control Panel</h1>
 
 <div class="profile">
   {{ username }}
 </div>
+
+<div class="options">
+  <h1> Active Buggy </h1>
+  <button> Copy Json </button>
+  <button> Upload With API </button>
+</div>
+
+<div class="active"></div>
 
 <div class="gallery">
 </div>
@@ -16,57 +24,18 @@
   }
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"
+        integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="/static/scripts/show.js" type="text/javascript"></script>
+
 <script type="text/javascript">
-  function buildProfiles() {
-    let raw = {{ profiles | tojson }}
-  let profiles = [];
-
-  for (let i = 0; i < raw.length; i++) {
-    profiles.push(JSON.parse(raw[i]))
-  }
-
-  return profiles
-  }
-
-  function buildBuggies(profiles) {
-    let availableBuggies = document.getElementsByClassName("gallery");
-
-    for (let buggy = 0; buggy < availableBuggies.length; buggy++) {
-      for (let i = 0; i < profiles.length; i++) {
-
-        let node = document.createElement("DIV");
-        node.classList.add("card")
-        node.style.backgroundImage = `linear-gradient(to right, var(--primary) 60%, ${profiles[i].primary_color})`
-
-        let nameChild = document.createElement("DIV");
-        let nameContent = document.createTextNode(`${profiles[i].name}`)
-        nameChild.classList.add("card-name")
-        nameChild.style.width = "50%"
-        nameChild.appendChild(nameContent);
-
-        let idChild = document.createElement("DIV");
-        let idContent = document.createTextNode(`${profiles[i].privateID}`)
-        idChild.classList.add("card-id")
-        idChild.style.fontSize = "0.75em"
-        idChild.appendChild(idContent);
-
-        let colorChild = document.createElement("DIV");
-        // colorChild.classList.add("colors")
-        // colorChild.style.backgroundColor = `${profiles[i].primary_color}`
-
-
-        // node.setAttribute("onclick", `getBuggy("${user}", ${profiles[i].privateID})`)
-        node.appendChild(nameChild);
-        node.appendChild(idChild);
-        node.appendChild(colorChild);
-        availableBuggies[buggy].appendChild(node)
-
-      }
-    }
-  }
-
-
+  const username = "{{ username }}"
+  let raw = {{ profiles | tojson }}
   document.body.onload = buildBuggies(buildProfiles());
 </script>
+
+
 
 {% endblock %}

@@ -12,6 +12,8 @@ def process(form):
     msg = "Form data is invalid and can't be accepted. "
     # ? game rules
 
+    print(form)
+
     # ? Wheels must be > 4 
     if int(form['qty_wheels']) < 4:
         valid = False
@@ -23,7 +25,7 @@ def process(form):
         msg += '\nInvalid amount of wheels.'
 
     # ? tyre must be >= No. wheels
-    if int(form['qty_wheels']) >= int(form['qty_tyres']):
+    if int(form['qty_wheels']) < int(form['qty_tyres']):
         valid = False
         msg += '\nToo few tyres.'
     
@@ -39,6 +41,9 @@ def process(form):
 
     #? check length of all fields
     for element in form:
+        if isinstance(form[element], (bool)):
+            form[element] = str(form[element])
+            continue
         if len(form[element]) > 20:
             valid = False
             msg += '\nOne of the form fields had too much data in it'

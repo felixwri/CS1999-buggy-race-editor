@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, session
+import requests
 import sqlite3 as sql
 import json
 
@@ -53,30 +54,26 @@ def home():
 
         print(f"Method: { method }")
 
-
         if method == "logout":
             session.pop('username', None)
             session.pop('permission', None)
             return jsonify(username="None: logged out")
 
-        if method == "changeColor":
+        elif method == "changeColor":
             content = request.json['content']
 
             result = users.updateTheme(session['username'], content["primary"], content["secondary"],)
             
-            return jsonify(success=True)
+            return jsonify(success=result)
 
-        if method == "changePassword":
+        elif method == "changePassword":
             content = request.json['content']
 
             result = users.updatePassword(session['username'], content['new'], content['old'])
 
-            if not result:
-                return jsonify(success=False)
+            return jsonify(success=result)
 
-            return jsonify(success=True)
-
-        if method == "delete":
+        elif method == "delete":
             content = request.json['content']
 
             result = users.destroy(session['username'], content)
@@ -89,44 +86,51 @@ def home():
 
             return jsonify(success=True)
         
-        # ? login
-
-        username = request.json['username']
-        password = request.json['password']
+        elif method == "login" or method == "create":
         
+            # ? login
 
-        # ? set permissions to normal, if username is guest sets the permission to guest
-        permission = "normal"
+            username = request.json['username']
+            password = request.json['password']
 
-        # ? create account
+            if len(username) > 32 or len(password) > 64:
+                return jsonify(username="none")
 
-        if method == "create":
-            users.create(username, password)
+            # ? set permissions to normal, if username is guest sets the permission to guest
+            permission = "normal"
 
-        # ? sign in as guest
+            # ? create account
 
-        if username == "guest" and password == "none":
-            valid = "true"
-            permission = "guest"
+            if method == "create":
+                users.create(username, password)
 
-        elif username == "admin" and password == config["ADMIN"]:
-            valid = "true"
-            permission = "admin"
+            # ? sign in as guest
 
-        # ? check if user exists
+            if username == "guest" and password == "none":
+                valid = "true"
+                permission = "guest"
 
+            elif username == "admin" and password == config["ADMIN"]:
+                valid = "true"
+                permission = "admin"
+
+            # ? check if user exists
+
+            else:
+                valid = users.exists(username, password)
+
+            if valid: 
+                theme = users.getTheme(username)
+                session['username'] = username
+                session['permission'] = permission
+                return jsonify(username=username, theme=theme)
+            else:
+                session['username'] = None
+                session['permission'] = None
+                return jsonify(username="none")
+        
         else:
-            valid = users.exists(username, password)
-
-        if valid: 
-            theme = users.getTheme(username)
-            session['username'] = username
-            session['permission'] = permission
-            return jsonify(username=username, theme=theme)
-        else:
-            session['username'] = None
-            session['permission'] = None
-            return jsonify(username="none")
+            return jsonify(username="none", error="switch fall through: invalid method")
 
 
 @app.route('/new', methods=['POST', 'GET'])
@@ -192,24 +196,41 @@ def create_buggy():
         return msg
 
 
-@app.route('/buggy')
+@app.route('/buggy', methods=['POST', 'GET'])
 def show_buggies():
+    if request.method == 'GET':
 
-    if session.get('permission') == None or session.get('username') is None:
-            return """
-            <h1> No permissions found </h1>
-            <p> Try signing in as guest </p>
-            """
+        if session.get('permission') == None or session.get('username') is None:
+                return """
+                <h1> No permissions found </h1>
+                <p> Try signing in as guest </p>
+                """
+        
+        buggyData, profiles = data.getCar(session.get('username'))
+        theme = users.getTheme(session.get('username'))
+
+        con = sql.connect(DATABASE_FILE)
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute("SELECT * FROM buggies")
+        record = cur.fetchone()
+        return render_template("buggy.html", username=session.get('username'), theme=theme["secondary"], profiles=profiles, buggy=record, style='static/styles/show.css')
     
-    buggyData, profiles = data.getCar(session.get('username'))
-    theme = users.getTheme(session.get('username'))
+    if request.method == 'POST':
+        form = request.json
 
-    con = sql.connect(DATABASE_FILE)
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM buggies")
-    record = cur.fetchone()
-    return render_template("buggy.html", username=session.get('username'), theme=theme["secondary"], profiles=profiles, buggy=record, style='static/styles/show.css')
+        apiObject = {
+            "user" : config['APIUSERNAME'],
+            "secret": config['APISECRET'],
+            "buggy_json": json.dumps(form)
+        }
+
+        response = requests.post('https://rhul.buggyrace.net/api/upload/', apiObject) 
+        
+        print(response.status_code) 
+        print(response.text) 
+
+        return jsonify(response.status_code, response.text)
 
 
 @app.route('/poster')
@@ -257,6 +278,7 @@ def summary():
 
     buggies = dict(zip([column[0]
                    for column in cur.description], cur.fetchone())).items()
+
     return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
 
 

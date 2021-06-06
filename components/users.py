@@ -69,15 +69,8 @@ def destroy(username, password):
     try:
         cur = con.cursor()
 
-        values = (
-            username,
-            password
-        )
-
         cur.execute("""DELETE FROM users WHERE username=? AND password=?""", (username, password))
         
-        
-
         if cur.rowcount < 1:
             result = False
         else:

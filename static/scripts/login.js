@@ -1,3 +1,5 @@
+const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+
 const auth = async (object) => {
     const rawResponse = await fetch('http://localhost:5000/', {
         method: 'POST',
@@ -42,7 +44,13 @@ async function tryLogin() {
         "method": "login"
     }
     let valid = await auth(obj)
+
+
+    // ? login response
+
+
     console.log(valid)
+    
     if (valid.username === 'none') return;
 
     username = valid.username;
@@ -88,25 +96,33 @@ async function tryCreate() {
 
 
 
-function showLogin() {
+async function showLogin() {
     newLogin = document.getElementById("new-account")
     if (!newLogin.classList.contains("none")) {
-        newLogin.classList.add("none")
+        tl.fromTo("#new-account", {opacity: "1"}, { opacity: "0", duration: 0.5})
+        await sleep(500)
+        newLogin.classList.add("none")    
     }
 
     login = document.getElementById("existing-account")
     login.classList.remove("none")
+
+    tl.fromTo("#existing-account", {opacity: "0"}, { opacity: "1", duration: 0.5})
 }
 
-function showAccountCreation() {
+async function showAccountCreation() {
 
     login = document.getElementById("existing-account")
     if (!login.classList.contains("none")) {
-        login.classList.add("none")
+        tl.fromTo("#existing-account", {opacity: "1"}, { opacity: "0", duration: 0.5})
+        await sleep(500)
+        login.classList.add("none")      
     }
 
     newLogin = document.getElementById("new-account")
     newLogin.classList.remove("none")
+
+    tl.fromTo("#new-account", {opacity: "0"}, { opacity: "1", duration: 0.5})
 }
 
 function skipLogin() {

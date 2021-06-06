@@ -12,8 +12,8 @@ title {
     position: absolute;
     top: 20vh;
     left: 20vw;
-    /* background-color: var(--muted-blue); */
-    width: 40vw;
+    
+    width: 30vw;
     height: 30vh;
 
     display: flex;
@@ -46,11 +46,8 @@ title {
     align-items: center;
     justify-content: space-evenly;
 
-    opacity: 1;
-
-    transition: opacity 1s ease;
-
     /* border-left: 2px solid white; */
+    transition: left 1s ease;
 
 }
 

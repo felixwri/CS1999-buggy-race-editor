@@ -43,23 +43,6 @@ async function calculate() {
     w = 0;
 }
 
-if (document.getElementById("fireproof").checked) {
-    document.getElementById('fireproofHidden').disabled = true;
-}
-
-
-if (document.getElementById("insulated").checked) {
-    document.getElementById('insulatedHidden').disabled = true;
-}
-
-if (document.getElementById("antibiotic").checked) {
-    document.getElementById('antibioticHidden').disabled = true;
-}
-
-if (document.getElementById("banging").checked) {
-    document.getElementById('bangingHidden').disabled = true;
-}
-
 let targetSpend = 1000
 const totalSpend = 2000
 
@@ -169,6 +152,11 @@ function form(section) {
 }
 
 async function submit(task) {
+    let fireproof = "True" ? document.getElementsByName("fireproof")[0].checked : "False";
+    let insulated = "True" ? document.getElementsByName("insulated")[0].checked : "False";
+    let antibiotic = "True" ? document.getElementsByName("antibiotic")[0].checked : "False";
+    let banging = "True" ? document.getElementsByName("banging")[0].checked : "False";
+
     const data = {
         "qty_wheels": document.getElementsByName("qty_wheels")[0].value,
         "tyres": document.getElementsByName("tyres")[0].value,
@@ -182,10 +170,10 @@ async function submit(task) {
         "attack": document.getElementsByName("attack")[0].value,
         "qty_attacks": document.getElementsByName("qty_attacks")[0].value,
         "algo": document.getElementsByName("algo")[0].value,
-        "fireproof": document.getElementsByName("fireproof")[0].value,
-        "insulated": document.getElementsByName("insulated")[0].value,
-        "antibiotic": document.getElementsByName("antibiotic")[0].value,
-        "banging": document.getElementsByName("banging")[0].value,
+        "fireproof": fireproof,
+        "insulated": insulated,
+        "antibiotic": antibiotic,
+        "banging": banging,
         "flag_color": document.getElementsByName("flag_color")[0].value,
         "flag_color_secondary": document.getElementsByName("flag_color_secondary")[0].value,
         "flag_pattern": document.getElementsByName("flag_pattern")[0].value,
