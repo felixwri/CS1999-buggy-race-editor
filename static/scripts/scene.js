@@ -9,9 +9,10 @@ let timeline = 0;
 let loggedIn = false;
 let reset = false;
 let settingsTransition = false;
-let hexThemeColor = 0xFFFFFF;
+let hexThemeColor = 0xffffff;
 
-let raycaster, mouse = { x: 0, y: 0 };
+let raycaster,
+    mouse = { x: 0, y: 0 };
 
 let textureLoader = new THREE.TextureLoader();
 
@@ -41,7 +42,6 @@ class ObjectBuilder {
         return line;
     }
 }
-
 
 function init() {
     container = document.querySelector('.scene');
@@ -83,7 +83,7 @@ function init() {
     // camera.rotation.x = -0.2
 
     // lights
-    const ambient = new THREE.AmbientLight(0xFFFFFF, 2);
+    const ambient = new THREE.AmbientLight(0xffffff, 2);
     scene.add(ambient);
 
     // const light = new THREE.DirectionalLight(0xFFFFFF, 2);
@@ -97,10 +97,8 @@ function init() {
 
     container.appendChild(renderer.domElement);
 
-
     // renderer.domElement.addEventListener('click', raycast, false);
     // renderer.domElement.addEventListener( 'move', raycast, false );
-
 
     // const standardMaterial = new THREE.MeshStandardMaterial( {
     //     color: 0xffffff,
@@ -112,14 +110,13 @@ function init() {
 
     let textureLoader = new THREE.TextureLoader();
 
-    let map = textureLoader.load("../static/content/textures/compiled.png");
+    let map = textureLoader.load('../static/content/textures/compiled.png');
     map.encoding = THREE.sRGBEncoding;
     map.flipY = false;
 
-
     // load model
     let loader = new THREE.GLTFLoader(manager);
-    loader.load("../static/content/models/landWireframe.gltf", function (gltf) {
+    loader.load('../static/content/models/landWireframe.gltf', function (gltf) {
         // scene.add(gltf.scene);
         model = gltf.scene.children[0];
         // model.material = new THREE.MeshPhongMaterial({
@@ -144,49 +141,33 @@ function animate() {
     requestAnimationFrame(animate);
     // model.rotation.y -= 0.00005 * (10 * Math.sin(rot));
     // rot += 0.01;
-    model.rotation.y = model.rotation.y + Math.sin(timeline * Math.PI / 180) / (75)
+    model.rotation.y = model.rotation.y + Math.sin((timeline * Math.PI) / 180) / 75;
 
     // if (timeline > 0) { timeline = timeline - 0.1 } else { timeline = 0 }
 
-    if (wireframe.material.opacity < 0.5) wireframe.material.opacity += 0.01
+    if (wireframe.material.opacity < 0.5) wireframe.material.opacity += 0.01;
 
     if (!reset) {
         if (camera.position.z > 5 && loggedIn == false) {
-
-            camera.position.z -= ((camera.position.z - 5) / 100)
-
+            camera.position.z -= (camera.position.z - 5) / 100;
         } else if (camera.position.z > -5 && loggedIn == false) {
-
-            camera.position.z -= (camera.position.z / 100)
-
+            camera.position.z -= camera.position.z / 100;
         } else if (camera.position.z > 0 && loggedIn == true) {
-
-            camera.position.z -= (camera.position.z / 100)
-
+            camera.position.z -= camera.position.z / 100;
         }
-
     } else {
-
         if (camera.position.z < 5) {
-
-            camera.position.z += ((5.5 - camera.position.z) / 50)
-
+            camera.position.z += (5.5 - camera.position.z) / 50;
         } else {
-
             reset = false;
             loggedIn = false;
-
         }
     }
 
-
     wireframe.material.color.setHex(hexThemeColor);
 
-    
-
-
-    wireframe.rotation.y = (mouse.x - (window.innerWidth / 2)) / 30000
-    wireframe.rotation.z = (mouse.y - (window.innerHeight / 2)) / 30000
+    wireframe.rotation.y = (mouse.x - window.innerWidth / 2) / 30000;
+    wireframe.rotation.z = (mouse.y - window.innerHeight / 2) / 30000;
 
     renderer.render(scene, camera);
 
@@ -204,19 +185,18 @@ function onWindowResize() {
     renderer.setSize(container.clientWidth, container.clientHeight);
 }
 
-window.addEventListener("resize", onWindowResize);
+window.addEventListener('resize', onWindowResize);
 
-window.addEventListener("mousemove", (event) => {
-    mouse.x = event.x
-    mouse.y = event.y
-})
+window.addEventListener('mousemove', (event) => {
+    mouse.x = event.x;
+    mouse.y = event.y;
+});
 
 function raycast(e) {
-
     //1. sets the mouse position with a coordinate system where the center
     //   of the screen is the origin
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = - (e.clientY / window.innerHeight) * 2 + 1;
+    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     //2. set the picking ray from the camera position and mouse coordinates
     raycaster.setFromCamera(mouse, camera);
@@ -229,4 +209,3 @@ function raycast(e) {
     //     timeline = 45;
     // }
 }
-

@@ -68,12 +68,12 @@ body {
 
 .options {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
 }
-.options button {
+/* .options button {
   margin-left: 5rem;
-}
+} */
 
 button {
   background-color: hsla(0, 0%, 100%, 0.1);

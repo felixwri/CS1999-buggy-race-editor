@@ -20,10 +20,10 @@ let leftY = 0;
 let centerWidth = 0;
 
 // ? event handelers for the right hand side
-// 
-// 
+//
+//
 
-const mouseDownHandlerRight = function(e) {
+const mouseDownHandlerRight = function (e) {
     // Get the current mouse position
     rightX = e.clientX;
     rightY = e.clientY;
@@ -35,7 +35,7 @@ const mouseDownHandlerRight = function(e) {
     document.addEventListener('mouseup', mouseUpHandlerRight);
 };
 
-const mouseMoveHandlerRight = function(e) {
+const mouseMoveHandlerRight = function (e) {
     // How far the mouse has been moved
     // console.log(`${e.clientX}, ${window.innerWidth}`)
     const limit = leftSide.getBoundingClientRect().width;
@@ -46,7 +46,7 @@ const mouseMoveHandlerRight = function(e) {
     if (e.clientX + 250 > window.innerWidth) return;
     if (e.clientX - 30 < limit) return;
 
-    const newScaffoldWidth = (scaffoldWidth + dx) * 100 / rightResizer.parentNode.getBoundingClientRect().width;
+    const newScaffoldWidth = ((scaffoldWidth + dx) * 100) / rightResizer.parentNode.getBoundingClientRect().width;
     // console.log(`${newcenterWidth}`)
     rightSideScaffold.style.width = `${newScaffoldWidth}%`;
 
@@ -59,7 +59,7 @@ const mouseMoveHandlerRight = function(e) {
     rightSide.style.pointerEvents = 'none';
 };
 
-const mouseUpHandlerRight = function() {
+const mouseUpHandlerRight = function () {
     rightResizer.style.removeProperty('cursor');
 
     rightSideScaffold.style.removeProperty('user-select');
@@ -77,14 +77,14 @@ const mouseUpHandlerRight = function() {
 rightResizer.addEventListener('mousedown', mouseDownHandlerRight);
 
 // ? event handelers for the Left hand side
-// 
-// 
+//
+//
 
-const mouseDownHandlerLeft = function(e) {
+const mouseDownHandlerLeft = function (e) {
     // Get the current mouse position
     leftX = e.clientX;
     leftY = e.clientY;
-    
+
     leftWidth = leftSide.getBoundingClientRect().width;
 
     // Attach the listeners to `document`
@@ -92,7 +92,7 @@ const mouseDownHandlerLeft = function(e) {
     document.addEventListener('mouseup', mouseUpHandlerLeft);
 };
 
-const mouseMoveHandlerLeft = function(e) {
+const mouseMoveHandlerLeft = function (e) {
     // How far the mouse has been moved
 
     const limit = rightSide.getBoundingClientRect().left;
@@ -103,7 +103,7 @@ const mouseMoveHandlerLeft = function(e) {
     if (e.clientX - 250 < 0) return;
     if (e.clientX + 30 > limit) return;
 
-    const newScaffoldWidth = (leftWidth + dx) * 100 / leftResizer.parentNode.getBoundingClientRect().width;
+    const newScaffoldWidth = ((leftWidth + dx) * 100) / leftResizer.parentNode.getBoundingClientRect().width;
 
     // console.log(`${newcenterWidth}`)
     leftSideScaffold.style.width = `${100 - newScaffoldWidth}%`;
@@ -117,7 +117,7 @@ const mouseMoveHandlerLeft = function(e) {
     leftSideScaffold.style.pointerEvents = 'none';
 };
 
-const mouseUpHandlerLeft = function() {
+const mouseUpHandlerLeft = function () {
     leftResizer.style.removeProperty('cursor');
 
     leftSide.style.removeProperty('user-select');

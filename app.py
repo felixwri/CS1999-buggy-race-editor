@@ -1,3 +1,5 @@
+from components import users
+from components import data
 from flask import Flask, render_template, request, jsonify, session
 import requests
 import sqlite3 as sql
@@ -7,8 +9,6 @@ import json
 from dotenv import dotenv_values
 config = dotenv_values(".env")
 
-from components import data
-from components import users
 
 app = Flask(__name__)
 
@@ -19,6 +19,7 @@ BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
 app.secret_key = "super_secret_key"
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
@@ -28,7 +29,7 @@ def home():
         print(f"IP: {request.remote_addr}\nSession: { session.get('username') }\nPermission: { session.get('permission') }")
 
         if session.get('username') is not None:
-            
+
             skipLogin = json.dumps(
                 {
                     "username": session.get('username')
@@ -62,14 +63,16 @@ def home():
         elif method == "changeColor":
             content = request.json['content']
 
-            result = users.updateTheme(session['username'], content["primary"], content["secondary"],)
-            
+            result = users.updateTheme(
+                session['username'], content["primary"], content["secondary"],)
+
             return jsonify(success=result)
 
         elif method == "changePassword":
             content = request.json['content']
 
-            result = users.updatePassword(session['username'], content['new'], content['old'])
+            result = users.updatePassword(
+                session['username'], content['new'], content['old'])
 
             return jsonify(success=result)
 
@@ -80,14 +83,14 @@ def home():
 
             if not result:
                 return jsonify(success=False)
-            
+
             session.pop('username', None)
             session.pop('permission', None)
 
             return jsonify(success=True)
-        
+
         elif method == "login" or method == "create":
-        
+
             # ? login
 
             username = request.json['username']
@@ -119,7 +122,7 @@ def home():
             else:
                 valid = users.exists(username, password)
 
-            if valid: 
+            if valid:
                 theme = users.getTheme(username)
                 session['username'] = username
                 session['permission'] = permission
@@ -128,7 +131,7 @@ def home():
                 session['username'] = None
                 session['permission'] = None
                 return jsonify(username="none")
-        
+
         else:
             return jsonify(username="none", error="switch fall through: invalid method")
 
@@ -176,7 +179,7 @@ def create_buggy():
                                private=buggyData[22],
                                buggy_name=buggyData[23],
                                profiles=profiles,
-                               theme=theme["secondary"],
+                               theme=theme,
                                username=session.get('username'),
                                style='static/styles/create.css'
                                )
@@ -201,11 +204,11 @@ def show_buggies():
     if request.method == 'GET':
 
         if session.get('permission') == None or session.get('username') is None:
-                return """
+            return """
                 <h1> No permissions found </h1>
                 <p> Try signing in as guest </p>
                 """
-        
+
         buggyData, profiles = data.getCar(session.get('username'))
         theme = users.getTheme(session.get('username'))
 
@@ -214,21 +217,22 @@ def show_buggies():
         cur = con.cursor()
         cur.execute("SELECT * FROM buggies")
         record = cur.fetchone()
-        return render_template("buggy.html", username=session.get('username'), theme=theme["secondary"], profiles=profiles, buggy=record, style='static/styles/show.css')
-    
+        return render_template("buggy.html", username=session.get('username'), theme=theme, profiles=profiles, buggy=record, style='static/styles/show.css')
+
     if request.method == 'POST':
         form = request.json
 
         apiObject = {
-            "user" : config['APIUSERNAME'],
+            "user": config['APIUSERNAME'],
             "secret": config['APISECRET'],
             "buggy_json": json.dumps(form)
         }
 
-        response = requests.post('https://rhul.buggyrace.net/api/upload/', apiObject) 
-        
-        print(response.status_code) 
-        print(response.text) 
+        response = requests.post(
+            'https://rhul.buggyrace.net/api/upload/', apiObject)
+
+        print(response.status_code)
+        print(response.text)
 
         return jsonify(response.status_code, response.text)
 
@@ -237,7 +241,7 @@ def show_buggies():
 def poster():
 
     if session.get('permission') == None or session.get('username') is None:
-            return """
+        return """
             <h1> No permissions found </h1>
             <p> Try signing in as guest </p>
             """
@@ -248,11 +252,12 @@ def poster():
 # def edit_buggy():
 #     return render_template("buggy-form.html")
 
+
 @app.route('/admin')
 def admin():
 
     if session.get('permission') != "admin" or session.get('username') is None:
-            return """
+        return """
             <h1> No permissions found </h1>
             <p> You must be an admin to view this page </p>
             """
@@ -260,26 +265,6 @@ def admin():
     database = data.dump()
 
     return render_template("admin.html", database=database)
-
-
-@app.route('/json')
-def summary():
-
-    if session.get('permission') == None or session.get('username') is None:
-            return """
-            <h1> No permissions found </h1>
-            <p> Try signing in as guest </p>
-            """
-
-    con = sql.connect(DATABASE_FILE)
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    cur.execute("SELECT * FROM buggies WHERE id=? LIMIT 1", (DEFAULT_BUGGY_ID))
-
-    buggies = dict(zip([column[0]
-                   for column in cur.description], cur.fetchone())).items()
-
-    return jsonify({key: val for key, val in buggies if (val != "" and val is not None)})
 
 
 @app.route('/api/<user>/<private>')

@@ -1,10 +1,10 @@
-let inputs = document.getElementsByTagName("input");
-let select = document.getElementsByTagName("select");
+let inputs = document.getElementsByTagName('input');
+let select = document.getElementsByTagName('select');
 
-let cost = document.getElementById("cost-value");
-let weight = document.getElementById("weight-value");
+let cost = document.getElementById('cost-value');
+let weight = document.getElementById('weight-value');
 
-let total = document.getElementById("total_cost");
+let total = document.getElementById('total_cost');
 
 let c = 0;
 let w = 0;
@@ -18,8 +18,8 @@ async function calculate() {
     for (let i = 0; i < select.length; i++) {
         //? armour special case
         if (select[i].name == 'armour' && select[i].value != 'None') {
-            c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * (((inputs[1].value - 4) / 10) + 1);
-            w = parseInt(w) + parseInt(prices[select[i].name][select[i].value].weight) * (((inputs[1].value - 4) / 10) + 1);
+            c = parseInt(c) + parseInt(prices[select[i].name][select[i].value].cost) * ((inputs[1].value - 4) / 10 + 1);
+            w = parseInt(w) + parseInt(prices[select[i].name][select[i].value].weight) * ((inputs[1].value - 4) / 10 + 1);
         }
 
         //? all remaining values
@@ -43,10 +43,10 @@ async function calculate() {
     w = 0;
 }
 
-let targetSpend = 1000
-const totalSpend = 2000
+let targetSpend = 1000;
+const totalSpend = 2000;
 
-let spendWeight = targetSpend / totalSpend 
+let spendWeight = targetSpend / totalSpend;
 
 async function automate() {
     for (let i = 0; i < select.length; i++) {
@@ -57,7 +57,6 @@ async function automate() {
 
         // if (prices[select[i].name] != undefined && select[i].value != 'None') {
         //     targetSpend = targetSpend - parseInt(prices[select[i].name][select[i].value].cost)
-        //     // console.log(targetSpend)
         // }
     }
 
@@ -69,12 +68,27 @@ async function automate() {
         }
         if (inputs[i].type === 'text') {
             // ? Random name generator
-            console.log(inputs[i].name)
-            names = ["old", "long", "new", "cold", "hot", "diesel", "oil", "electric", "solar", "prime", "light", "dark", "lost", "ruined", "grey", "blue", "spark"]
+            names = [
+                'old',
+                'long',
+                'new',
+                'cold',
+                'hot',
+                'diesel',
+                'oil',
+                'electric',
+                'solar',
+                'prime',
+                'light',
+                'dark',
+                'lost',
+                'ruined',
+                'grey',
+                'blue',
+                'spark'
+            ];
 
             fakeName = `${names[Math.round(Math.random() * (names.length - 1))]}  ${names[Math.round(Math.random() * (names.length - 1))]}`;
-
-            console.log(fakeName)
             inputs[i].value = fakeName;
             continue;
         }
@@ -97,7 +111,7 @@ async function automate() {
             continue;
         }
         let randomValue = Math.round(Math.random() * (inputs[i].max - 1));
-        if (randomValue > 100) randomValue = 100;
+        if (randomValue > 100) randomValue = Math.round(Math.random() * 100);
         inputs[i].value = randomValue;
         // select[i].style.backgroundColor = 'var(--muted-green)';
 
@@ -119,11 +133,11 @@ function generateColor() {
 
 async function loadNewCar(message) {
     for (let i = 0; i < select.length; i++) {
-        select[i].value = message[select[i].name]
+        select[i].value = message[select[i].name];
     }
     for (let i = 0; i < inputs.length; i++) {
-        if (inputs[i].type === "button") continue;
-        inputs[i].value = message[inputs[i].name]
+        if (inputs[i].type === 'button') continue;
+        inputs[i].value = message[inputs[i].name];
     }
     let title = document.getElementById('head-header');
 
@@ -135,93 +149,89 @@ async function loadNewCar(message) {
 }
 
 function form(section) {
-    sections = ['buggies', 'wheels', 'engine', 'offensive', 'flag', 'misc', 'submit']
+    sections = ['buggies', 'wheels', 'engine', 'offensive', 'flag', 'misc', 'submit'];
 
-    previus = document.getElementById(active)
-    previus.classList.add('hidden')
-    current = document.getElementById(section)
-    current.classList.remove('hidden')
+    previus = document.getElementById(active);
+    previus.classList.add('hidden');
+    current = document.getElementById(section);
+    current.classList.remove('hidden');
 
-    highlight = document.getElementById(`list-${section}`)
-    
+    highlight = document.getElementById(`list-${section}`);
 
-    console.log(section)
-    console.log(active)
+    console.log(section);
+    console.log(active);
 
     active = section;
 }
 
 async function submit(task) {
-    let fireproof = "True" ? document.getElementsByName("fireproof")[0].checked : "False";
-    let insulated = "True" ? document.getElementsByName("insulated")[0].checked : "False";
-    let antibiotic = "True" ? document.getElementsByName("antibiotic")[0].checked : "False";
-    let banging = "True" ? document.getElementsByName("banging")[0].checked : "False";
+    let fireproof = 'True' ? document.getElementsByName('fireproof')[0].checked : 'False';
+    let insulated = 'True' ? document.getElementsByName('insulated')[0].checked : 'False';
+    let antibiotic = 'True' ? document.getElementsByName('antibiotic')[0].checked : 'False';
+    let banging = 'True' ? document.getElementsByName('banging')[0].checked : 'False';
 
     const data = {
-        "qty_wheels": document.getElementsByName("qty_wheels")[0].value,
-        "tyres": document.getElementsByName("tyres")[0].value,
-        "qty_tyres": document.getElementsByName("qty_tyres")[0].value,
-        "power_type": document.getElementsByName("power_type")[0].value,
-        "power_units": document.getElementsByName("power_units")[0].value,
-        "aux_power_type": document.getElementsByName("aux_power_type")[0].value,
-        "aux_power_units": document.getElementsByName("aux_power_units")[0].value,
-        "hamster_booster": document.getElementsByName("hamster_booster")[0].value,
-        "armour": document.getElementsByName("armour")[0].value,
-        "attack": document.getElementsByName("attack")[0].value,
-        "qty_attacks": document.getElementsByName("qty_attacks")[0].value,
-        "algo": document.getElementsByName("algo")[0].value,
-        "fireproof": fireproof,
-        "insulated": insulated,
-        "antibiotic": antibiotic,
-        "banging": banging,
-        "flag_color": document.getElementsByName("flag_color")[0].value,
-        "flag_color_secondary": document.getElementsByName("flag_color_secondary")[0].value,
-        "flag_pattern": document.getElementsByName("flag_pattern")[0].value,
-        "total_cost": document.getElementsByName("total_cost")[0].value,
-        "private": document.getElementsByName("private")[0].value,
-        "buggy_name": document.getElementsByName("buggy_name")[0].value,
-        "task": task.value
-    }
+        qty_wheels: document.getElementsByName('qty_wheels')[0].value,
+        tyres: document.getElementsByName('tyres')[0].value,
+        qty_tyres: document.getElementsByName('qty_tyres')[0].value,
+        power_type: document.getElementsByName('power_type')[0].value,
+        power_units: document.getElementsByName('power_units')[0].value,
+        aux_power_type: document.getElementsByName('aux_power_type')[0].value,
+        aux_power_units: document.getElementsByName('aux_power_units')[0].value,
+        hamster_booster: document.getElementsByName('hamster_booster')[0].value,
+        armour: document.getElementsByName('armour')[0].value,
+        attack: document.getElementsByName('attack')[0].value,
+        qty_attacks: document.getElementsByName('qty_attacks')[0].value,
+        algo: document.getElementsByName('algo')[0].value,
+        fireproof: fireproof,
+        insulated: insulated,
+        antibiotic: antibiotic,
+        banging: banging,
+        flag_color: document.getElementsByName('flag_color')[0].value,
+        flag_color_secondary: document.getElementsByName('flag_color_secondary')[0].value,
+        flag_pattern: document.getElementsByName('flag_pattern')[0].value,
+        total_cost: document.getElementsByName('total_cost')[0].value,
+        private: document.getElementsByName('private')[0].value,
+        buggy_name: document.getElementsByName('buggy_name')[0].value,
+        task: task.value
+    };
 
-    console.log(data)
+    console.log(data);
 
     const response = await fetch('http://localhost:5000/new', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
 
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
+        body: JSON.stringify(data)
+    });
 
-  const content = await response.text();
+    const content = await response.text();
 
-  console.log(content);
+    console.log(content);
 
-  await final(content);
+    await final(content);
 }
 
 async function final(content) {
-    const receipt = document.getElementById("receipt");
-    const receipt_message = document.getElementById("receipt-message");
-    const filter = document.getElementById("filter");
+    const receipt = document.getElementById('receipt');
+    const receipt_message = document.getElementById('receipt-message');
+    const filter = document.getElementById('filter');
 
-    receipt.classList.remove("none");
-    filter.style.filter = "blur(10px)";
+    receipt.classList.remove('none');
+    filter.style.filter = 'blur(10px)';
 
-    console.log(content)
+    console.log(content);
 
     receipt_message.innerText = content;
-
-
 }
 
 function home() {
-    window.location.href = '../'
+    window.location.href = '../';
 }
 
 function reload() {
     window.location.href = '/new';
 }
-

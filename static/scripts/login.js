@@ -1,10 +1,10 @@
-const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+const tl = gsap.timeline({ defaults: { ease: 'power1.out' } });
 
 const auth = async (object) => {
     const rawResponse = await fetch('http://localhost:5000/', {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
+            Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(object)
@@ -12,376 +12,362 @@ const auth = async (object) => {
     // const content = await rawResponse.json();
     let response = await rawResponse.json();
 
-    return response
+    return response;
 };
 
 // !
-// ! This needs server side validation 
-// ! 
+// ! This needs server side validation
+// !
 
 async function loginAsGuest() {
-    let obj =
-    {
-        "username": "guest",
-        "password": "none",
-        "method": "login"
-    }
+    let obj = {
+        username: 'guest',
+        password: 'none',
+        method: 'login'
+    };
 
-    let valid = await auth(obj)
-    console.log(valid)
+    let valid = await auth(obj);
+    console.log(valid);
     if (valid.username === 'none') return;
 
-    transition("guest")
+    transition('guest');
 }
 
 async function tryLogin() {
-    const inputs = document.getElementsByClassName('existing')
+    const inputs = document.getElementsByClassName('existing');
 
-    let obj =
-    {
-        "username": inputs[0].value,
-        "password": inputs[1].value,
-        "method": "login"
-    }
-    let valid = await auth(obj)
-
+    let obj = {
+        username: inputs[0].value,
+        password: inputs[1].value,
+        method: 'login'
+    };
+    let valid = await auth(obj);
 
     // ? login response
 
+    console.log(valid);
 
-    console.log(valid)
-    
     if (valid.username === 'none') return;
 
     username = valid.username;
 
-    if (username == "admin") {
-        document.getElementById("admin").classList.remove("none");
+    if (username == 'admin') {
+        document.getElementById('admin').classList.remove('none');
     } else {
-        if (!document.getElementById("admin").classList.contains("none")) {
-            document.getElementById("admin").classList.add("none");
+        if (!document.getElementById('admin').classList.contains('none')) {
+            document.getElementById('admin').classList.add('none');
         }
     }
 
-    color(valid.theme.primary, valid.theme.secondary)
+    color(valid.theme.primary, valid.theme.secondary);
 
-
-    transition(valid.username)
+    transition(valid.username);
 }
 
 function color(primary, secondary) {
     themeColorPrimary = primary;
     themeColorSecondary = secondary;
 
-    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
-    hexThemeColor = themeColorPrimary.replace("#", "0x")
+    document.getElementsByTagName('canvas')[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace('#', '0x');
 }
 
 async function tryCreate() {
-    const inputs = document.getElementsByClassName('new')
+    const inputs = document.getElementsByClassName('new');
 
-    let obj =
-    {
-        "username": inputs[0].value,
-        "password": inputs[1].value,
-        "method": "create"
-    }
-    let valid = await auth(obj)
-    console.log(valid)
+    let obj = {
+        username: inputs[0].value,
+        password: inputs[1].value,
+        method: 'create'
+    };
+    let valid = await auth(obj);
+    console.log(valid);
     if (valid.username === 'none') return;
 
-    transition(valid.username)
+    transition(valid.username);
 }
 
-
-
-
 async function showLogin() {
-    newLogin = document.getElementById("new-account")
-    if (!newLogin.classList.contains("none")) {
-        tl.fromTo("#new-account", {opacity: "1"}, { opacity: "0", duration: 0.5})
-        await sleep(500)
-        newLogin.classList.add("none")    
+    newLogin = document.getElementById('new-account');
+    if (!newLogin.classList.contains('none')) {
+        tl.fromTo('#new-account', { opacity: '1' }, { opacity: '0', duration: 0.5 });
+        await sleep(500);
+        newLogin.classList.add('none');
     }
 
-    login = document.getElementById("existing-account")
-    login.classList.remove("none")
+    login = document.getElementById('existing-account');
+    login.classList.remove('none');
 
-    tl.fromTo("#existing-account", {opacity: "0"}, { opacity: "1", duration: 0.5})
+    tl.fromTo('#existing-account', { opacity: '0' }, { opacity: '1', duration: 0.5 });
 }
 
 async function showAccountCreation() {
-
-    login = document.getElementById("existing-account")
-    if (!login.classList.contains("none")) {
-        tl.fromTo("#existing-account", {opacity: "1"}, { opacity: "0", duration: 0.5})
-        await sleep(500)
-        login.classList.add("none")      
+    login = document.getElementById('existing-account');
+    if (!login.classList.contains('none')) {
+        tl.fromTo('#existing-account', { opacity: '1' }, { opacity: '0', duration: 0.5 });
+        await sleep(500);
+        login.classList.add('none');
     }
 
-    newLogin = document.getElementById("new-account")
-    newLogin.classList.remove("none")
+    newLogin = document.getElementById('new-account');
+    newLogin.classList.remove('none');
 
-    tl.fromTo("#new-account", {opacity: "0"}, { opacity: "1", duration: 0.5})
+    tl.fromTo('#new-account', { opacity: '0' }, { opacity: '1', duration: 0.5 });
 }
 
 function skipLogin() {
-    if (alreadyLoggedIn.username != "none") {
-
-        if (username == "admin") {
-            document.getElementById("admin").classList.remove("none");
+    if (alreadyLoggedIn.username != 'none') {
+        if (username == 'admin') {
+            document.getElementById('admin').classList.remove('none');
         } else {
-            if (!document.getElementById("admin").classList.contains("none")) {
-                document.getElementById("admin").classList.add("none");
+            if (!document.getElementById('admin').classList.contains('none')) {
+                document.getElementById('admin').classList.add('none');
             }
         }
 
-        transition(alreadyLoggedIn.username)
+        transition(alreadyLoggedIn.username);
         // console.log("continue");
     }
 }
 
 function transition(username) {
-    const main = document.getElementsByClassName('opacity')
-    const login = document.getElementsByClassName('login')
-    const profile = document.getElementById('profile')
-    const profile_name = document.getElementById('profile-name')
-    const settings_name = document.getElementById('settings-name')
+    const main = document.getElementsByClassName('opacity');
+    const login = document.getElementsByClassName('login');
+    const profile = document.getElementById('profile');
+    const profile_name = document.getElementById('profile-name');
+    const settings_name = document.getElementById('settings-name');
 
-    const existingaccount = document.getElementById('existing-account')
-    existingaccount.classList.add("none")
+    const existingaccount = document.getElementById('existing-account');
+    existingaccount.classList.add('none');
 
-    const newaccount = document.getElementById('new-account')
-    newaccount.classList.add("none")
+    const newaccount = document.getElementById('new-account');
+    newaccount.classList.add('none');
 
-    profile_name.innerText = username
-    settings_name.innerText = `Settings for ${username} `
-    
+    profile_name.innerText = username;
+    settings_name.innerText = `Settings for ${username} `;
+
     // login[0].style.left = "70vw"
-    login[0].classList.add('none')
-    profile.style.opacity = "1"
-    main[0].style.opacity = "1"
+    login[0].classList.add('none');
+    profile.style.opacity = '1';
+    main[0].style.opacity = '1';
     loggedIn = true;
 }
 
 async function logout() {
     let obj = {
-        "method": "logout"
+        method: 'logout'
+    };
+
+    let valid = await auth(obj);
+    console.log(valid);
+
+    const settingsMenu = document.getElementById('settings');
+    if (!settingsMenu.classList.contains('none')) {
+        await settings();
     }
 
-    let valid = await auth(obj)
-    console.log(valid)
+    let inputs = document.getElementsByTagName('input');
 
-    const settingsMenu = document.getElementById('settings')
-    if (!settingsMenu.classList.contains("none")) {
-        await settings()
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
     }
 
-    let inputs = document.getElementsByTagName("input");
-    
-    for (let i = 0; i < inputs.length; i++ ) {
-        inputs[i].value = "";
-    }
+    color('#ffffff', '#17191c');
 
-    color("#ffffff", "#17191c");
-
-    inverseTransition()
+    inverseTransition();
 }
 
 function inverseTransition() {
-    const main = document.getElementsByClassName('opacity')
-    const login = document.getElementsByClassName('login')
-    const profile = document.getElementById('profile')
-    const profile_name = document.getElementById('profile-name')
+    const main = document.getElementsByClassName('opacity');
+    const login = document.getElementsByClassName('login');
+    const profile = document.getElementById('profile');
+    const profile_name = document.getElementById('profile-name');
 
-    const existingaccount = document.getElementById('existing-account')
-    existingaccount.classList.add("none")
+    const existingaccount = document.getElementById('existing-account');
+    existingaccount.classList.add('none');
 
-    const newaccount = document.getElementById('new-account')
-    newaccount.classList.add("none")
+    const newaccount = document.getElementById('new-account');
+    newaccount.classList.add('none');
 
-    profile_name.innerText = "login required"
+    profile_name.innerText = 'login required';
     // login[0].style.left = "70vw"
-    login[0].classList.remove('none')
-    profile.style.opacity = "0"
-    main[0].style.opacity = "0"
+    login[0].classList.remove('none');
+    profile.style.opacity = '0';
+    main[0].style.opacity = '0';
     reset = true;
 }
 
 async function settings() {
-    const settingsMenu = document.getElementById('settings')
-    const main = document.getElementsByClassName('opacity')[0]
+    const settingsMenu = document.getElementById('settings');
+    const main = document.getElementsByClassName('opacity')[0];
 
-    if (settingsMenu.classList.contains("none")) {
-        settingsTransition = true
+    if (settingsMenu.classList.contains('none')) {
+        settingsTransition = true;
 
-        
-        main.style.opacity = "0"
+        main.style.opacity = '0';
 
-        settingsMenu.classList.remove("none")
+        settingsMenu.classList.remove('none');
 
-        await sleep(500)
+        await sleep(500);
 
-        settingsMenu.style.opacity = "100"
-        settingsMenu.style.zIndex = "1"
-
+        settingsMenu.style.opacity = '100';
+        settingsMenu.style.zIndex = '1';
     } else {
-        settingsTransition = false
-        settingsMenu.style.opacity = "0"
-        settingsMenu.style.zIndex = "-1"
+        settingsTransition = false;
+        settingsMenu.style.opacity = '0';
+        settingsMenu.style.zIndex = '-1';
 
-        await sleep(500)
-        settingsMenu.classList.add("none")
+        await sleep(500);
+        settingsMenu.classList.add('none');
 
-        main.style.opacity = "100"   
+        main.style.opacity = '100';
     }
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function themeChange() {
-    colorInput = document.getElementsByName("theme_color");
+    colorInput = document.getElementsByName('theme_color');
 
     // ? Dumb error correction
-    if (!(colorInput[0].value == "#000000" && colorInput[1].value == "#000000")) {
-        themeColorPrimary = colorInput[0].value
-        themeColorSecondary = colorInput[1].value
+    if (!(colorInput[0].value == '#000000' && colorInput[1].value == '#000000')) {
+        themeColorPrimary = colorInput[0].value;
+        themeColorSecondary = colorInput[1].value;
     }
 
-    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
-    hexThemeColor = themeColorPrimary.replace("#", "0x")
+    document.getElementsByTagName('canvas')[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace('#', '0x');
 }
 
 function displayOption(option) {
-    col = document.getElementById("col");
-    pwd = document.getElementById("pwd");
-    del = document.getElementById("del");
+    col = document.getElementById('col');
+    pwd = document.getElementById('pwd');
+    del = document.getElementById('del');
 
     all = [col, pwd, del];
 
-    for (let i = 0; i < all.length; i ++ ) {
+    for (let i = 0; i < all.length; i++) {
         if (all[i].id == option) {
-            if (all[i].classList.contains("none")) {
-                all[i].classList.remove("none")
+            if (all[i].classList.contains('none')) {
+                all[i].classList.remove('none');
             }
             continue;
         }
-        
-        if (!all[i].classList.contains("none")) {
-            all[i].classList.add("none")
+
+        if (!all[i].classList.contains('none')) {
+            all[i].classList.add('none');
         }
-    }  
+    }
 }
 
 async function changeColor() {
     let obj = {
-        "method": "changeColor",
-        "content": {
-            "primary": themeColorPrimary,
-            "secondary": themeColorSecondary
+        method: 'changeColor',
+        content: {
+            primary: themeColorPrimary,
+            secondary: themeColorSecondary
         }
-    }
+    };
 
-    let valid = await auth(obj)
-    console.log(valid)
+    let valid = await auth(obj);
+    console.log(valid);
 }
 
 async function resetColor() {
     let obj = {
-        "method": "changeColor",
-        "content": {
-            "primary": "#ffffff",
-            "secondary": "#17191c"
+        method: 'changeColor',
+        content: {
+            primary: '#ffffff',
+            secondary: '#17191c'
         }
-    }
+    };
 
-    let valid = await auth(obj)
-    console.log(valid)
+    let valid = await auth(obj);
+    console.log(valid);
 
-    colorInput = document.getElementsByName("theme_color");
+    colorInput = document.getElementsByName('theme_color');
 
-    themeColorPrimary =  "#ffffff";
-    themeColorSecondary = "#17191c";
+    themeColorPrimary = '#ffffff';
+    themeColorSecondary = '#17191c';
 
-    document.getElementsByTagName("canvas")[0].style.backgroundColor = themeColorSecondary;
-    hexThemeColor = themeColorPrimary.replace("#", "0x")
-    console.log(hexThemeColor)
+    document.getElementsByTagName('canvas')[0].style.backgroundColor = themeColorSecondary;
+    hexThemeColor = themeColorPrimary.replace('#', '0x');
+    console.log(hexThemeColor);
 }
 
 async function changePassword() {
-    inputs = document.getElementsByName("new_password")
+    inputs = document.getElementsByName('new_password');
 
     if (inputs[1].value !== inputs[2].value) {
-        inputs[1].style.backgroundColor = "var(--dark-red)"
-        inputs[2].style.backgroundColor = "var(--dark-red)"
+        inputs[1].style.backgroundColor = 'var(--dark-red)';
+        inputs[2].style.backgroundColor = 'var(--dark-red)';
 
-        await sleep(1000)
+        await sleep(1000);
 
-        inputs[0].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
-        inputs[1].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
-        inputs[2].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
+        inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
+        inputs[1].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
+        inputs[2].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
 
         return;
     }
 
     let obj = {
-        "method": "changePassword",
-        "content": {
-            "new": inputs[1].value,
-            "old": inputs[0].value
+        method: 'changePassword',
+        content: {
+            new: inputs[1].value,
+            old: inputs[0].value
         }
-    }
+    };
 
-    let valid = await auth(obj)
+    let valid = await auth(obj);
 
     if (valid.success) {
-        inputs[0].style.backgroundColor = "var(--dark-green)"
-        inputs[1].style.backgroundColor = "var(--dark-green)"
-        inputs[2].style.backgroundColor = "var(--dark-green)"
+        inputs[0].style.backgroundColor = 'var(--dark-green)';
+        inputs[1].style.backgroundColor = 'var(--dark-green)';
+        inputs[2].style.backgroundColor = 'var(--dark-green)';
     }
 
-    await sleep(1000)
+    await sleep(1000);
 
-    inputs[0].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
-    inputs[1].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
-    inputs[2].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
+    inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
+    inputs[1].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
+    inputs[2].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
 
-
-    console.log(valid)
+    console.log(valid);
 }
 
 async function destroy() {
-    inputs = document.getElementsByName("delete")
+    inputs = document.getElementsByName('delete');
 
-    if (inputs[0].value === "") {
-        inputs[0].style.backgroundColor = "var(--dark-red)"
+    if (inputs[0].value === '') {
+        inputs[0].style.backgroundColor = 'var(--dark-red)';
 
-        await sleep(500)
+        await sleep(500);
 
-        inputs[0].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
+        inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
         return;
     }
 
     let obj = {
-        "method": "delete",
-        "content": inputs[0].value
-    }
+        method: 'delete',
+        content: inputs[0].value
+    };
 
-    let valid = await auth(obj)
+    let valid = await auth(obj);
 
     if (valid.success) {
-        inputs[0].style.backgroundColor = "var(--dark-green)"
+        inputs[0].style.backgroundColor = 'var(--dark-green)';
 
-        await sleep(500)
+        await sleep(500);
 
-        inputs[0].style.backgroundColor = "hsla(0, 0%, 0%, 0.2)"
+        inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
 
-        await logout()
+        await logout();
     } else {
-        inputs[0].style.backgroundColor = "var(--red)"
+        inputs[0].style.backgroundColor = 'var(--red)';
     }
 
-    console.log(valid)
+    console.log(valid);
 }

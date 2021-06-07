@@ -345,8 +345,21 @@
 </div>
 
 <style>
+
   #viewport {
-    background-color: {{ theme }};
+    background-color: {{ theme["secondary"] }};
+  }
+
+  input {
+    border: 1px solid {{ theme["primary"] }};
+  }
+
+  select {
+    border: 1px solid {{ theme["primary"] }};
+  }
+
+  .buggies div {
+    border: 1px solid {{ theme["primary"] }};
   }
 
 </style>
@@ -363,21 +376,21 @@
   }
 
   function buildProfiles() {
-    let raw = {{ profiles | tojson }}
+    let raw = {{ profiles | tojson }};
     let profiles = [];
 
     for (let i = 0; i < raw.length; i++) {
-      profiles.push(JSON.parse(raw[i]))
+      profiles.push(JSON.parse(raw[i]));
     }
 
-    return profiles
+    return profiles;
   }
 
   async function appendBuggies() {
     // this all gets linted even though it works fine
-    let profiles = buildProfiles()
+    let profiles = buildProfiles();
 
-    let user = "{{ username }}"
+    let user = "{{ username }}";
     let availableBuggies = document.getElementsByClassName("buggies");
 
     for (let buggy = 0; buggy < availableBuggies.length; buggy++) {
@@ -385,28 +398,28 @@
         let node = document.createElement("DIV");
 
         let nameChild = document.createElement("SPAN");
-        let nameContent = document.createTextNode(`${profiles[i].name}`)
-        nameChild.style.width = "50%"
+        let nameContent = document.createTextNode(`${profiles[i].name}`);
+        nameChild.style.width = "50%";
         nameChild.appendChild(nameContent);
 
         let idChild = document.createElement("SPAN");
-        let idContent = document.createTextNode(`${profiles[i].privateID}`)
-        idChild.style.fontSize = "0.75em"
+        let idContent = document.createTextNode(`${profiles[i].privateID}`);
+        idChild.style.fontSize = "0.75em";
         idChild.appendChild(idContent);
 
         let colorChild = document.createElement("SPAN");
         colorChild.style.backgroundColor = `${profiles[i].primary_color}`
 
 
-        node.setAttribute("onclick", `getBuggy("${user}", ${profiles[i].privateID})`)
+        node.setAttribute("onclick", `getBuggy("${user}", ${profiles[i].privateID})`);
         node.appendChild(nameChild);
         node.appendChild(idChild);
         node.appendChild(colorChild);
-        availableBuggies[buggy].appendChild(node)
+        availableBuggies[buggy].appendChild(node);
 
       }
     }
-    await updateFlag()
+    await updateFlag();
   }
 
   document.body.onload = appendBuggies();
@@ -417,8 +430,8 @@
 
 <script type="text/javascript">
   function remove() {
-    document.getElementById("filter").style.filter = "blur(0px)"
-    document.getElementById("welcome").style.display = "none"
+    document.getElementById("filter").style.filter = "blur(0px)";
+    document.getElementById("welcome").style.display = "none";
   }
 
   let slider = document.getElementById("slider");

@@ -124,6 +124,13 @@ label {
 
 .automate {
   cursor: pointer;
+  padding: 0.5em;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.automate:hover {
+  background-color: var(--muted-green);
 }
 
 .user {
