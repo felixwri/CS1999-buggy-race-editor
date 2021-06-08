@@ -1,12 +1,12 @@
-CS1999: Buggy Race Editor
-=========================
+# CS1999: Buggy Race Editor
 
-> This is the "buggy editor" component of the Foundation Year Computer Science
-> project at RHUL.
+## Running tests
+
+Run init_db.py and then tests.py to do all the test cases
 
 ## Three.js
 
-Currently using the un-minified version to help development but will swap it out at the end *it is around half the size*
+Currently using the un-minified version to help development but will swap it out at the end _it is around half the size_
 
 ## Page icon
 
@@ -18,8 +18,8 @@ All .svg are from google icons
 
 ## Prices.js
 
-prices.js exports a json object of all the prices for each multiple choice 
-and provides the units aswell so ```prices["power_type"].units === "power_units" ```
+prices.js exports a json object of all the prices for each multiple choice
+and provides the units aswell so `prices["power_type"].units === "power_units" `
 
 ![image info](./static/content/images/cat.jpg)
 
@@ -29,12 +29,5 @@ and provides the units aswell so ```prices["power_type"].units === "power_units"
 
 [CS1999 Tech Notes](https://rhul-cs-projects.github.io/CS1999-buggy-race-server/).
 
-
-
-
-
-
-
-*Dave Whiteland === David Whiteland* False\
-*Dave Whiteland == David Whiteland* True
-
+_Dave Whiteland === David Whiteland_ False\
+_Dave Whiteland == David Whiteland_ True

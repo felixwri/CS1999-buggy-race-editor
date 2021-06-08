@@ -3,6 +3,7 @@ import json
 import random
 
 from components import validation
+from components import default_user
 
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
@@ -55,32 +56,8 @@ def getCar(owner):
         }
 
         profiles = [json.dumps(carProfile, sort_keys=True)]
-        data = (
-            0,
-            4,
-            '#000000',
-            '#aa1111',
-            'plain',
-            'petrol',
-            1,
-            'None',
-            0,
-            0,
-            'knobbly',
-            4,
-            'None',
-            'None',
-            0,
-            'False',
-            'False',
-            'False',
-            'False',
-            'steady',
-            0,
-            owner,
-            unnamedId,
-            'Unnamed',
-        )
+
+        data = default_user.get(owner=owner, unnamedId=unnamedId)
 
     return data, profiles
 
@@ -172,11 +149,13 @@ def generateID():
     return ID
 
 
-def addCar(form, owner):
+def addCar(form, owner, **kwargs):
     con = sql.Connection(DATABASE_FILE)
-
     private = generateID()
 
+    for key, value in kwargs.items():
+        if key == "private":
+            private = value
     try:
         cur = con.cursor()
 

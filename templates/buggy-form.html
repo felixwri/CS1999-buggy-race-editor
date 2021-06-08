@@ -67,10 +67,16 @@
 
         <div class="container">
           <h1>Stats</h1>
-          <label>Cost</label>
-          <div id="cost-value">0</div>
-          <label>Weight</label>
-          <div id="weight-value">0</div>
+          <div id="stats">
+            <div class="stats-child">
+              <label>Cost</label>
+              <div id="cost-value">0</div>
+            </div>
+            <div class="stats-child">
+              <label>Weight</label>
+              <div id="weight-value">0</div>
+            </div>
+          </div>
         </div>
 
         <div class="container">
@@ -94,7 +100,7 @@
           <div id="wheels" class="bubble hidden">
             <h2>Traction</h2>
             <label for="qty_wheels">Number of wheels</label>
-            <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="16" step="2"
+            <input id="slider" type="range" name="qty_wheels" value={{qty_wheels}} min="4" max="12" step="2"
               onchange="calculate()" />
             <div id="value"></div>
 
@@ -364,7 +370,10 @@
 
 </style>
 
-
+<script type="text/javascript">
+  let hexThemeColor = "{{ theme["primary"] }}".replace("#", "0x");
+  let numberOfWheels = {{ qty_wheels }}
+</script>
 
 <script src="/static/scripts/flag.js"></script>
 <script type="text/javascript">
@@ -434,13 +443,17 @@
     document.getElementById("welcome").style.display = "none";
   }
 
-  let slider = document.getElementById("slider");
-  let output = document.getElementById("value");
-  output.innerText = slider.value;
-
   let slider_two = document.getElementById("slider_two");
   let output_two = document.getElementById("value_two");
-  output_two.innerText = slider_two.value;
+
+  let slider = document.getElementById("slider");
+  let output = document.getElementById("value");
+
+  async function updateSlider() {
+    output.innerText = slider.value;
+    output_two.innerText = slider_two.value;
+  }
+
 
   slider.oninput = () => {
     output.innerText = slider.value;
@@ -453,9 +466,19 @@
     output_two.innerText = slider_two.value;
   }
 
+  updateSlider();
+  remove();
 </script>
 <script src="/static/scripts/prices.js"></script>
 <script src="/static/scripts/create.js"></script>
 <script src="/static/scripts/resize.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" 
+      integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" 
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/static/scripts/three/OrbitControls.js"></script>
+<script src="/static/scripts/three/GLTFLoader.js"></script>
+
+<script src="/static/scripts/workshop.js"></script>
 
 {% endblock %}

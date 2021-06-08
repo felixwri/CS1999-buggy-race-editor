@@ -50,6 +50,21 @@ label {
   height: 45vh;
 }
 
+#stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 10vh;
+}
+
+.stats-child {
+  border:1px solid hsla(0, 0%, 100%, 0.1);
+  border-radius: 5px;
+  padding: 0.5em;
+  width: 40%;
+}
+
 #filter {
   position: absolute;
   top: 0;
@@ -60,6 +75,10 @@ label {
   transition: filter 0.2s ease;
 
   filter: blur(10px);
+}
+
+#head-header {
+  text-transform: capitalize;
 }
 
 #background {
@@ -143,8 +162,7 @@ label {
 
 img[alt="profile"] {
   border-radius: 50%;
-  width: 50%;
-  max-width: 10rem;
+  width: 8rem;
 }
 
 .buggies {
@@ -169,6 +187,7 @@ img[alt="profile"] {
   background-color: hsla(244, 100%, 0%, 0.5);
 
   border: 1px solid hsla(244, 100%, 0%);
+  border-radius: 5px;
 
   cursor: pointer;
 
@@ -184,6 +203,7 @@ img[alt="profile"] {
   height: 100%;
   width: 10%;
   border-radius: 10px;
+  text-transform: capitalize;
 }
 
 

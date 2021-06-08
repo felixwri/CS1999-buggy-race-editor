@@ -43,10 +43,10 @@ async function calculate() {
     w = 0;
 }
 
-let targetSpend = 1000;
-const totalSpend = 2000;
+// let targetSpend = 1000;
+// const totalSpend = 2000;
 
-let spendWeight = targetSpend / totalSpend;
+// let spendWeight = targetSpend / totalSpend;
 
 async function automate() {
     for (let i = 0; i < select.length; i++) {
@@ -106,7 +106,7 @@ async function automate() {
             continue;
         }
         if (inputs[i].name === 'qty_tyres') {
-            let randomValue = Math.round(Math.random() * (inputs[i].max - inputs[i - 1].value)) + inputs[i - 1].value;
+            let randomValue = parseInt(inputs[i - 1].value) + 2;
             inputs[i].value = randomValue;
             continue;
         }
@@ -116,6 +116,7 @@ async function automate() {
         // select[i].style.backgroundColor = 'var(--muted-green)';
 
         await calculate();
+        await updateSlider();
     }
     await updateFlag();
 }
@@ -146,6 +147,8 @@ async function loadNewCar(message) {
     title.innerText = `Developing: ${message['buggy_name']}`;
 
     await updateFlag();
+    await calculate();
+    await updateSlider();
 }
 
 function form(section) {
