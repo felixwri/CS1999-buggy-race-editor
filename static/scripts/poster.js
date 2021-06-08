@@ -1,6 +1,6 @@
 let currentIndex = 1;
 
-const chapters = document.getElementsByTagName('li');
+const chapters = document.getElementsByClassName('chapter');
 const pages = document.getElementsByTagName('section');
 
 chapters[1].style.color = 'cyan';
