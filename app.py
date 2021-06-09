@@ -104,7 +104,8 @@ def home():
             # ? create account
 
             if method == "create":
-                users.create(username, password)
+                email = request.json['email']
+                users.create(username, email, password)
 
             # ? sign in as guest
 
@@ -192,7 +193,7 @@ def create_buggy():
         elif form['task'] == 'DELETE':
             msg = data.deleteCar(form['private'])
         else:
-            msg = data.updateCar(form)
+            msg = data.updateCar(form, session.get('username'))
 
         # return msg
         return msg

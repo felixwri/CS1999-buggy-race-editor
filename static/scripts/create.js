@@ -66,6 +66,9 @@ async function automate() {
         if (inputs[i].type === 'button') {
             continue;
         }
+        if (inputs[i].name === 'private') {
+            continue;
+        }
         if (inputs[i].type === 'text') {
             // ? Random name generator
             names = [

@@ -1,5 +1,7 @@
 import sqlite3
 
+from components import utils
+
 from dotenv import dotenv_values
 config = dotenv_values(".env")
 
@@ -64,6 +66,7 @@ connection.execute("""
 CREATE TABLE IF NOT EXISTS users (
   id                    INTEGER PRIMARY KEY,
   username              VARCHAR(32),
+  email                 VARCHAR(64),
   password              VARCHAR(64),
   theme_primary         VARCHAR(32) DEFAULT "#ffffff",
   theme_secondary       VARCHAR(32) DEFAULT "#17191c",
@@ -79,7 +82,8 @@ cursor = connection.cursor()
 cursor.execute("SELECT * FROM users LIMIT 1")
 rows = cursor.fetchall()
 if len(rows) == 0:
-  cursor.execute(f"INSERT INTO users (username, password, is_admin) VALUES ('admin',  '{ config['ADMIN'] }', 'TRUE')")
+  passwordHash = utils.createHash(config['ADMIN'])
+  cursor.execute(f"INSERT INTO users (username, password, is_admin) VALUES ('admin',  '{ passwordHash }', 'TRUE')")
   connection.commit()
   print("Added admin account")
 else:

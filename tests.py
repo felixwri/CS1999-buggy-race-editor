@@ -11,7 +11,7 @@ def count_database(table):
     try:
         cur = con.cursor()
         cur.execute(f"SELECT COUNT(*) FROM {table}")
-        data = cur.fetchall()
+        data = cur.fetchone()
 
     except Exception as e:
         print(e)
@@ -19,7 +19,7 @@ def count_database(table):
         data = 1
 
     finally:
-        response = data[0][0]
+        response = data[0]
         return response
 
 

@@ -590,48 +590,28 @@
                     <div class="task">
                         <h2>3-DEL</h2>
                         <p>
-                            On creation I give all buggies a private ID. Whenever I need to update or delete a buggy I
-                            query
-                            the database for that ID.
-                        </p>
-                        <p>
-                            This method is unnecessary as the primary key ID could be used aswell however using a larger
-                            ID
-                            means that even if you know your own buggies private ID you don't know if the ID which +- 1
-                            is also
-                            a buggy ID.
+                            Using the private ID of the buggy, the database is searched for a match and deletes the corresponding buggy.
                         </p>
                     </div>
 
                     <div class="task">
                         <h2>3-FLAG</h2>
                         <p>
-                            On creation I give all buggies a private ID. Whenever I need to update or delete a buggy I
-                            query
-                            the database for that ID.
+                            I made some custom .svg's in Adobe Illustrator.
                         </p>
+                        <br>
                         <p>
-                            This method is unnecessary as the primary key ID could be used aswell however using a larger
-                            ID
-                            means that even if you know your own buggies private ID you don't know if the ID which +- 1
-                            is also
-                            a buggy ID.
+                            The colour of these icons can be changed by adjusting the color attribute
                         </p>
                     </div>
 
                     <div class="task">
                         <h2>3-TESTS</h2>
                         <p>
-                            On creation I give all buggies a private ID. Whenever I need to update or delete a buggy I
-                            query
-                            the database for that ID.
+                            Using pythons unittest library, I created a test class in tests.py.
                         </p>
                         <p>
-                            This method is unnecessary as the primary key ID could be used aswell however using a larger
-                            ID
-                            means that even if you know your own buggies private ID you don't know if the ID which +- 1
-                            is also
-                            a buggy ID.
+                            This test includes multiple read / writes from the database along with checking the validation of the data.
                         </p>
                     </div>
                 </div>
@@ -645,12 +625,31 @@
                 <div class="all-tasks">
 
                     <div class="task">
-                        <h2>1-ADD</h2>
+                        <h2>4-USERS</h2>
                         <p>
-                            Added all listed parameters to the database and the form
+                            Created a new table in the database to hold the data of all the users who create an account
+                            with a username, password and isAdmin columns.
                         </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>4-REGISTER</h2>
                         <p>
-                            Had to learn a bit of SQL
+                            Creates an account when a user submits a username and a password to the login menu
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>4-OWNER</h2>
+                        <p>
+                            Added an owner column to the buggies table inside the database
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>4-PASS</h2>
+                        <p>
+                            Already added passwords in 4-REGISTER.
                         </p>
                     </div>
                 </div>
@@ -664,12 +663,47 @@
                 <div class="all-tasks">
 
                     <div class="task">
-                        <h2>1-ADD</h2>
+                        <h2>5-VIZ</h2>
                         <p>
-                            Added all listed parameters to the database and the form
+                            Unfinished task.
                         </p>
                         <p>
-                            Had to learn a bit of SQL
+                            I was going to try and build a 3d model of the buggy or show a model of the current selected attribute option
+                            ( a model of a maglev wheel )
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>5-RESET</h2>
+                        <p>
+                            Added the option to change password given the user knows their own password.
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>5-RACELOG</h2>
+                        <p>
+                            yeah
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>5-ADMIN</h2>
+                        <p>
+                            I made an admin page which shows every user in the database.
+                        </p>
+                    </div>
+
+                    <div class="task">
+                        <h2>5-API</h2>
+                        <p>
+                            I make a fetch POST request to the server with the buggy data.
+                            I then make a POST request from the server to the race server.
+                        </p>
+                        <p>
+                            Made a copy JSON button as the API is too situational to be used all the time as it times
+                            out every hour, which then requires a manual change. A javascript worker running puppeter
+                            could automatically change the secret API key but that kinda defeats the purpose of it.
                         </p>
                     </div>
                 </div>
@@ -683,12 +717,13 @@
                 <div class="all-tasks">
 
                     <div class="task">
-                        <h2>1-ADD</h2>
+                        <h2>THEMES</h2>
                         <p>
-                            Added all listed parameters to the database and the form
+                            Each user can change the apps primary colour and the apps background colour
                         </p>
+                        <br>
                         <p>
-                            Had to learn a bit of SQL
+                            The theme_primary and theme_secondary are saved in the users table in the database
                         </p>
                     </div>
                 </div>

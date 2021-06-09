@@ -77,7 +77,8 @@ async function tryCreate() {
 
     let obj = {
         username: inputs[0].value,
-        password: inputs[1].value,
+        email: inputs[1].value,
+        password: inputs[2].value,
         method: 'create'
     };
     let valid = await auth(obj);

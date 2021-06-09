@@ -4,6 +4,7 @@ import random
 
 from components import validation
 from components import default_user
+from components import utils
 
 DATABASE_FILE = "database.db"
 DEFAULT_BUGGY_ID = "1"
@@ -18,8 +19,8 @@ def getCar(owner):
         cur = con.cursor()
         cur.execute(
             "SELECT * FROM buggies WHERE owner=? ORDER BY ROWID ASC LIMIT 1", (owner,))
-        allData = cur.fetchall()
-        data = allData[0]
+        data = cur.fetchall()[0]
+        
 
         print(data)
 
@@ -40,7 +41,7 @@ def getCar(owner):
             profiles.append(json.dumps(carProfile, sort_keys=True))
 
     except Exception as e:
-        print(e)
+        print(f"Get error: {e}")
         con.rollback()
 
         # default settings
@@ -57,15 +58,19 @@ def getCar(owner):
 
         profiles = [json.dumps(carProfile, sort_keys=True)]
 
-        data = default_user.get(owner=owner, unnamedId=unnamedId)
-
+        data = default_user.get(owner=owner, unnamedId=unnamedId, asArray=True)
+        
     return data, profiles
 
 
-def updateCar(form):
+def updateCar(form, owner):
     con = sql.Connection(DATABASE_FILE)
 
     valid, msg = validation.process(form)
+
+    if not utils.find("buggies", "private", form["private"]):
+        print("Adding new car")
+        addCar(form, owner)
 
     if not valid:
         return msg
@@ -243,7 +248,6 @@ def deleteCar(private):
         msg = "Buggy could not be deleted"
 
     return msg
-
 
 def dump():
     con = sql.Connection(DATABASE_FILE)
