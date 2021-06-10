@@ -1,15 +1,24 @@
 from components import users
 from components import data
 from flask import Flask, render_template, request, jsonify, session
+from flask_mail import Mail, Message
 import requests
 import sqlite3 as sql
 import json
+import random
 
 # ? .env config with name of app and development type
 from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 app = Flask(__name__)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = config['EMAIL']
+app.config['MAIL_PASSWORD'] = config['EMAILPASSWORD']
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 USERS = []
 DATABASE_FILE = "database.db"
@@ -18,6 +27,7 @@ BUGGY_RACE_SERVER_URL = "https://rhul.buggyrace.net"
 
 app.secret_key = "super_secret_key"
 
+mail = Mail(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -74,6 +84,19 @@ def home():
                 session['username'], content['new'], content['old'])
 
             return jsonify(success=result)
+
+        elif method == "forgotPassword":
+            email = request.json['email']
+
+            temporaryPassword = str(random.randint(10000000, 99999999))
+
+            users.forgotPassword(session['username'], email, temporaryPassword)
+
+            msg = Message('Password Replacement', sender=config['EMAIL'], recipients=[email])
+            msg.body = f"Here is your temporary password:\n {temporaryPassword}"
+            mail.send(msg)
+
+            return jsonify(success="sent")
 
         elif method == "delete":
             content = request.json['content']

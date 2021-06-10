@@ -167,15 +167,19 @@ async function logout() {
         await settings();
     }
 
+    await clean();
+
+    color('#ffffff', '#17191c');
+
+    inverseTransition();
+}
+
+async function clean() {
     let inputs = document.getElementsByTagName('input');
 
     for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = '';
     }
-
-    color('#ffffff', '#17191c');
-
-    inverseTransition();
 }
 
 function inverseTransition() {
@@ -243,11 +247,12 @@ async function themeChange() {
 }
 
 function displayOption(option) {
-    col = document.getElementById('col');
-    pwd = document.getElementById('pwd');
-    del = document.getElementById('del');
+    let col = document.getElementById('col');
+    let forgot = document.getElementById('for');
+    let pwd = document.getElementById('pwd');
+    let del = document.getElementById('del');
 
-    all = [col, pwd, del];
+    all = [col, forgot, pwd, del];
 
     for (let i = 0; i < all.length; i++) {
         if (all[i].id == option) {
@@ -335,6 +340,29 @@ async function changePassword() {
     inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
     inputs[1].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
     inputs[2].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
+
+    console.log(valid);
+}
+
+async function forgotPassword() {
+    let inputs = document.getElementsByName('forgot_password');
+
+    let obj = {
+        method: 'forgotPassword',
+        email: inputs[0].value
+    };
+
+    let valid = await auth(obj);
+
+    if (valid.success == "sent") {
+        inputs[0].style.backgroundColor = 'var(--dark-green)';
+    } else {
+        inputs[0].style.backgroundColor = 'var(--dark-red)';
+    }
+
+    await sleep(1000);
+
+    inputs[0].style.backgroundColor = 'hsla(0, 0%, 0%, 0.2)';
 
     console.log(valid);
 }

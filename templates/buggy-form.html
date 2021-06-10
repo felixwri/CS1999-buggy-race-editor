@@ -1,20 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="welcome">
-  <div class="welcome-title" onclick="remove()">
-    <h1>Create new</h1>
-    <p class="welcome-content">
-      Create a buggy with default settings
-    </p>
-  </div>
-  <div class="divider"></div>
-  <div class="welcome-title" onclick="remove()">
-    <h1> Existing </h1>
-    <div class="buggies welcome-content"></div>
-  </div>
-</div>
-
 <div id="receipt" class="none">
   <div id="receipt-elements">
     <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 0 24 24" width="5rem" fill="#FFFFFF">
@@ -48,6 +34,7 @@
   <div id="background">
     <div id="head">
       <h1 id="head-header">Developing: {{buggy_name}}</h1>
+      <code></code>
     </div>
     <div id="viewport">
     </div>

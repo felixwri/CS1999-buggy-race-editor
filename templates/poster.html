@@ -590,7 +590,7 @@
                     <div class="task">
                         <h2>3-DEL</h2>
                         <p>
-                            Using the private ID of the buggy, the database is searched for a match and deletes the corresponding buggy.
+                            Using the private ID of the buggy, the table is searched for a match and deletes the corresponding buggy.
                         </p>
                     </div>
 
@@ -637,12 +637,17 @@
                         <p>
                             Creates an account when a user submits a username and a password to the login menu
                         </p>
+                        <br>
+                        <p>
+                            Before the password enters the database it is hashed using sha256
+                        </p>
                     </div>
 
                     <div class="task">
                         <h2>4-OWNER</h2>
                         <p>
-                            Added an owner column to the buggies table inside the database
+                            Added an owner column to the buggies table inside the database which is the same as the username
+                            of the person who submitted the buggy
                         </p>
                     </div>
 
@@ -667,9 +672,10 @@
                         <p>
                             Unfinished task.
                         </p>
+                        <br>
                         <p>
                             I was going to try and build a 3d model of the buggy or show a model of the current selected attribute option
-                            ( a model of a maglev wheel )
+                            ( such as a model of a maglev wheel ). Unfortunately I left it too late 🤷‍♂️.
                         </p>
                     </div>
 
@@ -678,19 +684,29 @@
                         <p>
                             Added the option to change password given the user knows their own password.
                         </p>
+                        <br>
+                        <p>
+                            Using flask_mail and gmail, a temporary password can be sent to a user as long as they have a 
+                            gmail account. This requires that the server has its own email address and that the user has a gamil account.
+                        </p>
                     </div>
 
                     <div class="task">
                         <h2>5-RACELOG</h2>
                         <p>
-                            yeah
+                            A moment of silence for this task. Gone but not forgotten.
                         </p>
                     </div>
 
                     <div class="task">
                         <h2>5-ADMIN</h2>
                         <p>
-                            I made an admin page which shows every user in the database.
+                            I made an admin page which shows every row of the database.
+                        </p>
+                        <br>
+                        <p>
+                            It needs more functionality such as the ability to delete accounts or change a users password
+                            which wouldn't take long as all the functions are already made.
                         </p>
                     </div>
 
@@ -700,6 +716,7 @@
                             I make a fetch POST request to the server with the buggy data.
                             I then make a POST request from the server to the race server.
                         </p>
+                        <br>
                         <p>
                             Made a copy JSON button as the API is too situational to be used all the time as it times
                             out every hour, which then requires a manual change. A javascript worker running puppeter
@@ -719,7 +736,10 @@
                     <div class="task">
                         <h2>THEMES</h2>
                         <p>
-                            Each user can change the apps primary colour and the apps background colour
+                            Each user can change the apps primary colour and the apps background colour in the settings menu on the
+                            home page. Their current values are loaded in with every GET request and they can be updated with a POST request.
+                            If a user logs out, the theme will revert to the default, however, if a new user logs in without reloading the page,
+                            the new theme is returned in the fetched login response.
                         </p>
                         <br>
                         <p>

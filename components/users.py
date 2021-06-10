@@ -124,6 +124,30 @@ def updatePassword(username, newPassword, oldPassword):
 
     return result
 
+def forgotPassword(username, email, newPassword):
+    con = sql.Connection(DATABASE_FILE)
+
+    newPasswordHash = utils.createHash(newPassword)
+
+    try:
+        cur = con.cursor()
+
+        cur.execute("""UPDATE users set password=? WHERE username=? AND email=?""", ( newPasswordHash, username, email))
+
+        con.commit()
+        result = True
+    
+    except Exception as e:
+        print(e)
+        con.rollback()
+
+        result = False
+
+    finally:
+        con.close()
+
+    return result
+
 def updateTheme(username, primary, secondary):
     con = sql.Connection(DATABASE_FILE)
 
